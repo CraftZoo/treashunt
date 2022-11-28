@@ -4,17 +4,29 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "codegen": "graphql-codegen --config ./codegen.ts -r dotenv/config"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
+    "@contentful/rich-text-react-renderer": "^15.13.1",
     "@remix-run/node": "^1.7.6",
     "@remix-run/react": "^1.7.6",
     "@remix-run/serve": "^1.7.6",
+    "contentful": "^9.2.13",
+    "graphql": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.11.2",
     "isbot": "^3.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.14.0",
+    "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/near-operation-file-preset": "^2.4.4",
+    "@graphql-codegen/typescript-operations": "^2.5.7",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@remix-run/dev": "^1.7.6",
     "@remix-run/eslint-config": "^1.7.6",
     "@types/react": "^18.0.25",

@@ -1,0 +1,14 @@
+query enigmes {
+  enigmeCollection {
+    items {
+      sys {
+        id
+      }
+      label
+      question {
+        json
+      }
+      answer
+    }
+  }
+}
