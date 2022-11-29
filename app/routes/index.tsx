@@ -1,16 +1,19 @@
-import type { LoaderFunction } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { NavLink, useLoaderData } from '@remix-run/react'
+import { Link, NavLink, useLoaderData } from '@remix-run/react'
+import Puzzle from '~/components/Puzzle'
+import { getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const user = await getUser(request)
+  const puzzles = await getPuzzleListItems()
 
-  return json({ user })
+  return json({ user, puzzles })
 }
 
 const IndexRoute = () => {
-  const { user } = useLoaderData()
+  const { user, puzzles } = useLoaderData<typeof loader>()
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
@@ -33,23 +36,22 @@ const IndexRoute = () => {
       </header>
       <main>
         <h1>Bienvenue sur TreasApp</h1>
+        <Link to="/puzzles/create">Créer une nouvelle énigme</Link>
         {user ? (
           <section>
-            <article>
-              <h2>Énigme 1</h2>
-              <p>Question : Ceci est la question 1</p>
-              <p>Réponse : Cela est la réponse 1</p>
-            </article>
-            <article>
-              <h2>Énigme 2</h2>
-              <p>Question : Ceci est la question 2</p>
-              <p>Réponse : Cela est la réponse 2</p>
-            </article>
-            <article>
-              <h2>Énigme 3</h2>
-              <p>Question : Ceci est la question 3</p>
-              <p>Réponse : Cela est la réponse 3</p>
-            </article>
+            {puzzles.map((puzzle, index) => {
+              const { id, slug, question, answer } = puzzle
+
+              return (
+                <Puzzle
+                  key={id}
+                  slug={slug}
+                  question={question}
+                  answer={answer}
+                  index={index + 1}
+                />
+              )
+            })}
           </section>
         ) : null}
       </main>

@@ -18,10 +18,26 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
+
+  posts Puzzle[]
 }
 
 model Password {
   hash   String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @unique
+}
+
+model Puzzle {
+  id   String @id @default(uuid())
+  slug String @unique
+
+  question String?
+  answer   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  authorId String
 }
