@@ -75,7 +75,7 @@ const AddPuzzleRoute = () => {
       <main>
         <h1>Ajouter une nouvelle énigme</h1>
         <GoBackButton>Retour à la liste des énigmes</GoBackButton>
-        <Form method="post">
+        <Form method="post" action="/admin/puzzles/add">
           <label>
             Question
             <input

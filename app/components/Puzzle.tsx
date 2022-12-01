@@ -1,11 +1,13 @@
-import { Link } from '@remix-run/react'
+import { Form, Link } from '@remix-run/react'
+import { Trash2 } from 'lucide-react'
 import type { Puzzle as IPuzzle } from '~/models/puzzle.server'
+import VisuallyHidden from './VisuallyHidden'
 
-type PuzzleProps = Pick<IPuzzle, 'slug' | 'question' | 'answer'> & {
+type PuzzleProps = Pick<IPuzzle, 'id' | 'slug' | 'question' | 'answer'> & {
   index: number
 }
 
-const Puzzle = ({ slug, question, answer, index }: PuzzleProps) => {
+const Puzzle = ({ id, slug, question, answer, index }: PuzzleProps) => {
   const link = `/puzzles/${slug}`
 
   return (
@@ -16,6 +18,13 @@ const Puzzle = ({ slug, question, answer, index }: PuzzleProps) => {
       <p>
         Lien : <Link to={link}>{link}</Link>
       </p>
+      <Form method="delete" action="/admin/puzzles">
+        <input type="hidden" name="id" value={id} />
+        <button type="submit" title="Supprimer l'énigme">
+          <Trash2 />
+          <VisuallyHidden>Supprimer l'énigme</VisuallyHidden>
+        </button>
+      </Form>
     </article>
   )
 }
