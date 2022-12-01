@@ -36,7 +36,9 @@ const IndexRoute = () => {
       </header>
       <main>
         <h1>Bienvenue sur TreasApp</h1>
-        <Link to="/puzzles/create">Créer une nouvelle énigme</Link>
+        {user ? (
+          <Link to="/admin/puzzles/add">Ajouter une nouvelle énigme</Link>
+        ) : null}
         {user ? (
           <section>
             {puzzles.map((puzzle, index) => {

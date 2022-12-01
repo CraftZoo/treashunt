@@ -1,4 +1,4 @@
-import type { Puzzle, User } from '@prisma/client'
+import type { Puzzle } from '@prisma/client'
 import { db } from '~/db.server'
 
 export type { Puzzle } from '@prisma/client'
@@ -14,9 +14,7 @@ export const createPuzzle = ({
   question,
   answer,
   authorId,
-}: Pick<Puzzle, 'slug' | 'question' | 'answer' | 'authorId'> & {
-  userId: User['id']
-}) =>
+}: Pick<Puzzle, 'slug' | 'question' | 'answer' | 'authorId'>) =>
   db.puzzle.create({
     data: {
       slug,
