@@ -1,8 +1,10 @@
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
-import Puzzle from '~/components/Puzzle'
+import { Form, Link, useLoaderData } from '@remix-run/react'
+import { Edit3, Trash2 } from 'lucide-react'
+import VisuallyHidden from '~/components/VisuallyHidden'
 
+import type { Puzzle } from '~/models/puzzle.server'
 import { deletePuzzle, getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 
@@ -13,6 +15,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (typeof puzzleId !== 'string') return json({}, { status: 400 }) // TODO: toast error management
 
   await deletePuzzle({ id: puzzleId })
+
   return json({})
 }
 
@@ -31,6 +34,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 const PuzzlesRoute = () => {
   const { puzzles } = useLoaderData<typeof loader>()
+  const numberOfPuzzles = puzzles.length
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
@@ -39,9 +43,7 @@ const PuzzlesRoute = () => {
           <ul>
             <li>
               <form action="/logout" method="post">
-                <button type="submit" className="button">
-                  Déconnexion
-                </button>
+                <button type="submit">Déconnexion</button>
               </form>
             </li>
           </ul>
@@ -55,19 +57,49 @@ const PuzzlesRoute = () => {
             const { id, slug, question, answer } = puzzle
 
             return (
-              <Puzzle
+              <PuzzleItem
                 key={id}
                 id={id}
                 slug={slug}
                 question={question}
                 answer={answer}
-                index={index + 1}
+                index={numberOfPuzzles - index}
               />
             )
           })}
         </section>
       </main>
     </div>
+  )
+}
+
+type PuzzleItemProps = Pick<Puzzle, 'id' | 'slug' | 'question' | 'answer'> & {
+  index: number
+}
+
+const PuzzleItem = ({ id, slug, question, answer, index }: PuzzleItemProps) => {
+  const link = `/puzzles/${slug}`
+
+  return (
+    <article>
+      <h2>Énigme {index}</h2>
+      <p>Question : {question}</p>
+      <p>Réponse : {answer}</p>
+      <p>
+        Lien : <Link to={link}>{link}</Link>
+      </p>
+      <Form method="delete">
+        <input type="hidden" name="id" value={id} />
+        <button type="submit" title="Supprimer l'énigme">
+          <Trash2 />
+          <VisuallyHidden>Supprimer l'énigme</VisuallyHidden>
+        </button>
+      </Form>
+      <Link to={`/admin/puzzles/${id}`}>
+        <Edit3 />
+        <VisuallyHidden>Modifier l'énigme</VisuallyHidden>
+      </Link>
+    </article>
   )
 }
 

@@ -1,30 +1,13 @@
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
-import { json, redirect, Response } from '@remix-run/node'
-import { Form, useActionData } from '@remix-run/react'
-import shortUUID from 'short-uuid'
-
+import { redirect } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { Form, useActionData, useLoaderData } from '@remix-run/react'
 import GoBackButton from '~/components/GoBackButton'
-import { createPuzzle } from '~/models/puzzle.server'
-import { getUserId } from '~/session.server'
-
-export const loader = async ({ request }: LoaderArgs) => {
-  const userId = await getUserId(request)
-
-  if (!userId)
-    throw new Response('Not Found', {
-      status: 404,
-    })
-
-  return json({})
-}
+import { getPuzzle, updatePuzzle } from '~/models/puzzle.server'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-
-  const question = formData.get('question')
-  const answer = formData.get('answer')
-  const slug = formData.get('slug')
-  const authorId = await getUserId(request)
+  const { id, question, answer, slug } = Object.fromEntries(formData)
 
   if (typeof question !== 'string')
     return json(
@@ -38,23 +21,38 @@ export const action: ActionFunction = async ({ request }) => {
       { status: 400 }
     )
 
-  if (typeof slug !== 'string' || slug.length < 8)
+  if (typeof slug !== 'string' || slug.length < 8 || typeof id !== 'string')
     return json(
       { formError: "Une erreur est survenue lors de l'envoi du formulaire" },
       { status: 400 }
     )
 
-  if (!authorId)
-    return json(
-      { formError: 'Vous devez être connecté pour ajouter une énigme' },
-      { status: 400 }
-    )
-
-  await createPuzzle({ question, answer, slug, authorId })
+  await updatePuzzle({ id, question, answer, slug })
   return redirect('/')
 }
 
-const AddPuzzleRoute = () => {
+export const loader = async ({ params }: LoaderArgs) => {
+  const { puzzleId } = params
+  if (!puzzleId)
+    throw new Response('puzzleId not provided', {
+      status: 500,
+    })
+
+  const puzzle = await getPuzzle(puzzleId)
+
+  if (!puzzle)
+    throw new Response('Not Found', {
+      status: 404,
+    })
+
+  return json({ puzzle })
+}
+
+const PuzzleIdRoute = () => {
+  const { puzzle } = useLoaderData<typeof loader>()
+
+  const { id, slug, answer, question } = puzzle
+
   const actionData = useActionData()
 
   return (
@@ -73,15 +71,15 @@ const AddPuzzleRoute = () => {
         </nav>
       </header>
       <main>
-        <h1>Ajouter une nouvelle énigme</h1>
+        <h1>Modifier une énigme</h1>
         <GoBackButton>Retour à la liste des énigmes</GoBackButton>
-        <Form method="post" action="/admin/puzzles/add">
+        <Form method="put" action={`/admin/puzzles/${id}`}>
           <label>
             Question
             <input
               name="question"
               type="text"
-              defaultValue={actionData?.fields?.question}
+              defaultValue={actionData?.fields?.question || question}
               aria-invalid={
                 Boolean(actionData?.fieldErrors?.question) || undefined
               }
@@ -99,7 +97,7 @@ const AddPuzzleRoute = () => {
             Réponse
             <textarea
               name="answer"
-              defaultValue={actionData?.fields?.answer}
+              defaultValue={actionData?.fields?.answer || answer}
               aria-invalid={
                 Boolean(actionData?.fieldErrors?.answer) || undefined
               }
@@ -118,9 +116,11 @@ const AddPuzzleRoute = () => {
             type="hidden"
             minLength={8}
             required
-            defaultValue={actionData?.fields?.slug || shortUUID().generate()}
+            readOnly
+            defaultValue={slug}
           />
-          <button type="submit">Ajouter</button>
+          <input name="id" type="hidden" required readOnly defaultValue={id} />
+          <button type="submit">Modifier</button>
           <div id="form-error-message">
             {actionData?.formError ? (
               <p role="alert">{actionData.formError}</p>
@@ -132,4 +132,4 @@ const AddPuzzleRoute = () => {
   )
 }
 
-export default AddPuzzleRoute
+export default PuzzleIdRoute
