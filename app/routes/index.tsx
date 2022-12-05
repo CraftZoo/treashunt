@@ -1,6 +1,5 @@
 import type { LoaderArgs } from '@remix-run/node'
-import { redirect } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import { NavLink } from '@remix-run/react'
 import { getUserId } from '~/session.server'
 

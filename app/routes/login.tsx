@@ -1,7 +1,12 @@
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { useActionData, useSearchParams } from '@remix-run/react'
+import {
+  Form,
+  useActionData,
+  useSearchParams,
+  useTransition,
+} from '@remix-run/react'
 import { login } from '~/models/user.server'
 import { createUserSession, getUserId } from '~/session.server'
 import { safeRedirect } from '~/utils'
@@ -72,65 +77,71 @@ const LoginRoute = () => {
   const actionData = useActionData()
   const [searchParams] = useSearchParams()
 
+  const transition = useTransition()
+  const isSubmitting = transition.state === 'submitting'
+
   return (
     <div>
-      <form method="post">
-        <h1>Login</h1>
-
-        <input
-          type="hidden"
-          name="redirectTo"
-          value={searchParams.get('redirectTo') ?? undefined}
-        />
-
-        <label>
-          Username:
+      <h1>Connexion</h1>
+      <Form method="post">
+        <fieldset disabled={isSubmitting}>
           <input
-            type="text"
-            name="username"
-            required
-            minLength={3}
-            defaultValue={actionData?.fields?.username}
-            aria-invalid={Boolean(actionData?.fieldErrors?.username)}
-            aria-errormessage={
-              actionData?.fieldErrors?.username ? 'username-error' : undefined
-            }
+            type="hidden"
+            name="redirectTo"
+            value={searchParams.get('redirectTo') ?? undefined}
           />
-          {actionData?.fieldErrors?.username ? (
-            <p role="alert" id="username-error">
-              {actionData.fieldErrors.username}
-            </p>
-          ) : null}
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            required
-            defaultValue={actionData?.fields?.password}
-            type="password"
-            aria-invalid={
-              Boolean(actionData?.fieldErrors?.password) || undefined
-            }
-            aria-errormessage={
-              actionData?.fieldErrors?.password ? 'password-error' : undefined
-            }
-          />
-          {actionData?.fieldErrors?.password ? (
-            <p role="alert" id="password-error">
-              {actionData.fieldErrors.password}
-            </p>
-          ) : null}
-        </label>
-        <div id="form-error-message">
-          {actionData?.formError ? (
-            <p className="text-red-500" role="alert">
-              {actionData.formError}
-            </p>
-          ) : null}
-        </div>
-        <button type="submit">Login</button>
-      </form>
+
+          <label>
+            Nom d'utilisateur :
+            <input
+              type="text"
+              name="username"
+              required
+              minLength={3}
+              defaultValue={actionData?.fields?.username}
+              aria-invalid={Boolean(actionData?.fieldErrors?.username)}
+              aria-errormessage={
+                actionData?.fieldErrors?.username ? 'username-error' : undefined
+              }
+            />
+            {actionData?.fieldErrors?.username ? (
+              <p role="alert" id="username-error">
+                {actionData.fieldErrors.username}
+              </p>
+            ) : null}
+          </label>
+          <label>
+            Mot de passe :
+            <input
+              name="password"
+              required
+              defaultValue={actionData?.fields?.password}
+              type="password"
+              aria-invalid={
+                Boolean(actionData?.fieldErrors?.password) || undefined
+              }
+              aria-errormessage={
+                actionData?.fieldErrors?.password ? 'password-error' : undefined
+              }
+            />
+            {actionData?.fieldErrors?.password ? (
+              <p role="alert" id="password-error">
+                {actionData.fieldErrors.password}
+              </p>
+            ) : null}
+          </label>
+          <div id="form-error-message">
+            {actionData?.formError ? (
+              <p className="text-red-500" role="alert">
+                {actionData.formError}
+              </p>
+            ) : null}
+          </div>
+          <button type="submit">
+            {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
+          </button>
+        </fieldset>
+      </Form>
     </div>
   )
 }
