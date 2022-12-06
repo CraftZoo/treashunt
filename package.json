@@ -24,7 +24,7 @@
     "short-uuid": "^4.2.2"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.7.6",
+    "@remix-run/dev": "^1.8.1",
     "@remix-run/eslint-config": "^1.7.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^18.0.25",
