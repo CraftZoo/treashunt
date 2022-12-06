@@ -1,11 +1,8 @@
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import {
-  Form,
-  useActionData,
-  useSearchParams,
-  useTransition,
-} from '@remix-run/react'
+import { useActionData, useSearchParams, useTransition } from '@remix-run/react'
+
+import { Alert, Form, Input } from '~/components'
 import { login } from '~/models/user.server'
 import { createUserSession, getUserId } from '~/session.server'
 import { safeRedirect } from '~/utils'
@@ -82,7 +79,7 @@ const IndexRoute = () => {
   return (
     <div>
       <h1>Connexion</h1>
-      <Form method="post">
+      <Form.Root method="post">
         <fieldset disabled={isSubmitting}>
           <input
             type="hidden"
@@ -90,28 +87,24 @@ const IndexRoute = () => {
             value={searchParams.get('redirectTo') ?? undefined}
           />
 
-          <label>
-            Nom d'utilisateur :
-            <input
+          <Form.Control isInvalid={actionData?.fieldErrors?.username}>
+            <Form.Label>Nom d'utilisateur :</Form.Label>
+            <Input
               type="text"
               name="username"
               required
               minLength={3}
               defaultValue={actionData?.fields?.username}
-              aria-invalid={Boolean(actionData?.fieldErrors?.username)}
-              aria-errormessage={
-                actionData?.fieldErrors?.username ? 'username-error' : undefined
-              }
             />
             {actionData?.fieldErrors?.username ? (
-              <p role="alert" id="username-error">
+              <Form.ValidationMessage>
                 {actionData.fieldErrors.username}
-              </p>
+              </Form.ValidationMessage>
             ) : null}
-          </label>
-          <label>
-            Mot de passe :
-            <input
+          </Form.Control>
+          <Form.Control>
+            <Form.Label>Mot de passe :</Form.Label>
+            <Input
               name="password"
               required
               defaultValue={actionData?.fields?.password}
@@ -124,23 +117,21 @@ const IndexRoute = () => {
               }
             />
             {actionData?.fieldErrors?.password ? (
-              <p role="alert" id="password-error">
+              <Form.ValidationMessage>
                 {actionData.fieldErrors.password}
-              </p>
+              </Form.ValidationMessage>
             ) : null}
-          </label>
+          </Form.Control>
           <div id="form-error-message">
             {actionData?.formError ? (
-              <p className="text-red-500" role="alert">
-                {actionData.formError}
-              </p>
+              <Alert status="error"> {actionData.formError}</Alert>
             ) : null}
           </div>
           <button type="submit">
             {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
           </button>
         </fieldset>
-      </Form>
+      </Form.Root>
     </div>
   )
 }
