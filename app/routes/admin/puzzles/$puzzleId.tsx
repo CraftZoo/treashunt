@@ -2,12 +2,12 @@ import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import {
   Form,
+  Link,
   useActionData,
   useLoaderData,
   useTransition,
 } from '@remix-run/react'
 
-import GoBackButton from '~/components/GoBackButton'
 import { getPuzzle, updatePuzzle } from '~/models/puzzle.server'
 
 export const action: ActionFunction = async ({ request }) => {
@@ -80,7 +80,7 @@ const PuzzleIdRoute = () => {
       </header>
       <main>
         <h1>Modifier une énigme</h1>
-        <GoBackButton>Retour à la liste des énigmes</GoBackButton>
+        <Link to="/admin/puzzles">Retour à la liste des énigmes</Link>
         <Form method="put" action={`/admin/puzzles/${id}`}>
           <fieldset disabled={isSubmitting}>
             <label>

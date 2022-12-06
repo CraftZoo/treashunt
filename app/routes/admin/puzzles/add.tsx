@@ -1,9 +1,8 @@
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json, redirect, Response } from '@remix-run/node'
-import { Form, useActionData, useTransition } from '@remix-run/react'
+import { Form, Link, useActionData, useTransition } from '@remix-run/react'
 import shortUUID from 'short-uuid'
 
-import GoBackButton from '~/components/GoBackButton'
 import { createPuzzle } from '~/models/puzzle.server'
 import { getUserId } from '~/session.server'
 
@@ -77,7 +76,7 @@ const AddPuzzleRoute = () => {
       </header>
       <main>
         <h1>Ajouter une nouvelle énigme</h1>
-        <GoBackButton>Retour à la liste des énigmes</GoBackButton>
+        <Link to="/admin/puzzles">Retour à la liste des énigmes</Link>
         <Form method="post" action="/admin/puzzles/add">
           <fieldset disabled={isSubmitting}>
             <label>
