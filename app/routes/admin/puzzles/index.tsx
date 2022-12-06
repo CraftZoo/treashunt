@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/button'
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, Link, useLoaderData, useTransition } from '@remix-run/react'
@@ -106,14 +107,14 @@ const PuzzleItem = ({
       </p>
       <Form method="delete">
         <input type="hidden" name="id" value={id} readOnly />
-        <button type="submit" title="Supprimer l'énigme" disabled={isLoading}>
+        <Button type="submit" title="Supprimer l'énigme" disabled={isLoading}>
           {isLoading ? <Loader /> : <Trash2 />}
           <VisuallyHidden>
             {isLoading
               ? "Suppression de l'énigme en cours"
               : "Supprimer l'énigme"}
           </VisuallyHidden>
-        </button>
+        </Button>
       </Form>
       <Link to={`/admin/puzzles/${id}`}>
         <Edit3 />

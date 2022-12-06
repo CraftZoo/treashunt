@@ -12,11 +12,16 @@
     "seed": "node --require esbuild-register prisma/seed.ts"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.2",
+    "@emotion/react": "^11",
+    "@emotion/server": "^11",
+    "@emotion/styled": "^11",
     "@prisma/client": "^4.6.1",
     "@remix-run/node": "^1.8.1",
     "@remix-run/react": "^1.8.1",
     "@remix-run/serve": "^1.8.1",
     "bcryptjs": "^2.4.3",
+    "framer-motion": "^6",
     "isbot": "^3.6.5",
     "lucide-react": "^0.103.0",
     "react": "^18.2.0",
