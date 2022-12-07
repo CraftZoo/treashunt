@@ -6,7 +6,9 @@
     "dev": "remix dev",
     "start": "remix-serve build",
     "db:push": "prisma db push",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "gen:theme-typings": "chakra-cli tokens app/theme/theme.ts",
+    "postinstall": "yarn gen:theme-typings"
   },
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
@@ -29,6 +31,7 @@
     "short-uuid": "^4.2.2"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.2.0",
     "@remix-run/dev": "^1.8.1",
     "@remix-run/eslint-config": "^1.8.1",
     "@types/bcryptjs": "^2.4.2",

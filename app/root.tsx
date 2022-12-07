@@ -12,7 +12,7 @@ import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
 import { useContext, useEffect } from 'react'
 import { ServerStyleContext, ClientStyleContext } from './context'
 import { withEmotionCache } from '@emotion/react'
-import theme from './theme/theme'
+import theme from './theme'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
