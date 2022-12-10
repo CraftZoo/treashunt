@@ -1,10 +1,13 @@
 import { useReducer } from 'react'
-import { Button, InputGroup, InputRightElement } from '@chakra-ui/react'
+import type { InputProps } from '@chakra-ui/react'
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputRightElement,
+  VisuallyHidden,
+} from '@chakra-ui/react'
 import { Eye, EyeOff } from 'lucide-react'
-
-import { VisuallyHidden } from '~/components'
-import type { InputProps } from './Input'
-import Input from './Input'
 
 const PasswordInput = (props: InputProps) => {
   const [show, toggle] = useReducer(bool => !bool, false)
@@ -24,7 +27,7 @@ const PasswordInput = (props: InputProps) => {
           size="sm"
           onClick={toggle}
           color="gray.400"
-          bg="transparent"
+          variant="ghost"
           p="0"
           _hover={{ bg: 'transparent', color: 'text' }}
         >

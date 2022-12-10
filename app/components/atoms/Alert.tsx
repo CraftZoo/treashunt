@@ -11,7 +11,7 @@ interface AlertProps {
 }
 
 const Alert = ({ children, status }: AlertProps) => (
-  <ChakraAlert status={status} borderRadius="lg">
+  <ChakraAlert status={status} borderRadius="lg" transition="2s ease">
     <AlertIcon aria-hidden="true" />
     <AlertDescription as="p">{children}</AlertDescription>
   </ChakraAlert>
