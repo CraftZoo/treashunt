@@ -1,9 +1,10 @@
-import type { Colors } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
+import colors from './colors'
+import components from './components'
 
 const fonts = {
-  heading: 'Inter, sans-serif',
-  body: 'Inter, sans-serif',
+  heading: 'Enchanted Land, sans-serif',
+  body: 'Source Sans Pro, sans-serif',
 }
 
 const breakpoints = {
@@ -35,18 +36,6 @@ export const mediaBreakpoints = {
   xl: `(min-width: ${1536 / 16}rem)`,
 }
 
-const colors: Colors = {
-  white: 'hsl(0 0% 100%)',
-  ghostwhite: 'hsl(206 100% 99%)',
-  aliceblue: 'hsl(201 100% 97%)',
-  pinklace: 'hsl(282 100% 93%)',
-  brillantlavender: 'hsl(296 97% 87%)',
-  grape: 'hsl(270 63% 44%)',
-  americanpurple: 'hsl(295 33% 22%)',
-  darkpurple: 'hsl(295 31% 16%)',
-  arsenic: 'hsl(0 0% 26%)',
-}
-
 const semanticTokens = {
   colors: {
     primary: { default: 'grape' },
@@ -64,6 +53,7 @@ const theme = extendTheme({
   styles,
   colors,
   semanticTokens,
+  components,
 })
 
 export default theme

@@ -1,10 +1,10 @@
 import { Button } from '@chakra-ui/button'
+import { VisuallyHidden } from '@chakra-ui/react'
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, Link, useLoaderData, useTransition } from '@remix-run/react'
 import { Edit3, Loader, Trash2 } from 'lucide-react'
 
-import VisuallyHidden from '~/components/VisuallyHidden'
 import type { Puzzle } from '~/models/puzzle.server'
 import { deletePuzzle, getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
