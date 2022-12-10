@@ -8,8 +8,14 @@ services:
     env: node
     branch: main
     startCommand: yarn start
-    buildCommand: yarn install && yarn build
+    buildCommand: yarn install && yarn db:push && yarn build
     envVars:
       - key: SKIP_INSTALL_DEPS
         value: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: treasapp-db
+          property: connectionString
     autoDeploy: true
+databases:
+  - name: treasapp-db
