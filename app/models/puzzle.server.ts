@@ -9,6 +9,12 @@ export const getPuzzle = (puzzleId: Puzzle['id']) =>
     where: { id: puzzleId },
   })
 
+export const getPuzzleListItemsId = () =>
+  db.puzzle.findMany({
+    select: { id: true },
+    orderBy: { updatedAt: 'desc' },
+  })
+
 export const getPuzzleListItems = () =>
   db.puzzle.findMany({
     select: { id: true, slug: true, question: true, answer: true },

@@ -79,7 +79,7 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider resetCSS theme={theme}>
         <Fonts />
         <Outlet />
       </ChakraProvider>

@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button'
-import { VisuallyHidden } from '@chakra-ui/react'
+import { Card, Box, Grid, VisuallyHidden, Heading } from '@chakra-ui/react'
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, Link, useLoaderData, useTransition } from '@remix-run/react'
@@ -41,44 +41,31 @@ const PuzzlesRoute = () => {
   const isSubmitting = transition.state === 'submitting'
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <form action="/logout" method="post">
-                <button type="submit">Déconnexion</button>
-              </form>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <h1>Bienvenue sur TreasApp</h1>
-        <Link to="/admin/puzzles/add">Ajouter une nouvelle énigme</Link>
-        <section>
-          {puzzles.map((puzzle, index) => {
-            const { id, slug, question, answer } = puzzle
+    <Box py={4} px={8}>
+      <Heading>Liste des enigmes</Heading>
+      <Link to="/admin/puzzles/add">Ajouter une nouvelle énigme</Link>
+      <Grid as="section" gridTemplateColumns="repeat(3, 1fr)" gap={6}>
+        {puzzles.map((puzzle, index) => {
+          const { id, slug, question, answer } = puzzle
 
-            const isCurrentPuzzle =
-              transition.submission?.formData.get('id') === id
-            const isLoading = isSubmitting && isCurrentPuzzle
+          const isCurrentPuzzle =
+            transition.submission?.formData.get('id') === id
+          const isLoading = isSubmitting && isCurrentPuzzle
 
-            return (
-              <PuzzleItem
-                key={id}
-                id={id}
-                slug={slug}
-                question={question}
-                answer={answer}
-                index={numberOfPuzzles - index}
-                isLoading={isLoading}
-              />
-            )
-          })}
-        </section>
-      </main>
-    </div>
+          return (
+            <PuzzleItem
+              key={id}
+              id={id}
+              slug={slug}
+              question={question}
+              answer={answer}
+              index={numberOfPuzzles - index}
+              isLoading={isLoading}
+            />
+          )
+        })}
+      </Grid>
+    </Box>
   )
 }
 
@@ -98,7 +85,7 @@ const PuzzleItem = ({
   const link = `/puzzles/${slug}`
 
   return (
-    <article>
+    <Card as="article">
       <h2>Énigme {index}</h2>
       <p>Question : {question}</p>
       <p>Réponse : {answer}</p>
@@ -120,7 +107,7 @@ const PuzzleItem = ({
         <Edit3 />
         <VisuallyHidden>Modifier l'énigme</VisuallyHidden>
       </Link>
-    </article>
+    </Card>
   )
 }
 
