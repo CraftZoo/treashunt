@@ -15,13 +15,26 @@ const EditorOptionButton = forwardRef<EditorOptionButtonProps, 'button'>(
       <Button
         as={icon ? IconButton : Button}
         ref={ref}
-        bg={isActive ? 'gray.300' : 'transparent'}
-        color="inherit"
-        h={6}
-        p={2}
+        aria-pressed={isActive}
+        borderRadius="none"
+        px={2}
+        py={0}
+        h="full"
         icon={icon}
+        bg="transparent"
+        color="text"
+        transition="all 200ms"
         _hover={{
-          bg: 'whiteAlpha.300',
+          bg: 'secondary',
+          color: 'text',
+        }}
+        _active={{
+          bg: 'primary',
+          color: 'white',
+        }}
+        _pressed={{
+          bg: 'primary',
+          color: 'white',
         }}
         {...rest}
       >

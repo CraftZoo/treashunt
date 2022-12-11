@@ -8,6 +8,16 @@ export default defineStyleConfig({
     },
     fontWeight: 600,
   },
+  variants: {
+    secondary: {
+      bg: 'secondary',
+      color: 'primary',
+      fontWeight: 600,
+      _hover: {
+        boxShadow: 'md',
+      },
+    },
+  },
   defaultProps: {
     size: 'lg',
     colorScheme: 'grape',

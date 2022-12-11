@@ -12,14 +12,23 @@ const EditorOptionsWrapper = ({
   ...rest
 }: EditorOptionsWrapperProps) => {
   return (
-    <Box transition="visibility 0s linear 0s, opacity 300ms" {...rest}>
+    <Box
+      transition="visibility 0s linear 0s, opacity 300ms"
+      borderTopRadius="xl"
+      {...rest}
+    >
       <Flex
-        bg="white"
+        bg="gray.50"
         alignItems="center"
         h={10}
-        gap={1}
-        p={2}
-        borderRadius="xl"
+        borderTopRadius="xl"
+        border="1px solid"
+        borderColor="gray.100"
+        sx={{
+          '& > *:first-child': {
+            borderTopLeftRadius: 'xl',
+          },
+        }}
       >
         {children}
       </Flex>

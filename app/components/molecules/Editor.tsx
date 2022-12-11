@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import type { BoxProps } from '@chakra-ui/react'
+import { forwardRef } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
 
 import Heading from '@tiptap/extension-heading'
@@ -19,37 +20,46 @@ export type EditorProps = {
   onChange: (value: EditorEvents['update']) => void
 } & BoxProps
 
-const Editor = ({ value, placeholder, onChange, ...rest }: EditorProps) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Heading.configure({
-        levels: [1, 2, 3, 4],
-      }),
-      Placeholder.configure({
-        placeholder: placeholder || 'Insérer votre texte',
-      }),
-    ],
-    onUpdate: onChange,
-    autofocus: true,
-    content: value,
-  })
+const Editor = forwardRef<EditorProps, 'div'>(
+  ({ value, placeholder, onChange, ...rest }, ref) => {
+    const editor = useEditor({
+      extensions: [
+        StarterKit,
+        Underline,
+        Heading.configure({
+          levels: [1, 2, 3, 4],
+        }),
+        Placeholder.configure({
+          placeholder: placeholder || 'Insérer votre texte',
+        }),
+      ],
+      onUpdate: onChange,
+      autofocus: true,
+      content: value,
+    })
 
-  useEffect(() => {
-    editor && editor.setOptions({ content: value })
-  }, [editor, value])
+    useEffect(() => {
+      editor && editor.setOptions({ content: value })
+    }, [editor, value])
 
-  if (!editor) {
-    return null
+    if (!editor) {
+      return null
+    }
+
+    return (
+      <Box
+        position="relative"
+        w="full"
+        borderRadius="xl"
+        boxShadow="sm"
+        ref={ref}
+        {...rest}
+      >
+        <EditorToolbar editor={editor} />
+        <EditorField editor={editor} />
+      </Box>
+    )
   }
-
-  return (
-    <Box position="relative" p={4} {...rest} bg="white">
-      <EditorToolbar editor={editor} />
-      <EditorField editor={editor} />
-    </Box>
-  )
-}
+)
 
 export default Editor

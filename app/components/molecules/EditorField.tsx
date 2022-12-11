@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react'
+import { chakra, Box } from '@chakra-ui/react'
 
 import type { Editor } from '@tiptap/react'
 import { EditorContent } from '@tiptap/react'
@@ -118,7 +118,19 @@ interface EditorFieldProps {
 }
 
 const EditorField = ({ editor }: EditorFieldProps) => {
-  return <StyledEditor editor={editor} />
+  return (
+    <Box
+      bg="white"
+      p={2}
+      minH={48}
+      border="1px solid"
+      borderColor="gray.100"
+      borderBottomRadius="xl"
+      borderTopWidth={0}
+    >
+      <StyledEditor editor={editor} />
+    </Box>
+  )
 }
 
 export default EditorField
