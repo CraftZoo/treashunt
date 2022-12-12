@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Fade,
   FormControl,
@@ -95,9 +94,10 @@ const LoginForm = () => {
   const transition = useTransition()
   const isSubmitting = transition.state === 'submitting'
 
-  const hasFormError = actionData?.formError
+  const hasFormError = Boolean(actionData?.formError)
   const hasInvalidUsername = Boolean(actionData?.fieldErrors?.username)
   const hasInvalidPassword = Boolean(actionData?.fieldErrors?.password)
+
   return (
     <Form method="post">
       <Fieldset disabled={isSubmitting} gap={6}>
@@ -141,7 +141,7 @@ const LoginForm = () => {
           {isSubmitting ? 'Connexion en cours...' : 'Me connecter'}
         </Button>
 
-        <Fade in={!!hasFormError}>
+        <Fade in={hasFormError}>
           <Alert status="error">{actionData?.formError}</Alert>
         </Fade>
       </Fieldset>

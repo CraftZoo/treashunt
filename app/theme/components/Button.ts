@@ -6,7 +6,7 @@ export default defineStyleConfig({
     _hover: {
       boxShadow: 'lg',
     },
-    fontWeight: 500,
+    fontWeight: 600,
   },
   defaultProps: {
     size: 'lg',
