@@ -1,16 +1,14 @@
-import type { StackProps } from '@chakra-ui/react'
+import type { ChakraComponent, FlexProps } from '@chakra-ui/react'
 import { Flex } from '@chakra-ui/react'
-import type { HTMLProps } from 'react'
 
-const Fieldset = ({
-  children,
-  ...rest
-}: HTMLProps<HTMLDivElement> & StackProps) => {
+type FieldsetComponent = ChakraComponent<'fieldset', {}>
+
+const Fieldset = (({ children, ...rest }: FlexProps) => {
   return (
     <Flex flexDirection="column" as="fieldset" gap={4} {...rest}>
       {children}
     </Flex>
   )
-}
+}) as FieldsetComponent
 
 export default Fieldset

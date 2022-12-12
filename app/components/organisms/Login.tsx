@@ -23,19 +23,18 @@ const Login = () => {
       flexDirection="column"
       justifyContent="center"
     >
-      <HStack justifyContent="center" gap={2} ml="-5">
+      <HStack as="header" justifyContent="center" gap={2}>
         <Image maxW="24" src="/images/chest.png" aria-hidden="true" />
         <Heading as="h1" size="3xl">
           TreasHunt
         </Heading>
       </HStack>
-      <Box>
+      <Box as="main">
         <VisuallyHidden>
-          <h1>Connexion</h1>
+          <h2>Connexion</h2>
         </VisuallyHidden>
         <LoginForm />
       </Box>
-      <Box />
     </Stack>
   )
 }
