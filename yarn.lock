@@ -2468,7 +2468,7 @@
     lz-string "^1.4.4"
     pretty-format "^27.0.2"
 
-"@tiptap/core@^2.0.0-beta.205", "@tiptap/core@^2.0.0-beta.207":
+"@tiptap/core@^2.0.0-beta.207":
   version "2.0.0-beta.207"
   resolved "https://registry.yarnpkg.com/@tiptap/core/-/core-2.0.0-beta.207.tgz#df41b1acb61375c6cc003aaa554e8d0360cf00a5"
   integrity sha512-mhXuTgVnZ4HuXhfz9vDUlcpklfQ7Iqeh3PcpT5avmV8Az8Oyxsb54IEdTer2sJrIAZc3YS2cxBG1vH0sMqwndw==
@@ -2483,12 +2483,12 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-bold/-/extension-bold-2.0.0-beta.207.tgz#121d298df1e491083574a9420dea501514f76d6b"
   integrity sha512-BvZ6cZH+qBZkgH2+xdYsi0uBObwtOkJZHiQmKXAP7C/Au44YBA2sdcNVGYhJ75+vVy0JjwhaVotwa/wth6BODA==
 
-"@tiptap/extension-bubble-menu@^2.0.0-beta.205":
-  version "2.0.0-beta.205"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-bubble-menu/-/extension-bubble-menu-2.0.0-beta.205.tgz#b032d769d6e1e4fd80b08c72caff01a322f333d2"
-  integrity sha512-XqHo698TioWBBomk6l7gfWZ8bj7Oj+UHYSgmuvTAZLAEjOvDQcykjqS2ks9CN0M+f8Hd+IhnSXMvbLciKQIp4g==
+"@tiptap/extension-bubble-menu@^2.0.0-beta.207":
+  version "2.0.0-beta.207"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-bubble-menu/-/extension-bubble-menu-2.0.0-beta.207.tgz#bd305219f77e31442f7bd5e8d1582228df21ef7a"
+  integrity sha512-Lo+mO71CJaWAvDuPmxGCGS6XGyH6gt2hTVkGAQKR3PRmctnutBvaJF/BOY5wb20/wtkK39UHVc75enn0svdYmg==
   dependencies:
-    "@tiptap/core" "^2.0.0-beta.205"
+    "@tiptap/core" "^2.0.0-beta.207"
     lodash "^4.17.21"
     prosemirror-state "^1.4.1"
     prosemirror-view "^1.28.2"
@@ -2519,10 +2519,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-dropcursor/-/extension-dropcursor-2.0.0-beta.207.tgz#8995924a9dbce8a91f259ede8db38db4b0cd02cf"
   integrity sha512-r6Pz32JAo//H5TIH0aeoJ/mqFFRTPAivuTZ1aXpmT1FJKYAVSeRYtL1HJS5picPQfz9R/kQEowjqbe2U3BkJtg==
 
-"@tiptap/extension-floating-menu@^2.0.0-beta.205":
-  version "2.0.0-beta.205"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-floating-menu/-/extension-floating-menu-2.0.0-beta.205.tgz#c8e8bcd12a9670e1565916f47698a9822a4fa8ff"
-  integrity sha512-L6GV0jfYqOpDQplRiB3dnOCnxOPVRLr76VxRQgEVlE7FamPd9/KlL+7Bk+3w7qwlcXYAo3ROz8EL6Q1ZzoJeXw==
+"@tiptap/extension-floating-menu@^2.0.0-beta.207":
+  version "2.0.0-beta.207"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-floating-menu/-/extension-floating-menu-2.0.0-beta.207.tgz#c0399c2c7c473855ead13d643f8f0027d706ce7e"
+  integrity sha512-yWg5kt3SnxnVzQYFtmxoS0tX5gF1tIXDV0mO3LN/vJ5VryqmXNO3soqTJASzCv/Kmgbr7ijBtsBn+Da3Au0Hvw==
   dependencies:
     tippy.js "^6.3.7"
 
@@ -2587,17 +2587,17 @@
   integrity sha512-3s4SN3W7ldBX3Qx8GLMOcnwbTieK0hIw+tLdxyhE6uWao+E/eu/kxh5WA+sNBnYcspG1vcnM+I360KffHM841g==
 
 "@tiptap/extension-underline@^2.0.0-beta.205":
-  version "2.0.0-beta.205"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-underline/-/extension-underline-2.0.0-beta.205.tgz#32b3ea77f83a87cfc18469d4af0cfc818a36c351"
-  integrity sha512-WKwjmajUoYGGsfmZSnyd8xyqoyJEoKU/hFRO/CnEZWeP2W0Nrf5qubLq5D1IjKeO9QjyFJzU7VskIfAsWpZm0Q==
+  version "2.0.0-beta.207"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-underline/-/extension-underline-2.0.0-beta.207.tgz#f6d99b45445d7ec9868d0d7a8c55ba85f4b832d3"
+  integrity sha512-NJ7X997kge9EGX/kiM50hY8HIVPmt6pVymCVTNq0w9nEp69YZ0X1YelB6E2vvCXiI4bZNp0iIr3t/tTVlRBXmw==
 
 "@tiptap/react@^2.0.0-beta.205":
-  version "2.0.0-beta.205"
-  resolved "https://registry.yarnpkg.com/@tiptap/react/-/react-2.0.0-beta.205.tgz#5cc5525df86ca740136ff7579418da1e3b783a3f"
-  integrity sha512-qr08vSRNcMyU2nIugynNE2uliK3KQUcfyey3UUU5iGfAU949n6UtiE4070+bkCeAzoX/j9uAPmqcL4mub09Qpw==
+  version "2.0.0-beta.207"
+  resolved "https://registry.yarnpkg.com/@tiptap/react/-/react-2.0.0-beta.207.tgz#bb43a8741e3a0f40e16330f5f689ec165f01d173"
+  integrity sha512-s+IrUdLJhY7YYmwjq4reDgZbX7TmTanQaL5C0AJZI70bnV+U2+9uoz2OYxSUOOJ3hPFNgcRMYlYPOvWcoVPmbA==
   dependencies:
-    "@tiptap/extension-bubble-menu" "^2.0.0-beta.205"
-    "@tiptap/extension-floating-menu" "^2.0.0-beta.205"
+    "@tiptap/extension-bubble-menu" "^2.0.0-beta.207"
+    "@tiptap/extension-floating-menu" "^2.0.0-beta.207"
     prosemirror-view "^1.28.2"
 
 "@tiptap/starter-kit@^2.0.0-beta.207":
@@ -9014,9 +9014,9 @@ typedarray-to-buffer@^3.1.5:
     is-typedarray "^1.0.0"
 
 typescript@^4.8.4:
-  version "4.9.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.3.tgz#3aea307c1746b8c384435d8ac36b8a2e580d85db"
-  integrity sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==
+  version "4.9.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
+  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
