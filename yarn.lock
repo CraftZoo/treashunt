@@ -2571,10 +2571,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-paragraph/-/extension-paragraph-2.0.0-beta.205.tgz#bc463aab46faf533d5a18cddde95d1870562c9d8"
   integrity sha512-NdGqxt5PeR7eBrQjKfIjcrNeruEMGifshSKARiqCYafeiSbUlk33fNrzobIMJjRi39bbYktEnON66EI9BBUBBA==
 
-"@tiptap/extension-placeholder@^2.0.0-beta.205":
-  version "2.0.0-beta.205"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-placeholder/-/extension-placeholder-2.0.0-beta.205.tgz#e898d7144ed971c49bc6ea4676944bbc9221a9d9"
-  integrity sha512-qQ3g7QJV8ut0Ywuf64vh48SylQZ2iuU0gAWpYW/VPo1HbZ9zh8yP5+6xgGcDybJEnN6DnrDYZLVFio27LpgkPQ==
+"@tiptap/extension-placeholder@^2.0.0-beta.207":
+  version "2.0.0-beta.207"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-placeholder/-/extension-placeholder-2.0.0-beta.207.tgz#ef25a365d7713b7422174e72de4ee979f3ec3f6d"
+  integrity sha512-ZlmW4yYwgVH7yRfp0ZA/ntcd+OQRM0HCuGKWug+bV3H5S14cTrFmQ3OY3r5tmDGKhMp6MpJ0jgXtP0CghM6Tqg==
 
 "@tiptap/extension-strike@^2.0.0-beta.205":
   version "2.0.0-beta.205"
