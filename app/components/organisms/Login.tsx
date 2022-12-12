@@ -24,7 +24,7 @@ const Login = () => {
       justifyContent="center"
     >
       <HStack justifyContent="center" gap={2} ml="-5">
-        <Image maxW="24" src="/images/chest.png" alt="logo app" />
+        <Image maxW="24" src="/images/chest.png" aria-hidden="true" />
         <Heading as="h1" size="3xl">
           TreasHunt
         </Heading>

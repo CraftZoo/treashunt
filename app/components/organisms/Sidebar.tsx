@@ -1,5 +1,5 @@
 import { Box, Button, Image, Heading, HStack, Flex } from '@chakra-ui/react'
-import type { Puzzle } from '@prisma/client'
+import type { Puzzle } from '~/models/puzzle.server'
 import Form from '../atoms/Form'
 import SidebarMenu from '../molecules/SidebarMenu'
 
@@ -21,7 +21,7 @@ const Sidebar = ({ puzzles }: SidebarProps) => {
       gap={8}
     >
       <HStack>
-        <Image maxW="12" src="/images/chest.png" alt="logo app" />
+        <Image maxW="12" src="/images/chest.png" aria-hidden="true" />
         <Heading as="h1" size="xl">
           TreasHunt
         </Heading>

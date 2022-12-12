@@ -1,6 +1,6 @@
 import { VStack, Text } from '@chakra-ui/react'
 import { Focus, Puzzle as PuzzleIcon } from 'lucide-react'
-import type { Puzzle } from '@prisma/client'
+import type { Puzzle } from '~/models/puzzle.server'
 import SidebarLink from '../atoms/SidebarLink'
 
 export type SidebarMenuProps = {
