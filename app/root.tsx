@@ -9,74 +9,51 @@ import {
   useCatch,
 } from '@remix-run/react'
 import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
-import { useContext, useEffect } from 'react'
-import { ServerStyleContext, ClientStyleContext } from './context'
-import { withEmotionCache } from '@emotion/react'
-import theme from './theme'
 
 import sourceSansPro400 from '@fontsource/source-sans-pro/400.css'
 import sourceSansPro600 from '@fontsource/source-sans-pro/600.css'
 import Fonts from './theme/fonts'
+import theme from './theme'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   viewport: 'width=device-width,initial-scale=1',
 })
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: sourceSansPro400 },
     { rel: 'stylesheet', href: sourceSansPro600 },
   ]
 }
 
-interface DocumentProps {
+function Document({
+  children,
+  title = 'App title',
+}: {
   children: React.ReactNode
   title?: string
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <title>{title}</title>
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
+  )
 }
 
-const Document = withEmotionCache(
-  ({ children, title }: DocumentProps, emotionCache) => {
-    const serverStyleData = useContext(ServerStyleContext)
-    const clientStyleData = useContext(ClientStyleContext)
-
-    useEffect(() => {
-      emotionCache.sheet.container = document.head
-      const tags = emotionCache.sheet.tags
-      emotionCache.sheet.flush()
-      tags.forEach(tag => {
-        ;(emotionCache.sheet as any)._insertTag(tag)
-      })
-      clientStyleData?.reset()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    return (
-      <html lang="fr">
-        <head>
-          <Meta />
-          <title>{title}</title>
-          <Links />
-          {serverStyleData?.map(({ key, ids, css }) => (
-            <style
-              key={key}
-              data-emotion={`${key} ${ids.join(' ')}`}
-              dangerouslySetInnerHTML={{ __html: css }}
-            />
-          ))}
-        </head>
-        <body>
-          {children}
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </body>
-      </html>
-    )
-  }
-)
-
 export default function App() {
+  // throw new Error("💣💥 Booooom");
+
   return (
     <Document>
       <ChakraProvider resetCSS theme={theme}>
