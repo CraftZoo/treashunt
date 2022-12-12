@@ -2180,10 +2180,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.7.1.tgz#d657d4d05724158140022fa00614e143643090c2"
   integrity sha512-zWabHosTdLpXXlMefHmnouhXMoTB1+SCbUU3t4FCmdrtIOZcarPKU3Alto7gm/pZ9vHlGOXHCfVZ1G7OIrSbog==
 
-"@remix-run/dev@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@remix-run/dev/-/dev-1.8.1.tgz#bd90d50d93f8eac700ff07239d8f46daf2e0cd2c"
-  integrity sha512-5Yd8TW3GGPCL7xr4q7/yAojnltTKaqPNOSNyoSQC6bS/OhBMYftkdnmLw28fvrplQPC5wqEVIlz8NR0SPYXTzA==
+"@remix-run/dev@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/dev/-/dev-1.8.2.tgz#449c282906493e43ef96a9498416110a8738aedc"
+  integrity sha512-hhLOsILCuo8qBqmbc4Aw1Rps+d8VkuxcwEO04ZQPbz3zGVILvuJQ07O02deWfbF/oK71e0OysU/4CpP1wcXxJA==
   dependencies:
     "@babel/core" "^7.18.6"
     "@babel/plugin-syntax-jsx" "^7.18.6"
@@ -2193,7 +2193,7 @@
     "@babel/types" "^7.20.2"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
     "@npmcli/package-json" "^2.0.0"
-    "@remix-run/server-runtime" "1.8.1"
+    "@remix-run/server-runtime" "1.8.2"
     arg "^5.0.1"
     cacache "^15.0.5"
     chalk "^4.1.2"
@@ -2281,11 +2281,6 @@
     history "^5.3.0"
     react-router-dom "6.3.0"
 
-"@remix-run/router@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.4.tgz#cbfbec6735711e7c2fc93b9b40adf70ef5a39990"
-  integrity sha512-gTL8H5USTAKOyVA4xczzDJnC3HMssdFa3tRlwBicXynx9XfiXwneHnYQogwSKpdCkjXISrEKSTtX62rLpNEVQg==
-
 "@remix-run/router@1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.5.tgz#d5c65626add4c3c185a89aa5bd38b1e42daec075"
@@ -2300,19 +2295,6 @@
     compression "^1.7.4"
     express "^4.17.1"
     morgan "^1.10.0"
-
-"@remix-run/server-runtime@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@remix-run/server-runtime/-/server-runtime-1.8.1.tgz#2cdfdcbac01fbfb21ef5fc5cd8cc350d44eeec49"
-  integrity sha512-GcOhrQOB5E1vSPUA1OLzPRRyHErdA6QsKpz4LAw2rayvpBd47bhU18bFBJEPr1vwmimgeU/9QnopUHz5/eOZ5w==
-  dependencies:
-    "@remix-run/router" "1.0.4"
-    "@types/cookie" "^0.4.0"
-    "@web3-storage/multipart-parser" "^1.0.0"
-    cookie "^0.4.1"
-    react-router-dom "6.3.0"
-    set-cookie-parser "^2.4.8"
-    source-map "^0.7.3"
 
 "@remix-run/server-runtime@1.8.2":
   version "1.8.2"
