@@ -5,9 +5,9 @@ import { Response } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import isbot from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
-import createEmotionCache from '@emotion/cache'
 import { CacheProvider as EmotionCacheProvider } from '@emotion/react'
 import createEmotionServer from '@emotion/server/create-instance'
+import createEmotionCache from './createEmotionCache'
 
 const ABORT_DELAY = 5000
 
@@ -40,7 +40,7 @@ const handleBotRequest = (
 ) =>
   new Promise((resolve, reject) => {
     let didError = false
-    const emotionCache = createEmotionCache({ key: 'css' })
+    const emotionCache = createEmotionCache()
 
     const { pipe, abort } = renderToPipeableStream(
       <EmotionCacheProvider value={emotionCache}>
@@ -87,7 +87,7 @@ const handleBrowserRequest = (
 ) =>
   new Promise((resolve, reject) => {
     let didError = false
-    const emotionCache = createEmotionCache({ key: 'css' })
+    const emotionCache = createEmotionCache()
 
     const { pipe, abort } = renderToPipeableStream(
       <EmotionCacheProvider value={emotionCache}>

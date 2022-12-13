@@ -7,4 +7,7 @@ module.exports = {
     'eslint-config-prettier',
   ],
   plugins: ['prettier'],
+  rules: {
+    '@typescript-eslint/no-duplicate-imports': 'error',
+  },
 }

@@ -1,6 +1,5 @@
 import type { BoxProps } from '@chakra-ui/react'
-import { MenuItem } from '@chakra-ui/react'
-import { Box, Divider } from '@chakra-ui/react'
+import { Box, Divider, MenuItem } from '@chakra-ui/react'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import type { EditorEvents } from '@tiptap/react'

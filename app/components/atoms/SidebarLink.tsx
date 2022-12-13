@@ -1,6 +1,5 @@
 import type { LinkProps as ChakraLinkProps } from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/react'
-import { Link as ChakraLink } from '@chakra-ui/react'
+import { Icon, Link as ChakraLink } from '@chakra-ui/react'
 import type { LinkProps as RemixLinkProps } from '@remix-run/react'
 import { Link as RemixLink } from '@remix-run/react'
 import type { Icon as LucideIcon } from 'lucide-react'
