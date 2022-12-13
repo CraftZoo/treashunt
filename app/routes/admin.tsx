@@ -1,9 +1,10 @@
-import { Grid, GridItem } from '@chakra-ui/react'
 import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
-import Sidebar from '~/components/organisms/Sidebar'
 
+import { Grid, GridItem } from '@chakra-ui/react'
+
+import Sidebar from '~/components/organisms/Sidebar'
 import { getPuzzleListItemsId } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 

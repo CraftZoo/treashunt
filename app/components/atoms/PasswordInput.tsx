@@ -1,4 +1,5 @@
 import { useReducer } from 'react'
+
 import type { InputProps } from '@chakra-ui/react'
 import {
   Button,
@@ -7,6 +8,7 @@ import {
   InputRightElement,
   VisuallyHidden,
 } from '@chakra-ui/react'
+
 import { Eye, EyeOff } from 'lucide-react'
 
 const PasswordInput = (props: InputProps) => {

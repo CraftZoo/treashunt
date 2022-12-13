@@ -1,5 +1,6 @@
-import type { Editor } from '@tiptap/react'
 import { Divider, MenuItem } from '@chakra-ui/react'
+
+import type { Editor } from '@tiptap/react'
 import {
   Bold,
   Code,
@@ -13,6 +14,7 @@ import {
   ListPlus,
   Quote,
 } from 'lucide-react'
+
 import EditorOptionButton from '~/components/atoms/EditorOptionButton'
 import EditorOptionMenu from '~/components/atoms/EditorOptionMenu'
 import EditorOptionsWrapper from '~/components/atoms/EditorOptionsWrapper'

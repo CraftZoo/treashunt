@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react'
+
 import type { BoxProps } from '@chakra-ui/react'
 import { Box, Flex } from '@chakra-ui/react'
-import type { ReactNode } from 'react'
 
 type EditorOptionsWrapperProps = {
   children: ReactNode

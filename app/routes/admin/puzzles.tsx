@@ -1,5 +1,6 @@
-import { Box } from '@chakra-ui/react'
 import { Outlet } from '@remix-run/react'
+
+import { Box } from '@chakra-ui/react'
 
 const PuzzlesRoute = () => {
   return (

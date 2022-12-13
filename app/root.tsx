@@ -8,12 +8,14 @@ import {
   ScrollRestoration,
   useCatch,
 } from '@remix-run/react'
+
 import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
 
 import sourceSansPro400 from '@fontsource/source-sans-pro/400.css'
 import sourceSansPro600 from '@fontsource/source-sans-pro/600.css'
-import Fonts from './theme/fonts'
+
 import theme from './theme'
+import Fonts from './theme/fonts'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',

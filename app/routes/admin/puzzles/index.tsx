@@ -1,3 +1,7 @@
+import type { ActionFunction, LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { Form, Link, useLoaderData, useTransition } from '@remix-run/react'
+
 import {
   Button,
   Card,
@@ -6,9 +10,7 @@ import {
   VisuallyHidden,
   Heading,
 } from '@chakra-ui/react'
-import type { ActionFunction, LoaderArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
-import { Form, Link, useLoaderData, useTransition } from '@remix-run/react'
+
 import { Edit3, Loader, Trash2 } from 'lucide-react'
 
 import type { Puzzle } from '~/models/puzzle.server'

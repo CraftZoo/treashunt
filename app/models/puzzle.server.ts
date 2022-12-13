@@ -1,4 +1,5 @@
 import type { Puzzle } from '@prisma/client'
+
 import { db } from '~/db.server'
 
 export type { Puzzle } from '@prisma/client'

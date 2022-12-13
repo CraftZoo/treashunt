@@ -1,3 +1,7 @@
+import type { ActionArgs, LoaderArgs } from '@remix-run/node'
+import { redirect, json } from '@remix-run/node'
+import { useActionData, useSearchParams, useTransition } from '@remix-run/react'
+
 import {
   Button,
   Fade,
@@ -6,16 +10,15 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import PasswordInput from '../atoms/PasswordInput'
-import Form from '../atoms/Form'
-import Alert from '../atoms/Alert'
-import { useActionData, useSearchParams, useTransition } from '@remix-run/react'
-import Fieldset from '../atoms/Fieldset'
-import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import { redirect, json } from '@remix-run/node'
-import { createUserSession, getUserId } from '~/session.server'
+
 import { login } from '~/models/user.server'
+import { createUserSession, getUserId } from '~/session.server'
 import { safeRedirect } from '~/utils'
+
+import Alert from '../atoms/Alert'
+import Fieldset from '../atoms/Fieldset'
+import Form from '../atoms/Form'
+import PasswordInput from '../atoms/PasswordInput'
 
 interface ActionData {
   fields?: {
