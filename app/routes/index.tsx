@@ -15,7 +15,7 @@ export const action = async (actionParams: ActionArgs) => {
 }
 
 export const meta: MetaFunction = () => ({
-  title: 'Connexion à TreasApp',
+  title: 'Connexion à TreasHunt',
 })
 
 const IndexRoute = () => {
