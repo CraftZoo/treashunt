@@ -1,19 +1,18 @@
 import type { ButtonProps, IconButtonProps } from '@chakra-ui/react'
-import { Button, forwardRef, IconButton } from '@chakra-ui/react'
+import { forwardRef, IconButton } from '@chakra-ui/react'
 
 import type { LucideProps } from 'lucide-react'
 
 type EditorOptionButtonProps = {
   isActive?: boolean
-  icon?: LucideProps
+  icon: LucideProps
 } & ButtonProps &
   IconButtonProps
 
 const EditorOptionButton = forwardRef<EditorOptionButtonProps, 'button'>(
   ({ children, isActive, icon, ...rest }, ref) => {
     return (
-      <Button
-        as={icon ? IconButton : Button}
+      <IconButton
         ref={ref}
         aria-pressed={isActive}
         borderRadius="none"
@@ -39,7 +38,7 @@ const EditorOptionButton = forwardRef<EditorOptionButtonProps, 'button'>(
         {...rest}
       >
         {children}
-      </Button>
+      </IconButton>
     )
   }
 )

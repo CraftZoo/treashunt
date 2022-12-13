@@ -1,11 +1,16 @@
+import { useMemo } from 'react'
+
 import type { ActionFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useSubmit } from '@remix-run/react'
-import { useMemo } from 'react'
+
 import type { Puzzle } from '~/models/puzzle.server'
 import { updatePuzzle } from '~/models/puzzle.server'
+
 import type { PuzzleUpsertFormSchemaData } from '../molecules/PuzzleUpsertForm'
-import PuzzleUpsertForm from '../molecules/PuzzleUpsertForm'
+import PuzzleUpsertForm, {
+  PuzzleUpsertFormSchema,
+} from '../molecules/PuzzleUpsertForm'
 
 export const ConnectedPuzzleUpsertFormAction: ActionFunction = async ({
   request,
@@ -14,25 +19,33 @@ export const ConnectedPuzzleUpsertFormAction: ActionFunction = async ({
 
   const { id, question, answer, slug } = Object.fromEntries(formData)
 
-  if (typeof question !== 'string')
+  const schema = PuzzleUpsertFormSchema()
+
+  const result = schema.safeParse({ question, answer, slug })
+
+  if (!result.success) {
     return json(
-      { errors: { question: "La question n'est pas valide" } },
+      {
+        error: result.error.flatten(),
+        fields: {
+          question,
+          answer,
+          slug,
+        },
+      },
       { status: 400 }
     )
+  }
 
-  if (typeof answer !== 'string')
-    return json(
-      { errors: { answer: "La réponse n'est pas valide" } },
-      { status: 400 }
-    )
+  const values = {
+    id: String(id),
+    question: result.data.question,
+    answer: result.data.answer,
+    slug: result.data.slug,
+  }
 
-  if (typeof slug !== 'string' || slug.length < 8 || typeof id !== 'string')
-    return json(
-      { formError: "Une erreur est survenue lors de l'envoi du formulaire" },
-      { status: 400 }
-    )
+  await updatePuzzle(values)
 
-  await updatePuzzle({ id, question, answer, slug })
   return json({ success: `L'enigme a bien ete mise à jour` })
 }
 
@@ -53,8 +66,8 @@ const ConnectedPuzzleUpsertForm = ({
     }
   }, [puzzle])
 
-  const onSubmit = (form: HTMLFormElement) => {
-    submit(form)
+  const onSubmit = async (form: HTMLFormElement) => {
+    await submit(form)
   }
 
   return (

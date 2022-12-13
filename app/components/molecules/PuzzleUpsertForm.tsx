@@ -1,14 +1,19 @@
-import { z } from 'zod'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Form from '../atoms/Form'
-import EditorContent from './EditorContent'
-import { Button } from '@chakra-ui/react'
-import Fieldset from '../atoms/Fieldset'
 import type { FormEvent } from 'react'
-import { Loader } from 'lucide-react'
+import { useEffect } from 'react'
 
-const PuzzleUpsertFormSchema = () =>
+import { Button } from '@chakra-ui/react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader } from 'lucide-react'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import Fieldset from '../atoms/Fieldset'
+import Form from '../atoms/Form'
+
+import EditorContent from './EditorContent'
+
+export const PuzzleUpsertFormSchema = () =>
   z.object({
     question: z.string().min(1, 'Ce champ est requis'),
     slug: z.string().min(1, 'Ce champ est requis'),
@@ -34,14 +39,19 @@ const PuzzleUpsertForm = ({
     handleSubmit,
     control,
     formState: { isSubmitting },
+    reset,
   } = useForm<PuzzleUpsertFormSchemaData>({
     resolver: zodResolver(PuzzleUpsertFormSchema()),
     defaultValues,
   })
 
+  useEffect(() => {
+    reset(defaultValues)
+  }, [defaultValues, reset])
+
   const _onSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.target as HTMLFormElement
-    handleSubmit(() => onSubmit?.(form))(event)
+    handleSubmit(async () => await onSubmit?.(form))(event)
   }
 
   return (
@@ -50,13 +60,17 @@ const PuzzleUpsertForm = ({
         <Controller
           name="question"
           control={control}
-          render={({ field: { ...rest } }) => <EditorContent {...rest} />}
+          render={({ field: { ...rest } }) => (
+            <EditorContent defaultValue={defaultValues.question} {...rest} />
+          )}
         />
 
         <Controller
           name="answer"
           control={control}
-          render={({ field: { ...rest } }) => <EditorContent {...rest} />}
+          render={({ field: { ...rest } }) => (
+            <EditorContent defaultValue={defaultValues.answer} {...rest} />
+          )}
         />
         <Controller
           name="slug"

@@ -1,4 +1,4 @@
-import { Divider, MenuItem } from '@chakra-ui/react'
+import { MenuItem } from '@chakra-ui/react'
 
 import type { Editor } from '@tiptap/react'
 import {
@@ -9,10 +9,10 @@ import {
   Heading3,
   Heading4,
   Italic,
-  LineChart,
   ListOrdered,
   ListPlus,
   Quote,
+  Underline,
 } from 'lucide-react'
 
 import EditorOptionButton from '~/components/atoms/EditorOptionButton'
@@ -73,7 +73,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       />
       <EditorOptionButton
         aria-label="Mettre en souligné"
-        icon={<LineChart />}
+        icon={<Underline />}
         isActive={editor.isActive('underline')}
         onClick={() => editor.chain().focus().toggleUnderline().run()}
       />

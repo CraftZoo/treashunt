@@ -20,7 +20,7 @@ const styles = {
   global: {
     'html, body': {
       height: '100%',
-      background: '#F1FAFF',
+      background: 'aliceblue',
       webkitFontSmoothing: 'antialiased',
       mozOsxFontSmoothing: 'grayscale',
       overscrollBehavior: 'none',

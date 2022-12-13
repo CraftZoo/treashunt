@@ -14,13 +14,13 @@ const SidebarLink = ({ children, icon, ...rest }: SidebarLinkProps) => {
     <Link display="flex" gap="2" alignItems="center" role="group" {...rest}>
       <Icon
         as={icon}
-        transition=".2s ease-in-out"
+        transition="250ms ease-in-out"
         css={{
           'backface-visibility': 'hidden',
-          '-webkit-backface-visibility': 'hidden',
         }}
         _groupHover={{
-          transform: 'scale(1.05) translate(-1px, -1px)',
+          transform: 'scale(1.05)',
+          transformOrigin: 'center',
         }}
       />
       {children}

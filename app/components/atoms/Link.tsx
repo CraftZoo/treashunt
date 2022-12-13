@@ -7,9 +7,10 @@ import type {
 } from '@chakra-ui/react'
 import { Link as ChakraLink } from '@chakra-ui/react'
 
+export type LinkProps = ChakraLinkProps & RemixLinkProps
 type LinkComponent = ChakraComponent<'a', {}>
 
-const Link = (({ children, ...rest }: ChakraLinkProps & RemixLinkProps) => {
+const Link = (({ children, ...rest }: LinkProps) => {
   return (
     <ChakraLink as={RemixLink} {...rest}>
       {children}

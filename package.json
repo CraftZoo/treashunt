@@ -8,7 +8,8 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "gen:theme-typings": "chakra-cli tokens app/theme/theme.ts",
-    "postinstall": "yarn gen:theme-typings"
+    "postinstall": "yarn gen:theme-typings",
+    "lint": "eslint --ext .tsx,.ts app/"
   },
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
@@ -65,5 +66,7 @@
   "engines": {
     "node": ">=14"
   },
-  "eslintIgnore": ["public/vendor/snow.js"]
+  "eslintIgnore": [
+    "public/vendor/snow.js"
+  ]
 }
