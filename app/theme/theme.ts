@@ -1,7 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 import colors from './colors'
 import components from './components'
-import { tiptapStyle } from './tiptap'
 
 const fonts = {
   heading: 'Enchanted Land, sans-serif',
@@ -26,7 +25,6 @@ const styles = {
       overscrollBehavior: 'none',
       color: 'arsenic',
     },
-    ...tiptapStyle,
   },
 }
 
