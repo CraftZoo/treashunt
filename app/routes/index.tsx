@@ -1,5 +1,7 @@
-import { Box, Stack } from '@chakra-ui/react'
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node'
+
+import { Box, Stack } from '@chakra-ui/react'
+
 import {
   LoginFormAction,
   LoginFormLoader,

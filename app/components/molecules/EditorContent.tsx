@@ -1,12 +1,14 @@
-import type { BoxProps } from '@chakra-ui/react'
+import { useEffect } from 'react'
+
 import { Box, Divider, MenuItem } from '@chakra-ui/react'
+import type { BoxProps } from '@chakra-ui/react'
+
+import Heading from '@tiptap/extension-heading'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import type { EditorEvents } from '@tiptap/react'
 import { EditorContent as TipTapEditor, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { useEffect } from 'react'
-
 import {
   Bold,
   Code,
@@ -20,7 +22,7 @@ import {
   ListPlus,
   Quote,
 } from 'lucide-react'
-import Heading from '@tiptap/extension-heading'
+
 import EditorOptionButton from '~/components/atoms/EditorOptionButton'
 import EditorOptionMenu from '~/components/atoms/EditorOptionMenu'
 import EditorOptionsWrapper from '~/components/atoms/EditorOptionsWrapper'

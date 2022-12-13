@@ -1,6 +1,8 @@
-import { Menu, MenuButton, IconButton, MenuList } from '@chakra-ui/react'
-import { Heading } from 'lucide-react'
 import type { ReactNode } from 'react'
+
+import { Menu, MenuButton, IconButton, MenuList } from '@chakra-ui/react'
+
+import { Heading } from 'lucide-react'
 
 export type EditorOptionMenuProps = {
   children: ReactNode

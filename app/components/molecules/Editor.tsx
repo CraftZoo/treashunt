@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
+
 import type { BoxProps } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
+
+import Heading from '@tiptap/extension-heading'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import type { EditorEvents } from '@tiptap/react'
@@ -9,7 +12,6 @@ import StarterKit from '@tiptap/starter-kit'
 
 import EditorField from './EditorField'
 import EditorToolbar from './EditorToolbar'
-import Heading from '@tiptap/extension-heading'
 
 export type EditorProps = {
   value: string

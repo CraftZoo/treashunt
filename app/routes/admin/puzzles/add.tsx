@@ -1,6 +1,7 @@
 import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json, redirect, Response } from '@remix-run/node'
 import { Form, Link, useActionData, useTransition } from '@remix-run/react'
+
 import shortUUID from 'short-uuid'
 
 import { createPuzzle } from '~/models/puzzle.server'

@@ -1,5 +1,7 @@
 import { Box, Button, Image, Heading, HStack, Flex } from '@chakra-ui/react'
+
 import type { Puzzle } from '~/models/puzzle.server'
+
 import Form from '../atoms/Form'
 import SidebarMenu from '../molecules/SidebarMenu'
 

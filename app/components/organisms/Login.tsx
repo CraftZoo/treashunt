@@ -6,6 +6,7 @@ import {
   VisuallyHidden,
   Image,
 } from '@chakra-ui/react'
+
 import LoginForm from '../molecules/LoginForm'
 
 const Login = () => {
