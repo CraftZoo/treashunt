@@ -61,5 +61,6 @@
   },
   "engines": {
     "node": ">=14"
-  }
+  },
+  "eslintIgnore": ["public/vendor/snow.js"]
 }

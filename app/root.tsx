@@ -40,6 +40,7 @@ function Document({
         <Meta />
         <title>{title}</title>
         <Links />
+        <script src="/vendor/snow.js" defer></script>
       </head>
       <body>
         {children}
