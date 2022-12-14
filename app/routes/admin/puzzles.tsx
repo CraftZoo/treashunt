@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 
 const PuzzlesRoute = () => {
   return (
-    <Box as="main">
+    <Box as="main" height="full">
       <Outlet />
     </Box>
   )
