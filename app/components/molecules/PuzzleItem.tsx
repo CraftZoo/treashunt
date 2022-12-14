@@ -11,17 +11,9 @@ export { action } from './PuzzleActionMenu'
 
 type PuzzleItemProps = Pick<Puzzle, 'id' | 'slug' | 'question' | 'answer'> & {
   index: number
-  isLoading: boolean
 }
 
-const PuzzleItem = ({
-  id,
-  slug,
-  question,
-  answer,
-  index,
-  isLoading,
-}: PuzzleItemProps) => {
+const PuzzleItem = ({ id, slug, question, answer, index }: PuzzleItemProps) => {
   const link = `/puzzles/${slug}`
 
   return (

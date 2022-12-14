@@ -2,8 +2,9 @@ import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
+import Header from '~/components/organisms/Header'
 import Sidebar from '~/components/organisms/Sidebar'
 import { getPuzzleListItemsId } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
@@ -25,20 +26,11 @@ const AdminRoute = () => {
   const { puzzles } = useLoaderData<typeof loader>()
 
   return (
-    <Grid
-      gridTemplateAreas={`
-      "sidebar main"
-    `}
-      gridTemplateColumns="300px 1fr"
-      h="full"
-    >
-      <GridItem gridArea="sidebar">
-        <Sidebar puzzles={puzzles} />
-      </GridItem>
-      <GridItem gridArea="main">
-        <Outlet />
-      </GridItem>
-    </Grid>
+    <Box pl={{ sm: 300 }}>
+      <Header />
+      <Sidebar puzzles={puzzles} />
+      <Outlet />
+    </Box>
   )
 }
 

@@ -7,7 +7,13 @@ export { action, loader } from '~/components/organisms/PuzzleList'
 
 const PuzzlesRoute = () => {
   return (
-    <VStack height="full" py={10} px={8} gap={8} bg="aliceblue">
+    <VStack
+      height="full"
+      py={{ base: 5, sm: 10 }}
+      px={{ base: 4, sm: 8 }}
+      gap={{ base: 4, sm: 8 }}
+      bg="aliceblue"
+    >
       <PuzzleListHeader />
       <PuzzleList />
     </VStack>
