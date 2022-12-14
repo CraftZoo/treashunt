@@ -46,7 +46,7 @@ export const ConnectedPuzzleUpsertFormAction: ActionFunction = async ({
 
   await updatePuzzle(values)
 
-  return json({ success: `L'enigme a bien ete mise à jour` })
+  return json({ success: "L'énigme a été mise à jour" })
 }
 
 type ConnectedPuzzleUpsertFormProps = {
