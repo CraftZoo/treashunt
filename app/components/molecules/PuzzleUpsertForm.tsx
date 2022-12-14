@@ -11,7 +11,7 @@ import { z } from 'zod'
 import Fieldset from '../atoms/Fieldset'
 import Form from '../atoms/Form'
 
-import EditorContent from './EditorContent'
+import Editor from './Editor'
 
 export const PuzzleUpsertFormSchema = () =>
   z.object({
@@ -61,7 +61,7 @@ const PuzzleUpsertForm = ({
           name="question"
           control={control}
           render={({ field: { ...rest } }) => (
-            <EditorContent defaultValue={defaultValues.question} {...rest} />
+            <Editor defaultValue={defaultValues.question} {...rest} />
           )}
         />
 
@@ -69,7 +69,7 @@ const PuzzleUpsertForm = ({
           name="answer"
           control={control}
           render={({ field: { ...rest } }) => (
-            <EditorContent defaultValue={defaultValues.answer} {...rest} />
+            <Editor defaultValue={defaultValues.answer} {...rest} />
           )}
         />
         <Controller
