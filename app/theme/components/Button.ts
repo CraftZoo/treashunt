@@ -17,6 +17,11 @@ export default defineStyleConfig({
         boxShadow: 'md',
       },
     },
+    link: {
+      p: 2,
+      minWidth: 'revert',
+      borderRadius: 'xl',
+    },
   },
   defaultProps: {
     size: 'lg',
