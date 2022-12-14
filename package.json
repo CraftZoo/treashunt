@@ -8,7 +8,8 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "gen:theme-typings": "chakra-cli tokens app/theme/theme.ts",
-    "postinstall": "yarn gen:theme-typings"
+    "postinstall": "yarn gen:theme-typings",
+    "lint": "eslint --ext .tsx,.ts app/"
   },
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"
@@ -19,6 +20,7 @@
     "@emotion/server": "^11",
     "@emotion/styled": "^11",
     "@fontsource/source-sans-pro": "^4.5.11",
+    "@hookform/resolvers": "^2.9.10",
     "@prisma/client": "^4.6.1",
     "@remix-run/node": "^1.8.1",
     "@remix-run/react": "^1.8.1",
@@ -42,7 +44,9 @@
     "prosemirror-schema-list": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "short-uuid": "^4.2.2"
+    "react-hook-form": "^7.40.0",
+    "short-uuid": "^4.2.2",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@chakra-ui/cli": "^2.2.0",
@@ -62,5 +66,7 @@
   "engines": {
     "node": ">=14"
   },
-  "eslintIgnore": ["public/vendor/snow.js"]
+  "eslintIgnore": [
+    "public/vendor/snow.js"
+  ]
 }

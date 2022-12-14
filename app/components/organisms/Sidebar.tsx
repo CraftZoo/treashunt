@@ -31,7 +31,7 @@ const Sidebar = ({ puzzles }: SidebarProps) => {
       <SidebarMenu puzzles={puzzles} />
       <Box as="nav" w="full" mt="auto">
         <Form action="/logout" method="post">
-          <Button size="md" type="submit" w="full">
+          <Button bg="americanpurple" size="md" type="submit" w="full">
             Déconnexion
           </Button>
         </Form>

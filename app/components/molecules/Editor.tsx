@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 
 import type { BoxProps } from '@chakra-ui/react'
-import { Box } from '@chakra-ui/react'
+import { Box, forwardRef } from '@chakra-ui/react'
 
 import Heading from '@tiptap/extension-heading'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
-import type { EditorEvents } from '@tiptap/react'
 import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
@@ -15,41 +14,53 @@ import EditorToolbar from './EditorToolbar'
 
 export type EditorProps = {
   value: string
+  defaultValue: string
   placeholder?: string
-  onChange: (value: EditorEvents['update']) => void
+  name: string
+  onChange: (value: string) => void
 } & BoxProps
 
-const Editor = ({ value, placeholder, onChange, ...rest }: EditorProps) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Heading.configure({
-        levels: [1, 2, 3, 4],
-      }),
-      Placeholder.configure({
-        placeholder: placeholder || 'Insérer votre texte',
-      }),
-    ],
-    onUpdate: onChange,
-    autofocus: true,
-    content: value,
-  })
+const Editor = forwardRef<EditorProps, 'div'>(
+  ({ value, defaultValue, name, placeholder, onChange, ...rest }, ref) => {
+    const editor = useEditor({
+      extensions: [
+        StarterKit,
+        Underline,
+        Heading.configure({
+          levels: [1, 2, 3, 4],
+        }),
+        Placeholder.configure({
+          placeholder: placeholder || 'Insérer votre texte',
+        }),
+      ],
+      onUpdate: ({ editor }) => onChange(editor.getHTML()),
+      autofocus: true,
+      content: defaultValue,
+    })
 
-  useEffect(() => {
-    editor && editor.setOptions({ content: value })
-  }, [editor, value])
+    useEffect(() => {
+      editor && editor.commands.setContent(defaultValue)
+    }, [editor, defaultValue])
 
-  if (!editor) {
-    return null
+    if (!editor) {
+      return null
+    }
+
+    return (
+      <Box
+        position="relative"
+        w="full"
+        borderRadius="xl"
+        boxShadow="sm"
+        ref={ref}
+        {...rest}
+      >
+        <input name={name} value={value} readOnly hidden />
+        <EditorToolbar editor={editor} />
+        <EditorField editor={editor} />
+      </Box>
+    )
   }
-
-  return (
-    <Box position="relative" p={4} {...rest} bg="white">
-      <EditorToolbar editor={editor} />
-      <EditorField editor={editor} />
-    </Box>
-  )
-}
+)
 
 export default Editor

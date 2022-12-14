@@ -1,4 +1,4 @@
-import { Divider, MenuItem } from '@chakra-ui/react'
+import { MenuItem } from '@chakra-ui/react'
 
 import type { Editor } from '@tiptap/react'
 import {
@@ -9,10 +9,10 @@ import {
   Heading3,
   Heading4,
   Italic,
-  LineChart,
   ListOrdered,
   ListPlus,
   Quote,
+  Underline,
 } from 'lucide-react'
 
 import EditorOptionButton from '~/components/atoms/EditorOptionButton'
@@ -26,27 +26,31 @@ interface EditorToolbarProps {
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   return (
     <EditorOptionsWrapper>
-      <EditorOptionMenu>
+      <EditorOptionMenu isActive={editor.isActive('heading')}>
         <EditorOptionButton
           as={MenuItem}
+          isActive={editor.isActive('heading', { level: 1 })}
           aria-label="Définir un titre de premier niveau"
           icon={<Heading1 />}
           onClick={() => editor.chain().focus().setHeading({ level: 1 }).run()}
         />
         <EditorOptionButton
           as={MenuItem}
+          isActive={editor.isActive('heading', { level: 2 })}
           aria-label="Définir un titre de deuxième niveau"
           icon={<Heading2 />}
           onClick={() => editor.chain().focus().setHeading({ level: 2 }).run()}
         />
         <EditorOptionButton
           as={MenuItem}
+          isActive={editor.isActive('heading', { level: 3 })}
           aria-label="Définir un titre de troisème niveau"
           icon={<Heading3 />}
           onClick={() => editor.chain().focus().setHeading({ level: 3 }).run()}
         />
         <EditorOptionButton
           as={MenuItem}
+          isActive={editor.isActive('heading', { level: 4 })}
           aria-label="Définir un titre de quatrième niveau"
           icon={<Heading4 />}
           onClick={() =>
@@ -69,11 +73,10 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       />
       <EditorOptionButton
         aria-label="Mettre en souligné"
-        icon={<LineChart />}
+        icon={<Underline />}
         isActive={editor.isActive('underline')}
         onClick={() => editor.chain().focus().toggleUnderline().run()}
       />
-      <Divider orientation="vertical" />
       <EditorOptionButton
         aria-label="Définir une liste à puce"
         icon={<ListPlus />}
@@ -86,7 +89,6 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         isActive={editor.isActive('orderedList')}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
       />
-      <Divider orientation="vertical" />
       <EditorOptionButton
         aria-label="Définir un bloc de code"
         icon={<Code />}

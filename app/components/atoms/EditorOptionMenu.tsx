@@ -6,19 +6,36 @@ import { Heading } from 'lucide-react'
 
 export type EditorOptionMenuProps = {
   children: ReactNode
+  isActive?: boolean
 }
 
-const EditorOptionMenu = ({ children }: EditorOptionMenuProps) => {
+const EditorOptionMenu = ({ children, isActive }: EditorOptionMenuProps) => {
   return (
     <Menu>
       <MenuButton
         as={IconButton}
         aria-label="Options"
         icon={<Heading />}
-        variant="outline"
+        variant="ghost"
+        borderRadius="none"
         px={2}
+        py={0}
+        h="full"
+        aria-pressed={isActive}
+        _hover={{
+          bg: 'secondary',
+          color: 'text',
+        }}
+        _active={{
+          bg: 'primary',
+          color: 'white',
+        }}
+        _pressed={{
+          bg: 'primary',
+          color: 'white',
+        }}
       />
-      <MenuList>{children}</MenuList>
+      <MenuList color="text">{children}</MenuList>
     </Menu>
   )
 }

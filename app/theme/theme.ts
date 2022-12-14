@@ -20,7 +20,7 @@ const styles = {
   global: {
     'html, body': {
       height: '100%',
-      background: 'white',
+      background: 'aliceblue',
       webkitFontSmoothing: 'antialiased',
       mozOsxFontSmoothing: 'grayscale',
       overscrollBehavior: 'none',
@@ -39,7 +39,7 @@ export const mediaBreakpoints = {
 
 const semanticTokens = {
   colors: {
-    primary: { default: 'grape' },
+    primary: { default: 'grape.500' },
     secondary: { default: 'brillantlavender' },
     text: { default: 'arsenic' },
     heading: { default: 'darkpurple' },
