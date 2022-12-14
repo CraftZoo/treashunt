@@ -1,6 +1,6 @@
 import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { useLoaderData, useTransition } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 
 import { Grid } from '@chakra-ui/react'
 
@@ -28,21 +28,15 @@ const PuzzleList = () => {
   const { puzzles } = useLoaderData<typeof loader>()
   const numberOfPuzzles = puzzles.length
 
-  const transition = useTransition()
-  const isSubmitting = transition.state === 'submitting'
-
   return (
     <Grid
       as="section"
-      gap={6}
-      gridTemplateColumns="repeat(auto-fit, minmax(344px, 1fr))"
+      gap={{ base: 3, sm: 6 }}
+      gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       width="full"
     >
       {puzzles.map((puzzle, index) => {
         const { id, slug, question, answer } = puzzle
-
-        const isCurrentPuzzle = transition.submission?.formData.get('id') === id
-        const isLoading = isSubmitting && isCurrentPuzzle
 
         return (
           <PuzzleItem
@@ -52,7 +46,6 @@ const PuzzleList = () => {
             question={question}
             answer={answer}
             index={numberOfPuzzles - index}
-            isLoading={isLoading}
           />
         )
       })}

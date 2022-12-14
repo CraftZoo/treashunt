@@ -10,7 +10,7 @@ const PuzzleListHeader = () => (
     <Button as={Link} to="/admin/puzzles/add">
       <Plus />
       <Spacer width={2} />
-      Ajouter une nouvelle énigme
+      Nouvelle énigme
     </Button>
   </HStack>
 )
