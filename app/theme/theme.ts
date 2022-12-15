@@ -40,7 +40,7 @@ export const mediaBreakpoints = {
 const semanticTokens = {
   colors: {
     primary: { default: 'grape.500' },
-    secondary: { default: 'brillantlavender' },
+    secondary: { default: 'brillantlavender.500' },
     text: { default: 'arsenic' },
     heading: { default: 'darkpurple' },
     'background.dark': { default: 'darkpurple' },

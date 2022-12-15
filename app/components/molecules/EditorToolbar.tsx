@@ -1,4 +1,4 @@
-import { MenuItem } from '@chakra-ui/react'
+import { Divider } from '@chakra-ui/react'
 
 import type { Editor } from '@tiptap/react'
 import {
@@ -11,12 +11,15 @@ import {
   Italic,
   ListOrdered,
   ListPlus,
+  Pilcrow,
   Quote,
+  Redo,
+  SeparatorHorizontal,
   Underline,
+  Undo,
 } from 'lucide-react'
 
 import EditorOptionButton from '~/components/atoms/EditorOptionButton'
-import EditorOptionMenu from '~/components/atoms/EditorOptionMenu'
 import EditorOptionsWrapper from '~/components/atoms/EditorOptionsWrapper'
 
 interface EditorToolbarProps {
@@ -26,39 +29,6 @@ interface EditorToolbarProps {
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   return (
     <EditorOptionsWrapper>
-      <EditorOptionMenu isActive={editor.isActive('heading')}>
-        <EditorOptionButton
-          as={MenuItem}
-          isActive={editor.isActive('heading', { level: 1 })}
-          aria-label="Définir un titre de premier niveau"
-          icon={<Heading1 />}
-          onClick={() => editor.chain().focus().setHeading({ level: 1 }).run()}
-        />
-        <EditorOptionButton
-          as={MenuItem}
-          isActive={editor.isActive('heading', { level: 2 })}
-          aria-label="Définir un titre de deuxième niveau"
-          icon={<Heading2 />}
-          onClick={() => editor.chain().focus().setHeading({ level: 2 }).run()}
-        />
-        <EditorOptionButton
-          as={MenuItem}
-          isActive={editor.isActive('heading', { level: 3 })}
-          aria-label="Définir un titre de troisème niveau"
-          icon={<Heading3 />}
-          onClick={() => editor.chain().focus().setHeading({ level: 3 }).run()}
-        />
-        <EditorOptionButton
-          as={MenuItem}
-          isActive={editor.isActive('heading', { level: 4 })}
-          aria-label="Définir un titre de quatrième niveau"
-          icon={<Heading4 />}
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 4 }).run()
-          }
-        />
-      </EditorOptionMenu>
-
       <EditorOptionButton
         aria-label="Mettre en gras"
         icon={<Bold />}
@@ -77,6 +47,37 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         isActive={editor.isActive('underline')}
         onClick={() => editor.chain().focus().toggleUnderline().run()}
       />
+      <Divider orientation="vertical" />
+      <EditorOptionButton
+        isActive={editor.isActive('heading', { level: 1 })}
+        aria-label="Définir un titre de premier niveau"
+        icon={<Heading1 />}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+      />
+      <EditorOptionButton
+        isActive={editor.isActive('heading', { level: 2 })}
+        aria-label="Définir un titre de deuxième niveau"
+        icon={<Heading2 />}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+      />
+      <EditorOptionButton
+        isActive={editor.isActive('heading', { level: 3 })}
+        aria-label="Définir un titre de troisème niveau"
+        icon={<Heading3 />}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+      />
+      <EditorOptionButton
+        isActive={editor.isActive('heading', { level: 4 })}
+        aria-label="Définir un titre de quatrième niveau"
+        icon={<Heading4 />}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+      />
+      <EditorOptionButton
+        aria-label="Définir un paragraphe"
+        icon={<Pilcrow />}
+        isActive={editor.isActive('paragraph')}
+        onClick={() => editor.chain().focus().setParagraph().run()}
+      />
       <EditorOptionButton
         aria-label="Définir une liste à puce"
         icon={<ListPlus />}
@@ -89,6 +90,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         isActive={editor.isActive('orderedList')}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
       />
+      <Divider orientation="vertical" />
       <EditorOptionButton
         aria-label="Définir un bloc de code"
         icon={<Code />}
@@ -100,6 +102,23 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         icon={<Quote />}
         isActive={editor.isActive('blockquote')}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
+      />
+      <EditorOptionButton
+        aria-label="Définir une règle horizontale"
+        icon={<SeparatorHorizontal />}
+        onClick={() => editor.chain().setHorizontalRule().run()}
+      />
+      <Divider orientation="vertical" />
+
+      <EditorOptionButton
+        aria-label="Revenir en arrière"
+        icon={<Undo />}
+        onClick={() => editor.chain().undo().run()}
+      />
+      <EditorOptionButton
+        aria-label="Revenir en avant"
+        icon={<Redo />}
+        onClick={() => editor.chain().redo().run()}
       />
     </EditorOptionsWrapper>
   )
