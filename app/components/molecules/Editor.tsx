@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import type { BoxProps } from '@chakra-ui/react'
 import { Box, forwardRef } from '@chakra-ui/react'
 
-import Heading from '@tiptap/extension-heading'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import { useEditor } from '@tiptap/react'
@@ -13,27 +12,29 @@ import EditorField from './EditorField'
 import EditorToolbar from './EditorToolbar'
 
 export type EditorProps = {
-  value: string
   defaultValue: string
   placeholder?: string
   name: string
-  onChange: (value: string) => void
 } & BoxProps
 
 const Editor = forwardRef<EditorProps, 'div'>(
-  ({ value, defaultValue, name, placeholder, onChange, ...rest }, ref) => {
+  ({ defaultValue, name, placeholder, onChange, ...rest }, ref) => {
+    const [value, setValue] = useState<string>(defaultValue)
+
     const editor = useEditor({
       extensions: [
-        StarterKit,
-        Underline,
-        Heading.configure({
-          levels: [1, 2, 3, 4],
+        StarterKit.configure({
+          heading: {
+            levels: [1, 2, 3, 4],
+          },
         }),
+        Underline,
+
         Placeholder.configure({
           placeholder: placeholder || 'Insérer votre texte',
         }),
       ],
-      onUpdate: ({ editor }) => onChange(editor.getHTML()),
+      onUpdate: ({ editor }) => setValue(editor.getHTML()),
       autofocus: true,
       content: defaultValue,
     })

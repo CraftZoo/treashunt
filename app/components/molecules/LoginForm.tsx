@@ -20,6 +20,7 @@ const LoginFields = z.object({
   username: z.string().min(3, 'Ce champ est requis'),
   password: z.string().min(6, 'Ce champ est requis'),
 })
+
 type LoginFields = z.infer<typeof LoginFields>
 type LoginFieldsErrors = inferSafeParseErrors<typeof LoginFields>
 

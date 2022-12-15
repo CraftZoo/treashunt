@@ -32,7 +32,7 @@ const EditorOptionButton = forwardRef<EditorOptionButtonProps, 'button'>(
           color: 'white',
         }}
         _pressed={{
-          bg: 'primary',
+          bg: 'grape.300',
           color: 'white',
         }}
         {...rest}

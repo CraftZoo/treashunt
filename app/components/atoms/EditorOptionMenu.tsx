@@ -31,7 +31,7 @@ const EditorOptionMenu = ({ children, isActive }: EditorOptionMenuProps) => {
           color: 'white',
         }}
         _pressed={{
-          bg: 'primary',
+          bg: 'grape.300',
           color: 'white',
         }}
       />
