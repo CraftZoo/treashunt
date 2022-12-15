@@ -18,9 +18,11 @@ const EditorOptionsWrapper = ({
       {...rest}
     >
       <Flex
-        bg="gray.50"
+        bg="white"
         alignItems="center"
         h={10}
+        px={2}
+        gap={2}
         borderTopRadius="xl"
         border="1px solid"
         borderColor="gray.100"

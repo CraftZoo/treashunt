@@ -20,10 +20,10 @@ const LogoutButton = ({ variant = 'button' }: LogoutButtonProps) => {
         type="submit"
         w="full"
         gap={2}
-        bg="americanpurple"
+        bg="americanpurple.700"
         textTransform="uppercase"
         _hover={{
-          bg: 'brillantlavender',
+          bg: 'brillantlavender.400',
           color: 'grape.500',
         }}
       >

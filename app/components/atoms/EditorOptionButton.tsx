@@ -15,11 +15,11 @@ const EditorOptionButton = forwardRef<EditorOptionButtonProps, 'button'>(
       <IconButton
         ref={ref}
         aria-pressed={isActive}
-        borderRadius="none"
-        px={2}
-        py={0}
-        h="full"
         icon={icon}
+        minW="unset"
+        borderRadius="md"
+        p={1}
+        boxSize={7}
         bg="transparent"
         color="text"
         transition="all 200ms"
