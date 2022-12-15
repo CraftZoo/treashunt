@@ -70,17 +70,15 @@ export const requireUser = async (request: Request) => {
 type CreateUserSession = {
   request: Request
   userId: string
-  redirectTo: string
 }
 export const createUserSession = async ({
   request,
   userId,
-  redirectTo,
 }: CreateUserSession) => {
   const session = await getSession(request)
   session.set(USER_SESSION_KEY, userId)
 
-  return redirect(redirectTo, {
+  return redirect('/', {
     headers: {
       'Set-Cookie': await sessionStorage.commitSession(session),
     },
