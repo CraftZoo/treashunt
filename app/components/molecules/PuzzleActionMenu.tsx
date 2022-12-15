@@ -1,6 +1,7 @@
+import { Link } from '@remix-run/react'
+
 import {
   IconButton,
-  Link,
   Menu,
   MenuButton,
   MenuItem,

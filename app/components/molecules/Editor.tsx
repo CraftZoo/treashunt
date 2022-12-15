@@ -41,6 +41,7 @@ const Editor = forwardRef<EditorProps, 'div'>(
 
     useEffect(() => {
       editor && editor.commands.setContent(defaultValue)
+      setValue(defaultValue)
     }, [editor, defaultValue])
 
     if (!editor) {
