@@ -4,13 +4,12 @@ import { useLoaderData } from '@remix-run/react'
 
 import { Box, Heading } from '@chakra-ui/react'
 
-import ConnectedPuzzleUpsertForm, {
-  ConnectedPuzzleUpsertFormAction,
-} from '~/components/organisms/ConnectedPuzzleUpsertForm'
+import { PuzzleUpdateFormAction } from '~/components/molecules/PuzzleUpdateForm'
+import PuzzleDetails from '~/components/organisms/PuzzleDetails'
 import { getPuzzle } from '~/models/puzzle.server'
 
 export const action: ActionFunction = async params => {
-  return ConnectedPuzzleUpsertFormAction(params)
+  return PuzzleUpdateFormAction(params)
 }
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -36,8 +35,7 @@ const PuzzleIdRoute = () => {
 
   return (
     <Box py={4} px={6}>
-      <Heading mb={8}>Modifier une enigme</Heading>
-      <ConnectedPuzzleUpsertForm puzzle={puzzle} />
+      <PuzzleDetails puzzle={puzzle} />
     </Box>
   )
 }

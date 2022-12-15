@@ -16,7 +16,7 @@ const SidebarLink = ({ children, icon, ...rest }: SidebarLinkProps) => {
         as={icon}
         transition="250ms ease-in-out"
         css={{
-          'backface-visibility': 'hidden',
+          backfaceVisibility: 'hidden',
         }}
         _groupHover={{
           transform: 'scale(1.05)',
