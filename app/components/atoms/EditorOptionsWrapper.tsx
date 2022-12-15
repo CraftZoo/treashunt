@@ -24,11 +24,6 @@ const EditorOptionsWrapper = ({
         borderTopRadius="xl"
         border="1px solid"
         borderColor="gray.100"
-        sx={{
-          '& > *:first-child': {
-            borderTopLeftRadius: 'xl',
-          },
-        }}
       >
         {children}
       </Flex>
