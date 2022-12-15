@@ -6,7 +6,7 @@ export default defineStyleConfig({
     outline: props => ({
       ...theme.components.Input.variants?.outline(props),
       field: {
-        borderRadius: 'full',
+        borderRadius: 'xl',
         bg: 'ghostwhite',
         borderColor: 'gray.200',
         _placeholder: { color: 'gray.400' },

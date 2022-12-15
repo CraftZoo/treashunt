@@ -1,10 +1,16 @@
-import React from 'react'
-
 import type { ActionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
-import { Alert, Button, Fade, FormControl, FormLabel } from '@chakra-ui/react'
+import {
+  Alert,
+  Button,
+  Fade,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+} from '@chakra-ui/react'
 
 import { Loader } from 'lucide-react'
 import { z } from 'zod'
@@ -15,11 +21,14 @@ import type { inferSafeParseErrors } from '~/utils'
 
 import Fieldset from '../atoms/Fieldset'
 import Form from '../atoms/Form'
+import Link from '../atoms/Link'
 import ValidationMessages from '../atoms/ValidationMessages'
 
 import Editor from './Editor'
 
 export const PuzzleSchema = z.object({
+  title: z.string().min(1, 'Ce champ est requis'),
+  subtitle: z.string().min(1, 'Ce champ est requis'),
   question: z.string(),
   answer: z.string(),
 })
@@ -47,16 +56,23 @@ export const PuzzleUpdateFormAction = async ({ request }: ActionArgs) => {
     })
   }
 
-  return updatePuzzle(fields)
+  await updatePuzzle(fields)
+
+  return redirect('/admin/puzzles')
 }
 
 type PuzzleUpdateFormProps = {
-  puzzle: Pick<Puzzle, 'id' | 'question' | 'answer' | 'slug'>
+  puzzle: Pick<
+    Puzzle,
+    'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug'
+  >
 }
 
 const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
   const defaultValues: PuzzleFields = {
     ...puzzle,
+    title: puzzle.title || '',
+    subtitle: puzzle.subtitle || '',
     answer: puzzle.answer || '',
     question: puzzle.question || '',
   }
@@ -67,14 +83,37 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
   const isSubmitting = transition.state === 'submitting'
 
   const hasFormError = Boolean(actionData?.formError)
+  const hasInvalidTitle = Boolean(actionData?.fieldErrors?.title?.length)
+  const hasInvalidSubtitle = Boolean(actionData?.fieldErrors?.subtitle?.length)
   const hasInvalidQuestion = Boolean(actionData?.fieldErrors?.question?.length)
   const hasInvalidAnswer = Boolean(actionData?.fieldErrors?.answer?.length)
 
   return (
     <Form method="post">
       <Fieldset gap={6}>
+        <FormControl isInvalid={hasInvalidTitle}>
+          <FormLabel>Titre</FormLabel>
+          <Input
+            type="text"
+            name="title"
+            required
+            defaultValue={actionData?.fields?.title || defaultValues.title}
+            size="md"
+          />
+        </FormControl>
+        <FormControl isInvalid={hasInvalidSubtitle}>
+          <FormLabel>Sous-titre</FormLabel>
+          <Input
+            type="text"
+            name="subtitle"
+            defaultValue={
+              actionData?.fields?.subtitle || defaultValues.subtitle
+            }
+            size="md"
+          />
+        </FormControl>
         <FormControl isInvalid={hasInvalidQuestion}>
-          <FormLabel fontWeight="600">Question</FormLabel>
+          <FormLabel>Question</FormLabel>
           <Editor
             name="question"
             defaultValue={
@@ -88,7 +127,7 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
         </FormControl>
 
         <FormControl isInvalid={hasInvalidAnswer}>
-          <FormLabel fontWeight="600">Answer</FormLabel>
+          <FormLabel>Réponse</FormLabel>
           <Editor
             name="answer"
             defaultValue={actionData?.fields?.answer || defaultValues.answer}
@@ -112,16 +151,26 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
           readOnly
           defaultValue={defaultValues.slug}
         />
-        <Button type="submit" variant="secondary" w="min-content">
-          {isSubmitting ? (
-            <>
-              <Loader />
-              Sauvegarde en cours
-            </>
-          ) : (
-            'Sauvegarder'
-          )}
-        </Button>
+        <HStack ml="auto">
+          <Button
+            as={Link}
+            variant="outline"
+            to="/admin/puzzles"
+            w="min-content"
+          >
+            Annuler
+          </Button>
+          <Button type="submit" variant="secondary" w="min-content">
+            {isSubmitting ? (
+              <>
+                <Loader />
+                Sauvegarde en cours
+              </>
+            ) : (
+              'Sauvegarder'
+            )}
+          </Button>
+        </HStack>
         <Fade in={hasFormError}>
           <Alert status="error">{actionData?.formError}</Alert>
         </Fade>

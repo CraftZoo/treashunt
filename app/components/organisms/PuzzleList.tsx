@@ -26,7 +26,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 const PuzzleList = () => {
   const { puzzles } = useLoaderData<typeof loader>()
-  const numberOfPuzzles = puzzles.length
 
   return (
     <Grid
@@ -35,19 +34,10 @@ const PuzzleList = () => {
       gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
       width="full"
     >
-      {puzzles.map((puzzle, index) => {
-        const { id, slug, question, answer } = puzzle
+      {puzzles.map(puzzle => {
+        const { id } = puzzle
 
-        return (
-          <PuzzleItem
-            key={id}
-            id={id}
-            slug={slug}
-            question={question}
-            answer={answer}
-            index={numberOfPuzzles - index}
-          />
-        )
+        return <PuzzleItem key={id} puzzle={puzzle} />
       })}
     </Grid>
   )

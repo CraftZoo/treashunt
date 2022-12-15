@@ -74,13 +74,14 @@ const LoginForm = () => {
     <Form method="post">
       <Fieldset disabled={isSubmitting} gap={6}>
         <FormControl isInvalid={hasInvalidUsername}>
-          <FormLabel fontWeight="600">Identifiant</FormLabel>
+          <FormLabel>Identifiant</FormLabel>
           <Input
             type="text"
             name="username"
             required
             minLength={3}
             defaultValue={actionData?.fields?.username}
+            borderRadius="full"
           />
           {actionData?.fieldErrors?.username?.length ? (
             <ValidationMessages errors={actionData.fieldErrors.username} />
@@ -88,12 +89,13 @@ const LoginForm = () => {
         </FormControl>
 
         <FormControl isInvalid={hasInvalidPassword}>
-          <FormLabel fontWeight="600">Mot de passe</FormLabel>
+          <FormLabel>Mot de passe</FormLabel>
           <PasswordInput
             name="password"
             isRequired
             minLength={6}
             defaultValue={actionData?.fields?.password}
+            borderRadius="full"
           />
           {actionData?.fieldErrors?.password?.length ? (
             <ValidationMessages errors={actionData.fieldErrors.password} />

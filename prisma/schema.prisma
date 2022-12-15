@@ -32,6 +32,8 @@ model Puzzle {
   id   String @id @default(uuid())
   slug String @unique
 
+  title    String
+  subtitle String?
   question String?
   answer   String?
 

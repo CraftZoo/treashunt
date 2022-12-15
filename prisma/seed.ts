@@ -51,23 +51,30 @@ seed()
 
 const puzzles = [
   {
+    title: "Place d'Antirgues",
+    subtitle: 'Premier chapitre',
     question:
       "Toute chose, il dévore. Il ronge le fer, fait disparaître l'acier et réduit les pierres en poussière. Qui est-ce ?",
     answer: 'Le temps',
   },
   {
+    title: 'Rue de Payonne',
     question: 'Quelle est la lettre la plus tranchante ?',
     answer: 'La H',
   },
   {
+    title: 'Puie Mariveil',
     question: 'Quelle lettre peut-on lancer dans tous les sens ?',
     answer: 'Le D',
   },
   {
+    title: 'Clos Clerzieu',
+    subtitle: 'Deuxième chapitre',
     question: 'Qui a deux branches, mais pas de feuilles ?',
     answer: 'Les lunettes',
   },
   {
+    title: 'Avenue Payonne',
     question: 'Qui a deux aiguilles, mais ne pique pas ?',
     answer: 'Une montre',
   },

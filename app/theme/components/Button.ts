@@ -4,7 +4,7 @@ export default defineStyleConfig({
   baseStyle: {
     borderRadius: 'full',
     _hover: {
-      boxShadow: 'lg',
+      boxShadow: 'md',
     },
     fontWeight: 600,
   },
@@ -14,7 +14,7 @@ export default defineStyleConfig({
       color: 'primary',
       fontWeight: 600,
       _hover: {
-        boxShadow: 'md',
+        bg: 'pinklace',
       },
     },
     link: {
