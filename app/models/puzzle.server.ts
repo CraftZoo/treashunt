@@ -1,5 +1,7 @@
 import type { Puzzle } from '@prisma/client'
 
+import shortUUID from 'short-uuid'
+
 import { db } from '~/db.server'
 
 export type { Puzzle } from '@prisma/client'
@@ -39,19 +41,15 @@ export const getPuzzleListItems = () =>
 export const createPuzzle = ({
   title,
   subtitle,
-  slug,
   question,
   answer,
   authorId,
-}: Pick<
-  Puzzle,
-  'title' | 'subtitle' | 'slug' | 'question' | 'answer' | 'authorId'
->) =>
+}: Pick<Puzzle, 'title' | 'subtitle' | 'question' | 'answer' | 'authorId'>) =>
   db.puzzle.create({
     data: {
       title,
       subtitle,
-      slug,
+      slug: shortUUID().generate(),
       question,
       answer,
       author: { connect: { id: authorId } },
@@ -62,16 +60,12 @@ export const updatePuzzle = ({
   id,
   title,
   subtitle,
-  slug,
   question,
   answer,
-}: Pick<
-  Puzzle,
-  'title' | 'subtitle' | 'id' | 'slug' | 'question' | 'answer'
->) =>
+}: Pick<Puzzle, 'title' | 'subtitle' | 'id' | 'question' | 'answer'>) =>
   db.puzzle.update({
     where: { id },
-    data: { title, subtitle, slug, question, answer },
+    data: { title, subtitle, question, answer },
   })
 
 export const deletePuzzle = ({ id }: Pick<Puzzle, 'id'>) =>

@@ -1,5 +1,5 @@
 import type { ActionArgs } from '@remix-run/node'
-import { json, redirect } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
 import {
@@ -28,13 +28,12 @@ import Editor from './Editor'
 
 export const PuzzleSchema = z.object({
   title: z.string().min(1, 'Ce champ est requis'),
-  subtitle: z.string().min(1, 'Ce champ est requis'),
+  subtitle: z.string(),
   question: z.string(),
   answer: z.string(),
 })
 
-export type PuzzleFields = z.infer<typeof PuzzleSchema> &
-  Pick<Puzzle, 'id' | 'slug'>
+export type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
 
 type PuzzleFieldsErrors = inferSafeParseErrors<typeof PuzzleSchema>
 
@@ -56,9 +55,7 @@ export const PuzzleUpdateFormAction = async ({ request }: ActionArgs) => {
     })
   }
 
-  await updatePuzzle(fields)
-
-  return redirect('/admin/puzzles')
+  return await updatePuzzle(fields)
 }
 
 type PuzzleUpdateFormProps = {
@@ -143,13 +140,6 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
           required
           readOnly
           defaultValue={defaultValues.id}
-        />
-        <input
-          name="slug"
-          type="hidden"
-          required
-          readOnly
-          defaultValue={defaultValues.slug}
         />
         <HStack ml="auto">
           <Button

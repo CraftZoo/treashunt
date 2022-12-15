@@ -2,8 +2,6 @@ import type { ActionFunction, LoaderArgs } from '@remix-run/node'
 import { json, redirect, Response } from '@remix-run/node'
 import { Form, Link, useActionData, useTransition } from '@remix-run/react'
 
-import shortUUID from 'short-uuid'
-
 import { createPuzzle } from '~/models/puzzle.server'
 import { getUserId } from '~/session.server'
 
@@ -20,8 +18,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const { title, subtitle, question, answer, slug } =
-    Object.fromEntries(formData)
+  const { title, subtitle, question, answer } = Object.fromEntries(formData)
 
   const authorId = await getUserId(request)
 
@@ -49,19 +46,13 @@ export const action: ActionFunction = async ({ request }) => {
       { status: 400 }
     )
 
-  if (typeof slug !== 'string' || slug.length < 8)
-    return json(
-      { formError: "Une erreur est survenue lors de l'envoi du formulaire" },
-      { status: 400 }
-    )
-
   if (!authorId)
     return json(
       { formError: 'Vous devez être connecté pour ajouter une énigme' },
       { status: 400 }
     )
 
-  await createPuzzle({ title, subtitle, question, answer, slug, authorId })
+  await createPuzzle({ title, subtitle, question, answer, authorId })
   return redirect('/')
 }
 
@@ -150,14 +141,6 @@ const AddPuzzleRoute = () => {
               </p>
             ) : null}
           </label>
-          <input
-            name="slug"
-            type="hidden"
-            minLength={8}
-            required
-            readOnly
-            defaultValue={actionData?.fields?.slug || shortUUID().generate()}
-          />
           <button type="submit">
             {isSubmitting ? 'Ajout en cours...' : 'Ajouter'}
           </button>
