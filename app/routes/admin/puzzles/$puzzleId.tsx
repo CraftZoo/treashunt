@@ -1,16 +1,11 @@
-import type { ActionFunction, LoaderArgs } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
-import { Box, Heading } from '@chakra-ui/react'
-
-import { PuzzleUpdateFormAction } from '~/components/molecules/PuzzleUpdateForm'
-import PuzzleDetails from '~/components/organisms/PuzzleDetails'
+import PuzzleUpdate from '~/components/organisms/PuzzleUpdate'
 import { getPuzzle } from '~/models/puzzle.server'
 
-export const action: ActionFunction = async params => {
-  return PuzzleUpdateFormAction(params)
-}
+export { action } from '~/components/organisms/PuzzleUpdate'
 
 export const loader = async ({ params }: LoaderArgs) => {
   const { puzzleId } = params
@@ -33,11 +28,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 const PuzzleIdRoute = () => {
   const { puzzle } = useLoaderData<typeof loader>()
 
-  return (
-    <Box py={4} px={6}>
-      <PuzzleDetails puzzle={puzzle} />
-    </Box>
-  )
+  return <PuzzleUpdate puzzle={puzzle} />
 }
 
 export default PuzzleIdRoute

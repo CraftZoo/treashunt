@@ -16,7 +16,8 @@ import { Loader } from 'lucide-react'
 import { z } from 'zod'
 
 import type { Puzzle } from '~/models/puzzle.server'
-import { updatePuzzle } from '~/models/puzzle.server'
+import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
+import { getUserId } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
 
 import Fieldset from '../atoms/Fieldset'
@@ -26,26 +27,28 @@ import ValidationMessages from '../atoms/ValidationMessages'
 
 import Editor from './Editor'
 
-export const PuzzleSchema = z.object({
+const PuzzleSchema = z.object({
   title: z.string().min(1, 'Ce champ est requis'),
   subtitle: z.string(),
   question: z.string(),
   answer: z.string(),
 })
-
-export type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
-
+type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
 type PuzzleFieldsErrors = inferSafeParseErrors<typeof PuzzleSchema>
 
 type ActionData = PuzzleFieldsErrors & {
   fields: PuzzleFields
 }
 
+type FormDataEntries = PuzzleFields & { _mode: Mode }
+
 const badRequest = (data: any) => json(data, { status: 400 })
 
-export const PuzzleUpdateFormAction = async ({ request }: ActionArgs) => {
+export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData()
-  const fields = Object.fromEntries(formData.entries()) as PuzzleFields
+  const { _mode, id, ...fields } = Object.fromEntries(
+    formData.entries()
+  ) as FormDataEntries
   const result = PuzzleSchema.safeParse(fields)
 
   if (!result.success) {
@@ -55,29 +58,52 @@ export const PuzzleUpdateFormAction = async ({ request }: ActionArgs) => {
     })
   }
 
-  return await updatePuzzle(fields)
+  if (_mode === 'update') return await updatePuzzle({ id, ...fields })
+
+  const authorId = await getUserId(request)
+  if (!authorId)
+    return json(
+      { formError: 'Vous devez être connecté pour ajouter une énigme' },
+      { status: 400 }
+    )
+
+  return await createPuzzle({ authorId, ...fields })
 }
 
-type PuzzleUpdateFormProps = {
-  puzzle: Pick<
-    Puzzle,
-    'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug'
-  >
-}
+type Mode = 'creation' | 'update'
+type PuzzleFormProps =
+  | {
+      mode: 'update'
+      puzzle: Pick<
+        Puzzle,
+        'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug'
+      >
+    }
+  | { mode: 'creation'; puzzle?: never }
 
-const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
-  const defaultValues: PuzzleFields = {
-    ...puzzle,
-    title: puzzle.title || '',
-    subtitle: puzzle.subtitle || '',
-    answer: puzzle.answer || '',
-    question: puzzle.question || '',
-  }
-
+const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const actionData = useActionData<ActionData>()
 
   const transition = useTransition()
   const isSubmitting = transition.state === 'submitting'
+
+  const isUpdate = mode === 'update'
+
+  const defaultValues: PuzzleFields = {
+    id: puzzle?.id || '',
+    title: puzzle?.title || '',
+    subtitle: puzzle?.subtitle || '',
+    answer: puzzle?.answer || '',
+    question: puzzle?.question || '',
+  }
+
+  const values: PuzzleFields = {
+    id: actionData?.fields?.id || defaultValues.id,
+    title: actionData?.fields?.title || defaultValues.title,
+    subtitle: actionData?.fields?.subtitle || defaultValues.subtitle,
+    answer: actionData?.fields?.answer || defaultValues.answer,
+    question: actionData?.fields?.question || defaultValues.question,
+  }
 
   const hasFormError = Boolean(actionData?.formError)
   const hasInvalidTitle = Boolean(actionData?.fieldErrors?.title?.length)
@@ -87,25 +113,28 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
 
   return (
     <Form method="post">
+      <input type="hidden" name="_mode" value={mode} />
+      {isUpdate ? <input type="hidden" name="id" value={values.id} /> : null}
+
       <Fieldset gap={6}>
         <FormControl isInvalid={hasInvalidTitle}>
           <FormLabel>Titre</FormLabel>
           <Input
+            key={`${values.id}-title`}
             type="text"
             name="title"
             required
-            defaultValue={actionData?.fields?.title || defaultValues.title}
+            defaultValue={values.title}
             size="md"
           />
         </FormControl>
         <FormControl isInvalid={hasInvalidSubtitle}>
           <FormLabel>Sous-titre</FormLabel>
           <Input
+            key={`${values.id}-subtitle`}
             type="text"
             name="subtitle"
-            defaultValue={
-              actionData?.fields?.subtitle || defaultValues.subtitle
-            }
+            defaultValue={values.subtitle}
             size="md"
           />
         </FormControl>
@@ -113,9 +142,7 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
           <FormLabel>Question</FormLabel>
           <Editor
             name="question"
-            defaultValue={
-              actionData?.fields?.question || defaultValues.question
-            }
+            defaultValue={values.question}
             placeholder=""
           />
           {actionData?.fieldErrors?.question?.length ? (
@@ -125,22 +152,12 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
 
         <FormControl isInvalid={hasInvalidAnswer}>
           <FormLabel>Réponse</FormLabel>
-          <Editor
-            name="answer"
-            defaultValue={actionData?.fields?.answer || defaultValues.answer}
-            placeholder=""
-          />
+          <Editor name="answer" defaultValue={values.answer} placeholder="" />
           {actionData?.fieldErrors?.answer?.length ? (
             <ValidationMessages errors={actionData.fieldErrors.answer} />
           ) : null}
         </FormControl>
-        <input
-          name="id"
-          type="hidden"
-          required
-          readOnly
-          defaultValue={defaultValues.id}
-        />
+
         <HStack ml="auto">
           <Button
             as={Link}
@@ -169,4 +186,4 @@ const PuzzleUpdateForm = ({ puzzle }: PuzzleUpdateFormProps) => {
   )
 }
 
-export default PuzzleUpdateForm
+export default PuzzleForm
