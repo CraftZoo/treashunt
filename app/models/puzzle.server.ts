@@ -1,12 +1,21 @@
 import type { Puzzle } from '@prisma/client'
 
+import shortUUID from 'short-uuid'
+
 import { db } from '~/db.server'
 
 export type { Puzzle } from '@prisma/client'
 
 export const getPuzzle = (puzzleId: Puzzle['id']) =>
   db.puzzle.findUnique({
-    select: { id: true, slug: true, question: true, answer: true },
+    select: {
+      id: true,
+      title: true,
+      subtitle: true,
+      slug: true,
+      question: true,
+      answer: true,
+    },
     where: { id: puzzleId },
   })
 
@@ -18,19 +27,29 @@ export const getPuzzleListItemsId = () =>
 
 export const getPuzzleListItems = () =>
   db.puzzle.findMany({
-    select: { id: true, slug: true, question: true, answer: true },
+    select: {
+      id: true,
+      title: true,
+      subtitle: true,
+      slug: true,
+      question: true,
+      answer: true,
+    },
     orderBy: { updatedAt: 'desc' },
   })
 
 export const createPuzzle = ({
-  slug,
+  title,
+  subtitle,
   question,
   answer,
   authorId,
-}: Pick<Puzzle, 'slug' | 'question' | 'answer' | 'authorId'>) =>
+}: Pick<Puzzle, 'title' | 'subtitle' | 'question' | 'answer' | 'authorId'>) =>
   db.puzzle.create({
     data: {
-      slug,
+      title,
+      subtitle,
+      slug: shortUUID().generate(),
       question,
       answer,
       author: { connect: { id: authorId } },
@@ -39,13 +58,14 @@ export const createPuzzle = ({
 
 export const updatePuzzle = ({
   id,
-  slug,
+  title,
+  subtitle,
   question,
   answer,
-}: Pick<Puzzle, 'id' | 'slug' | 'question' | 'answer'>) =>
+}: Pick<Puzzle, 'title' | 'subtitle' | 'id' | 'question' | 'answer'>) =>
   db.puzzle.update({
     where: { id },
-    data: { slug, question, answer },
+    data: { title, subtitle, question, answer },
   })
 
 export const deletePuzzle = ({ id }: Pick<Puzzle, 'id'>) =>

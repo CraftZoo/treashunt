@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Heading } from '@chakra-ui/react'
+import { chakra, Card, CardBody, CardHeader, Heading } from '@chakra-ui/react'
 
 import type { Puzzle } from '~/models/puzzle.server'
 
@@ -9,11 +9,16 @@ import PuzzleActionMenu from './PuzzleActionMenu'
 
 export { action } from './PuzzleActionMenu'
 
-type PuzzleItemProps = Pick<Puzzle, 'id' | 'slug' | 'question' | 'answer'> & {
-  index: number
+interface PuzzleItemProps {
+  puzzle: Pick<
+    Puzzle,
+    'id' | 'title' | 'subtitle' | 'slug' | 'question' | 'answer'
+  >
 }
 
-const PuzzleItem = ({ id, slug, question, answer, index }: PuzzleItemProps) => {
+const PuzzleItem = ({ puzzle }: PuzzleItemProps) => {
+  const { id, title, subtitle, slug, question, answer } = puzzle
+
   const link = `/puzzles/${slug}`
 
   return (
@@ -24,14 +29,34 @@ const PuzzleItem = ({ id, slug, question, answer, index }: PuzzleItemProps) => {
         justifyContent="space-between"
         pb={3}
       >
-        <Heading
-          as="h3"
-          fontSize="2rem"
-          letterSpacing="0.02em"
-          color="darkpurple"
-        >
-          Intitulé énigme {index}
-        </Heading>
+        <chakra.hgroup overflow="hidden">
+          <Heading
+            as="h3"
+            fontSize="2rem"
+            letterSpacing="0.02em"
+            color="darkpurple"
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
+            overflow="hidden"
+          >
+            {title}
+          </Heading>
+
+          {subtitle ? (
+            <Heading
+              as="h4"
+              fontSize="l"
+              fontFamily="body"
+              color="gray.500"
+              fontWeight="bold"
+              textOverflow="ellipsis"
+              whiteSpace="nowrap"
+              overflow="hidden"
+            >
+              {subtitle}
+            </Heading>
+          ) : null}
+        </chakra.hgroup>
 
         <PuzzleActionMenu puzzleId={id} />
       </CardHeader>

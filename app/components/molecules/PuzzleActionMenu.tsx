@@ -36,6 +36,7 @@ const PuzzleActionMenu = ({ puzzleId }: PuzzleActionMenuProps) => {
             icon={<MoreHorizontal />}
             variant="link"
             aria-label={actionsLabel}
+            height="min-content"
           />
         </Tooltip>
 
