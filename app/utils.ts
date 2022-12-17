@@ -9,3 +9,5 @@ export type inferSafeParseErrors<
     [P in keyof z.infer<T>]?: U[]
   }
 }
+
+export { sanitize as HTMLSanitizer } from 'isomorphic-dompurify'

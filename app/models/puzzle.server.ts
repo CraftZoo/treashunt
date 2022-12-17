@@ -3,6 +3,7 @@ import type { Puzzle } from '@prisma/client'
 import shortUUID from 'short-uuid'
 
 import { db } from '~/db.server'
+import { HTMLSanitizer } from '~/utils'
 
 export type { Puzzle } from '@prisma/client'
 
@@ -49,9 +50,9 @@ export const createPuzzle = ({
     data: {
       title,
       subtitle,
+      question: HTMLSanitizer(question),
+      answer: HTMLSanitizer(answer),
       slug: shortUUID().generate(),
-      question,
-      answer,
       author: { connect: { id: authorId } },
     },
   })
@@ -65,7 +66,12 @@ export const updatePuzzle = ({
 }: Pick<Puzzle, 'title' | 'subtitle' | 'id' | 'question' | 'answer'>) =>
   db.puzzle.update({
     where: { id },
-    data: { title, subtitle, question, answer },
+    data: {
+      title,
+      subtitle,
+      question: HTMLSanitizer(question),
+      answer: HTMLSanitizer(answer),
+    },
   })
 
 export const deletePuzzle = ({ id }: Pick<Puzzle, 'id'>) =>

@@ -34,8 +34,8 @@ model Puzzle {
 
   title    String
   subtitle String?
-  question String?
-  answer   String?
+  question String
+  answer   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
