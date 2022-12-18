@@ -6,7 +6,7 @@ import { Box } from '@chakra-ui/react'
 
 import Header from '~/components/organisms/Header'
 import Sidebar from '~/components/organisms/Sidebar'
-import { getPuzzleListItemsId } from '~/models/puzzle.server'
+import { getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -17,7 +17,7 @@ export const loader = async ({ request }: LoaderArgs) => {
       status: 404,
     })
 
-  const puzzles = await getPuzzleListItemsId()
+  const puzzles = await getPuzzleListItems()
 
   return json({ user, puzzles })
 }

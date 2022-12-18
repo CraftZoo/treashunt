@@ -7,7 +7,7 @@ import LogoutButton from '../atoms/LogoutButton'
 import SidebarMenu from '../molecules/SidebarMenu'
 
 export type SidebarProps = {
-  puzzles: Pick<Puzzle, 'id'>[]
+  puzzles: Array<Pick<Puzzle, 'id' | 'title'>>
 }
 
 const Sidebar = ({ puzzles }: SidebarProps) => {
@@ -30,7 +30,7 @@ const Sidebar = ({ puzzles }: SidebarProps) => {
     >
       <AppLogo />
       <SidebarMenu puzzles={puzzles} />
-      <Box as="nav" w="full" mt="auto">
+      <Box w="full" mt="auto">
         <LogoutButton />
       </Box>
     </Flex>
