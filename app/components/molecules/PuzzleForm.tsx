@@ -20,6 +20,8 @@ import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
 import { getUserId } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
 
+import ClientOnly from '../atoms/ClientOnly'
+import EditorSkeleton from '../atoms/EditorSkeleton'
 import Fieldset from '../atoms/Fieldset'
 import Form from '../atoms/Form'
 import Link from '../atoms/Link'
@@ -140,11 +142,15 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
         </FormControl>
         <FormControl isInvalid={hasInvalidQuestion}>
           <FormLabel>Question</FormLabel>
-          <Editor
-            name="question"
-            defaultValue={values.question}
-            placeholder=""
-          />
+          <ClientOnly fallback={<EditorSkeleton />}>
+            {() => (
+              <Editor
+                name="question"
+                defaultValue={values.question}
+                placeholder=""
+              />
+            )}
+          </ClientOnly>
           {actionData?.fieldErrors?.question?.length ? (
             <ValidationMessages errors={actionData.fieldErrors.question} />
           ) : null}
@@ -152,7 +158,15 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
 
         <FormControl isInvalid={hasInvalidAnswer}>
           <FormLabel>Réponse</FormLabel>
-          <Editor name="answer" defaultValue={values.answer} placeholder="" />
+          <ClientOnly fallback={<EditorSkeleton />}>
+            {() => (
+              <Editor
+                name="answer"
+                defaultValue={values.answer}
+                placeholder=""
+              />
+            )}
+          </ClientOnly>
           {actionData?.fieldErrors?.answer?.length ? (
             <ValidationMessages errors={actionData.fieldErrors.answer} />
           ) : null}
