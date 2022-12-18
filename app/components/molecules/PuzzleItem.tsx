@@ -1,6 +1,7 @@
 import { chakra, Card, CardBody, CardHeader, Heading } from '@chakra-ui/react'
 
 import type { Puzzle } from '~/models/puzzle.server'
+import { HTMLSanitizer } from '~/utils'
 
 import CardSubtitle from '../atoms/CardSubtitle'
 import Link from '../atoms/Link'
@@ -62,9 +63,9 @@ const PuzzleItem = ({ puzzle }: PuzzleItemProps) => {
       </CardHeader>
       <CardBody as="main" pt={0}>
         <CardSubtitle>Question</CardSubtitle>
-        <p>{question}</p>
+        <div dangerouslySetInnerHTML={{ __html: HTMLSanitizer(question) }} />
         <CardSubtitle>Réponse</CardSubtitle>
-        <p>{answer}</p>
+        <div dangerouslySetInnerHTML={{ __html: HTMLSanitizer(answer) }} />
         <CardSubtitle>Lien</CardSubtitle>
         <p>
           <Link to={link}>{link}</Link>
