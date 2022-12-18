@@ -4,6 +4,7 @@ import { useActionData, useTransition } from '@remix-run/react'
 
 import {
   Alert,
+  Box,
   Button,
   Fade,
   FormControl,
@@ -28,6 +29,7 @@ import Link from '../atoms/Link'
 import ValidationMessages from '../atoms/ValidationMessages'
 
 import Editor from './Editor'
+import PuzzleFormHeader from './PuzzleFormHeader'
 
 const PuzzleSchema = z.object({
   title: z.string().min(1, 'Ce champ est requis'),
@@ -114,89 +116,93 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const hasInvalidAnswer = Boolean(actionData?.fieldErrors?.answer?.length)
 
   return (
-    <Form method="post">
-      <input type="hidden" name="_mode" value={mode} />
-      {isUpdate ? <input type="hidden" name="id" value={values.id} /> : null}
+    <Box py={{ base: 5, sm: 10 }} px={{ base: 4, sm: 8 }}>
+      <PuzzleFormHeader mode={mode} />
 
-      <Fieldset gap={6}>
-        <FormControl isInvalid={hasInvalidTitle}>
-          <FormLabel>Titre</FormLabel>
-          <Input
-            key={`${values.id}-title`}
-            type="text"
-            name="title"
-            required
-            defaultValue={values.title}
-            size="md"
-          />
-        </FormControl>
-        <FormControl isInvalid={hasInvalidSubtitle}>
-          <FormLabel>Sous-titre</FormLabel>
-          <Input
-            key={`${values.id}-subtitle`}
-            type="text"
-            name="subtitle"
-            defaultValue={values.subtitle}
-            size="md"
-          />
-        </FormControl>
-        <FormControl isInvalid={hasInvalidQuestion}>
-          <FormLabel>Question</FormLabel>
-          <ClientOnly fallback={<EditorSkeleton />}>
-            {() => (
-              <Editor
-                name="question"
-                defaultValue={values.question}
-                placeholder=""
-              />
-            )}
-          </ClientOnly>
-          {actionData?.fieldErrors?.question?.length ? (
-            <ValidationMessages errors={actionData.fieldErrors.question} />
-          ) : null}
-        </FormControl>
+      <Form method="post">
+        <input type="hidden" name="_mode" value={mode} />
+        {isUpdate ? <input type="hidden" name="id" value={values.id} /> : null}
 
-        <FormControl isInvalid={hasInvalidAnswer}>
-          <FormLabel>Réponse</FormLabel>
-          <ClientOnly fallback={<EditorSkeleton />}>
-            {() => (
-              <Editor
-                name="answer"
-                defaultValue={values.answer}
-                placeholder=""
-              />
-            )}
-          </ClientOnly>
-          {actionData?.fieldErrors?.answer?.length ? (
-            <ValidationMessages errors={actionData.fieldErrors.answer} />
-          ) : null}
-        </FormControl>
+        <Fieldset gap={6}>
+          <FormControl isInvalid={hasInvalidTitle}>
+            <FormLabel>Titre</FormLabel>
+            <Input
+              key={`${values.id}-title`}
+              type="text"
+              name="title"
+              required
+              defaultValue={values.title}
+              size="md"
+            />
+          </FormControl>
+          <FormControl isInvalid={hasInvalidSubtitle}>
+            <FormLabel>Sous-titre</FormLabel>
+            <Input
+              key={`${values.id}-subtitle`}
+              type="text"
+              name="subtitle"
+              defaultValue={values.subtitle}
+              size="md"
+            />
+          </FormControl>
+          <FormControl isInvalid={hasInvalidQuestion}>
+            <FormLabel>Question</FormLabel>
+            <ClientOnly fallback={<EditorSkeleton />}>
+              {() => (
+                <Editor
+                  name="question"
+                  defaultValue={values.question}
+                  placeholder=""
+                />
+              )}
+            </ClientOnly>
+            {actionData?.fieldErrors?.question?.length ? (
+              <ValidationMessages errors={actionData.fieldErrors.question} />
+            ) : null}
+          </FormControl>
 
-        <HStack ml="auto">
-          <Button
-            as={Link}
-            variant="outline"
-            to="/admin/puzzles"
-            w="min-content"
-          >
-            Annuler
-          </Button>
-          <Button type="submit" variant="secondary" w="min-content">
-            {isSubmitting ? (
-              <>
-                <Loader />
-                Sauvegarde en cours
-              </>
-            ) : (
-              'Sauvegarder'
-            )}
-          </Button>
-        </HStack>
-        <Fade in={hasFormError}>
-          <Alert status="error">{actionData?.formError}</Alert>
-        </Fade>
-      </Fieldset>
-    </Form>
+          <FormControl isInvalid={hasInvalidAnswer}>
+            <FormLabel>Réponse</FormLabel>
+            <ClientOnly fallback={<EditorSkeleton />}>
+              {() => (
+                <Editor
+                  name="answer"
+                  defaultValue={values.answer}
+                  placeholder=""
+                />
+              )}
+            </ClientOnly>
+            {actionData?.fieldErrors?.answer?.length ? (
+              <ValidationMessages errors={actionData.fieldErrors.answer} />
+            ) : null}
+          </FormControl>
+
+          <HStack ml="auto">
+            <Button
+              as={Link}
+              variant="outline"
+              to="/admin/puzzles"
+              w="min-content"
+            >
+              Annuler
+            </Button>
+            <Button type="submit" variant="secondary" w="min-content">
+              {isSubmitting ? (
+                <>
+                  <Loader />
+                  Sauvegarde en cours
+                </>
+              ) : (
+                'Sauvegarder'
+              )}
+            </Button>
+          </HStack>
+          <Fade in={hasFormError}>
+            <Alert status="error">{actionData?.formError}</Alert>
+          </Fade>
+        </Fieldset>
+      </Form>
+    </Box>
   )
 }
 
