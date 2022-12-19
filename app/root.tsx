@@ -1,4 +1,5 @@
-import type { LinksFunction, MetaFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -7,6 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from '@remix-run/react'
 
 import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
@@ -14,6 +16,8 @@ import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
 import sourceSansPro400 from '@fontsource/source-sans-pro/400.css'
 import sourceSansPro600 from '@fontsource/source-sans-pro/600.css'
 
+import { useToast } from './hooks'
+import { getMessage } from './session.server'
 import theme from './theme'
 import Fonts from './theme/fonts'
 
@@ -29,6 +33,15 @@ export const links: LinksFunction = () => {
   ]
 }
 
+export const loader = async ({ request }: LoaderArgs) => {
+  const [toastMessage, headers] = await getMessage(request)
+
+  if (!toastMessage) return json({ toastMessage: null })
+  if (!toastMessage.status) throw new Error('Message should have a status')
+
+  return json({ toastMessage }, { headers })
+}
+
 function Document({
   children,
   title = 'App title',
@@ -36,6 +49,9 @@ function Document({
   children: React.ReactNode
   title?: string
 }) {
+  const { toastMessage } = useLoaderData<typeof loader>()
+  useToast(toastMessage)
+
   return (
     <html lang="en">
       <head>
@@ -55,8 +71,6 @@ function Document({
 }
 
 export default function App() {
-  // throw new Error("💣💥 Booooom");
-
   return (
     <Document>
       <ChakraProvider resetCSS theme={theme}>
