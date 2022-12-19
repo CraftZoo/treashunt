@@ -1,5 +1,3 @@
-import { Box, Heading } from '@chakra-ui/react'
-
 import type { Puzzle } from '~/models/puzzle.server'
 
 import PuzzleForm from '../molecules/PuzzleForm'
@@ -14,12 +12,7 @@ type PuzzleProps = {
 }
 
 const PuzzleUpdate = ({ puzzle }: PuzzleProps) => {
-  return (
-    <Box py={4} px={6}>
-      <Heading mb={8}>Modifier une énigme</Heading>
-      <PuzzleForm puzzle={puzzle} mode="update" />
-    </Box>
-  )
+  return <PuzzleForm puzzle={puzzle} mode="update" />
 }
 
 export default PuzzleUpdate

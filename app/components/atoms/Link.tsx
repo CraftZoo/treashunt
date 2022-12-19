@@ -6,9 +6,9 @@ import { Link as RemixLink } from '@remix-run/react'
 import type { LinkProps as ChakraLinkProps } from '@chakra-ui/react'
 import { Link as ChakraLink } from '@chakra-ui/react'
 
-type LinkComponent = ChakraLinkProps & RemixLinkProps
+export type LinkProps = ChakraLinkProps & RemixLinkProps
 
-const Link = forwardRef<HTMLAnchorElement, LinkComponent>(
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ children, ...rest }, ref) => {
     return (
       <ChakraLink ref={ref} as={RemixLink} {...rest}>

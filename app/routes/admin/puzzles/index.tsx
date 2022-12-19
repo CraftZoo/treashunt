@@ -1,9 +1,15 @@
+import type { MetaFunction } from '@remix-run/node'
+
 import { VStack } from '@chakra-ui/react'
 
 import PuzzleListHeader from '~/components/molecules/PuzzleListHeader'
 import PuzzleList from '~/components/organisms/PuzzleList'
 
 export { action, loader } from '~/components/organisms/PuzzleList'
+
+export const meta: MetaFunction = () => ({
+  title: 'Liste des énigmes · TreasHunt',
+})
 
 const PuzzlesRoute = () => {
   return (

@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Divider } from '@chakra-ui/react'
 
 import type { Editor } from '@tiptap/react'
@@ -26,7 +28,7 @@ interface EditorToolbarProps {
   editor: Editor
 }
 
-const EditorToolbar = ({ editor }: EditorToolbarProps) => {
+const EditorToolbar = memo(({ editor }: EditorToolbarProps) => {
   return (
     <EditorOptionsWrapper>
       <EditorOptionButton
@@ -122,6 +124,8 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       />
     </EditorOptionsWrapper>
   )
-}
+})
+
+EditorToolbar.displayName = 'EditorToolbar'
 
 export default EditorToolbar
