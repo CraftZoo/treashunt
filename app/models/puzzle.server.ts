@@ -20,6 +20,16 @@ export const getPuzzle = (puzzleId: Puzzle['id']) =>
     where: { id: puzzleId },
   })
 
+export const getPuzzlePublic = (puzzleSlug: Puzzle['slug']) =>
+  db.puzzle.findUnique({
+    select: {
+      title: true,
+      subtitle: true,
+      question: true,
+    },
+    where: { slug: puzzleSlug },
+  })
+
 export const getPuzzleListItemsId = () =>
   db.puzzle.findMany({
     select: { id: true },
