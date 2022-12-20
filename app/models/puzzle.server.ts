@@ -23,10 +23,8 @@ export const getPuzzle = (puzzleId: Puzzle['id']) =>
 export const getPuzzlePublic = (puzzleSlug: Puzzle['slug']) =>
   db.puzzle.findUnique({
     select: {
-      id: true,
       title: true,
       subtitle: true,
-      slug: true,
       question: true,
     },
     where: { slug: puzzleSlug },

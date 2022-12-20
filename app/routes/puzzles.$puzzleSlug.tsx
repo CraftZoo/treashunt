@@ -6,11 +6,10 @@ import { Box, Heading, Container } from '@chakra-ui/react'
 
 import { HTMLSanitizer } from '~/utils'
 
-import { getPuzzlePublic } from '../../models/puzzle.server'
+import { getPuzzlePublic } from '../models/puzzle.server'
 
 export const loader = async ({ params }: LoaderArgs) => {
   const { puzzleSlug } = params
-  console.log(puzzleSlug)
 
   if (!puzzleSlug)
     throw new Response('puzzleSlug not provided', {
@@ -32,11 +31,11 @@ const PuzzleSlugRoute = () => {
 
   const { title, subtitle, question } = puzzle
   return (
-    <>
+    <Box h="full">
       <Box as="header" bg="background.dark" py={2}>
         <Container>
           <Heading
-            as="h3"
+            as="h1"
             fontSize="2rem"
             letterSpacing="0.02em"
             color="white"
@@ -48,10 +47,10 @@ const PuzzleSlugRoute = () => {
           </Heading>
         </Container>
       </Box>
-      <Container>
+      <Container as="main">
         {subtitle ? (
           <Heading
-            as="h4"
+            as="h2"
             fontSize="l"
             fontFamily="body"
             color="americanpurple.400"
@@ -68,7 +67,7 @@ const PuzzleSlugRoute = () => {
           dangerouslySetInnerHTML={{ __html: HTMLSanitizer(question || '') }}
         />
       </Container>
-    </>
+    </Box>
   )
 }
 
