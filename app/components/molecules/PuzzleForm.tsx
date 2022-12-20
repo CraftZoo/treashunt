@@ -1,5 +1,5 @@
 import type { ActionArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
 import {
@@ -18,7 +18,7 @@ import { z } from 'zod'
 
 import type { Puzzle } from '~/models/puzzle.server'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
-import { getUserId } from '~/session.server'
+import { getUserId, setMessage } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
 
 import ClientOnly from '../atoms/ClientOnly'
@@ -46,8 +46,6 @@ type ActionData = PuzzleFieldsErrors & {
 
 type FormDataEntries = PuzzleFields & { _mode: Mode }
 
-const badRequest = (data: any) => json(data, { status: 400 })
-
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData()
   const { _mode, id, ...fields } = Object.fromEntries(
@@ -56,13 +54,24 @@ export const action = async ({ request }: ActionArgs) => {
   const result = PuzzleSchema.safeParse(fields)
 
   if (!result.success) {
-    return badRequest({
-      fields,
-      ...result.error.flatten(),
+    const headers = await setMessage(request, {
+      status: 'error',
+      title: 'Erreur',
+      description:
+        "Une erreur est survenue pendant la modification de l'énigme",
     })
+    return json({ fields, ...result.error.flatten() }, { status: 400, headers })
   }
 
-  if (_mode === 'update') return await updatePuzzle({ id, ...fields })
+  if (_mode === 'update') {
+    const puzzle = await updatePuzzle({ id, ...fields })
+
+    const headers = await setMessage(request, {
+      status: 'success',
+      title: 'Énigme modifiée',
+    })
+    return json({ puzzle }, { headers })
+  }
 
   const authorId = await getUserId(request)
   if (!authorId)
@@ -71,7 +80,12 @@ export const action = async ({ request }: ActionArgs) => {
       { status: 400 }
     )
 
-  return await createPuzzle({ authorId, ...fields })
+  const puzzle = await createPuzzle({ authorId, ...fields })
+  const headers = await setMessage(request, {
+    status: 'success',
+    title: 'Énigme ajoutée',
+  })
+  return redirect(`/admin/puzzles/${puzzle.id}`, { headers })
 }
 
 type Mode = 'creation' | 'update'
@@ -114,6 +128,11 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const hasInvalidSubtitle = Boolean(actionData?.fieldErrors?.subtitle?.length)
   const hasInvalidQuestion = Boolean(actionData?.fieldErrors?.question?.length)
   const hasInvalidAnswer = Boolean(actionData?.fieldErrors?.answer?.length)
+
+  const submitLabel = isUpdate ? 'Sauvegarder' : 'Ajouter'
+  const submittingLabel = isUpdate
+    ? 'Sauvegarde en cours...'
+    : 'Ajout en cours...'
 
   return (
     <Box py={{ base: 5, sm: 10 }} px={{ base: 4, sm: 8 }}>
@@ -190,10 +209,10 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
               {isSubmitting ? (
                 <>
                   <Loader />
-                  Sauvegarde en cours
+                  {submittingLabel}
                 </>
               ) : (
-                'Sauvegarder'
+                submitLabel
               )}
             </Button>
           </HStack>

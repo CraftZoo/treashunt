@@ -94,3 +94,31 @@ export const logout = async (request: Request) => {
     },
   })
 }
+
+export interface MessagePayload {
+  status: 'success' | 'error'
+  title: string
+  description?: string
+}
+
+export const getMessage = async (
+  request: Request
+): Promise<[MessagePayload, HeadersInit]> => {
+  const session = await getSession(request)
+
+  const toastMessage = session.get('toastMessage') as MessagePayload
+  const headers = { 'Set-Cookie': await sessionStorage.commitSession(session) }
+
+  return [toastMessage, headers]
+}
+
+export const setMessage = async (
+  request: Request,
+  payload: MessagePayload
+): Promise<HeadersInit> => {
+  const session = await getSession(request)
+
+  session.flash('toastMessage', payload)
+
+  return { 'Set-Cookie': await sessionStorage.commitSession(session) }
+}

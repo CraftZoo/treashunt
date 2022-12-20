@@ -2285,7 +2285,7 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.7.1.tgz#d657d4d05724158140022fa00614e143643090c2"
   integrity sha512-zWabHosTdLpXXlMefHmnouhXMoTB1+SCbUU3t4FCmdrtIOZcarPKU3Alto7gm/pZ9vHlGOXHCfVZ1G7OIrSbog==
 
-"@remix-run/dev@^1.8.2":
+"@remix-run/dev@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@remix-run/dev/-/dev-1.9.0.tgz#2e594d143d47afc29e4bbdee02291649b0766dc6"
   integrity sha512-4EEctL2lo7eLPbVkzVBuRW+TX1B9yNdR9Ug7z7PYwFvJF0Oy9PovGx7ooVIypNiWLGOztKgN+K3c9jdffsrYYQ==
@@ -2334,7 +2334,7 @@
     ws "^7.4.5"
     xdm "^2.0.0"
 
-"@remix-run/eslint-config@^1.8.1":
+"@remix-run/eslint-config@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@remix-run/eslint-config/-/eslint-config-1.9.0.tgz#9a7e35c61f703165657dd3126bc1cb2424989fc6"
   integrity sha512-SPEY+FqvYrlpqYpvPPKd/2dlKzd9Vlxa2HkvKqIHtaiBFUGX9GWnKRro6b5KQ6IU0K5wupCJXG4/bw1CYd8pFg==
@@ -2378,7 +2378,7 @@
     source-map-support "^0.5.21"
     stream-slice "^0.1.2"
 
-"@remix-run/react@^1.8.1":
+"@remix-run/react@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@remix-run/react/-/react-1.9.0.tgz#e072f2b26df4ecc5b593633e18777bae936a600a"
   integrity sha512-Rtm6qqdKMD0AMsJuzCFwpz40/o6LXQq20smHyyvH8EMHJRPrms44By28uMW0kmc+M9q0wa0gBfMzWFfZnCSFwg==
@@ -2391,7 +2391,7 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.1.0.tgz#b48db8148c8a888e50580a8152b6f68161c49406"
   integrity sha512-rGl+jH/7x1KBCQScz9p54p0dtPLNeKGb3e0wD2H5/oZj41bwQUnXdzbj2TbUAFhvD7cp9EyEQA4dEgpUFa1O7Q==
 
-"@remix-run/serve@^1.8.1":
+"@remix-run/serve@^1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@remix-run/serve/-/serve-1.9.0.tgz#b415ddb3006715bbe92788267e5768b71ca726a7"
   integrity sha512-dERDi06Qqd5VIHvtHx++Wna4NX+lrtUFFuMdPyDmn3ii8RVhh0yED7yJBe3t0k3Syk5IysMc3V49k6pOGtEsdQ==
