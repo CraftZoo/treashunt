@@ -26,12 +26,28 @@ export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: sourceSansPro400 },
     { rel: 'stylesheet', href: sourceSansPro600 },
+
+    { rel: 'apple-touch-icon', sizes: '60x60', href: '/apple-touch-icon.png' },
+    {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '32x32',
+      href: '/favicon-32x32.png',
+    },
+    {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '16x16',
+      href: '/favicon-16x16.png',
+    },
+    { rel: 'manifest', href: '/site.webmanifest' },
+    { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
   ]
 }
 
 function Document({
   children,
-  title = 'App title',
+  title = 'TreasHunt',
 }: {
   children: React.ReactNode
   title?: string
@@ -42,6 +58,7 @@ function Document({
         <Meta />
         <title>{title}</title>
         <Links />
+
         <script src="/vendor/snow.js" defer></script>
       </head>
       <body>

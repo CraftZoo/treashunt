@@ -54,7 +54,7 @@ const PuzzleSlugRoute = () => {
             as="h4"
             fontSize="l"
             fontFamily="body"
-            color="secondary"
+            color="americanpurple.400"
             fontWeight="bold"
             textOverflow="ellipsis"
             whiteSpace="nowrap"
