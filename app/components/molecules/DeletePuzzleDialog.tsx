@@ -25,7 +25,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (typeof puzzleId !== 'string') return json({}, { status: 400 }) // TODO: toast error management
 
-  await deletePuzzle({ id: puzzleId })
+  await deletePuzzle(puzzleId)
 
   return json({})
 }

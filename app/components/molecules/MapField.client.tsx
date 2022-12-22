@@ -11,15 +11,20 @@ import {
   TileLayer,
 } from 'react-leaflet'
 
+import type { Puzzle } from '~/models/puzzle.server'
+
 import DraggableMarker from '../atoms/MapDraggableMaker'
 
 interface MapFieldProps {
-  defaultPosition: LatLngLiteral
+  defaultCoordinates: Puzzle['coordinates']
   name?: HTMLInputElement['name']
 }
 
-const MapField = ({ defaultPosition, name }: MapFieldProps) => {
-  const [position, setPosition] = useState<LatLngLiteral>(defaultPosition)
+const MapField = ({ defaultCoordinates, name }: MapFieldProps) => {
+  const [position, setPosition] = useState<LatLngLiteral>({
+    lat: Number(defaultCoordinates.latitude),
+    lng: Number(defaultCoordinates.longitude),
+  })
 
   return (
     <Box height={'450px'} sx={leafletStyles}>
@@ -35,7 +40,7 @@ const MapField = ({ defaultPosition, name }: MapFieldProps) => {
         scrollWheelZoom={false}
       >
         <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name="OpenStreetMap">
+          <LayersControl.BaseLayer checked name="Carte OpenStreetMap">
             <LayerGroup>
               <TileLayer url={OSM} />
             </LayerGroup>
@@ -48,6 +53,7 @@ const MapField = ({ defaultPosition, name }: MapFieldProps) => {
             </LayerGroup>
           </LayersControl.BaseLayer>
         </LayersControl>
+
         <DraggableMarker position={position} onChange={setPosition} />
       </MapContainer>
     </Box>
@@ -108,9 +114,9 @@ const leafletStyles: SystemStyleObject = {
       color: 'primary',
       border: 'none',
       fontSize: 'var(--chakra-sizes-8)',
-      width: 'var(--chakra-sizes-12)',
-      height: 'var(--chakra-sizes-12)',
-      lineHeight: 'var(--chakra-sizes-12)',
+      width: '44px',
+      height: '44px',
+      lineHeight: '44px',
 
       transition:
         'var(--chakra-transition-duration-fast) var(--chakra-transition-easing-ease-out) var(--chakra-transition-property-common)',

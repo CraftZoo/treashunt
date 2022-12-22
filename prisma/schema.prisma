@@ -42,4 +42,15 @@ model Puzzle {
 
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId String
+
+  coordinates Coordinates?
+}
+
+model Coordinates {
+  id        String  @id @default(uuid())
+  latitude  Decimal
+  longitude Decimal
+
+  puzzle   Puzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  puzzleId String @unique
 }
