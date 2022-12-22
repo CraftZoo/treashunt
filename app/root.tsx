@@ -15,6 +15,7 @@ import { Box, ChakraProvider, Code, Heading } from '@chakra-ui/react'
 
 import sourceSansPro400 from '@fontsource/source-sans-pro/400.css'
 import sourceSansPro600 from '@fontsource/source-sans-pro/600.css'
+import leaflet from 'leaflet/dist/leaflet.css'
 
 import { useToast } from './hooks'
 import { getMessage } from './session.server'
@@ -30,6 +31,7 @@ export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: sourceSansPro400 },
     { rel: 'stylesheet', href: sourceSansPro600 },
+    { rel: 'stylesheet', href: leaflet },
 
     { rel: 'apple-touch-icon', sizes: '60x60', href: '/apple-touch-icon.png' },
     {

@@ -22,13 +22,14 @@ import { getUserId, setMessage } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
 
 import ClientOnly from '../atoms/ClientOnly'
-import EditorSkeleton from '../atoms/EditorSkeleton'
 import Fieldset from '../atoms/Fieldset'
 import Form from '../atoms/Form'
 import Link from '../atoms/Link'
+import Skeleton from '../atoms/Skeleton'
 import ValidationMessages from '../atoms/ValidationMessages'
 
 import Editor from './Editor'
+import MapField from './MapField.client'
 import PuzzleFormHeader from './PuzzleFormHeader'
 
 const PuzzleSchema = z.object({
@@ -166,7 +167,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
           </FormControl>
           <FormControl isInvalid={hasInvalidQuestion}>
             <FormLabel>Question</FormLabel>
-            <ClientOnly fallback={<EditorSkeleton />}>
+            <ClientOnly fallback={<Skeleton height="232px" />}>
               {() => (
                 <Editor
                   name="question"
@@ -182,7 +183,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
 
           <FormControl isInvalid={hasInvalidAnswer}>
             <FormLabel>Réponse</FormLabel>
-            <ClientOnly fallback={<EditorSkeleton />}>
+            <ClientOnly fallback={<Skeleton height="232px" />}>
               {() => (
                 <Editor
                   name="answer"
@@ -194,6 +195,18 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             {actionData?.fieldErrors?.answer?.length ? (
               <ValidationMessages errors={actionData.fieldErrors.answer} />
             ) : null}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Coordonnées</FormLabel>
+            <ClientOnly fallback={<Skeleton height="600px" />}>
+              {() => (
+                <MapField
+                  name="position"
+                  defaultPosition={{ lat: 47.042991, lng: -1.185087 }}
+                />
+              )}
+            </ClientOnly>
           </FormControl>
 
           <HStack ml="auto">
@@ -217,7 +230,9 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             </Button>
           </HStack>
           <Fade in={hasFormError}>
-            <Alert status="error">{actionData?.formError}</Alert>
+            {actionData?.formError ? (
+              <Alert status="error">{actionData?.formError}</Alert>
+            ) : null}
           </Fade>
         </Fieldset>
       </Form>
