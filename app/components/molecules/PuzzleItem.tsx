@@ -4,7 +4,6 @@ import type { Puzzle } from '~/models/puzzle.server'
 import { HTMLSanitizer } from '~/utils'
 
 import CardSubtitle from '../atoms/CardSubtitle'
-import Link from '../atoms/Link'
 
 import PuzzleActionMenu from './PuzzleActionMenu'
 

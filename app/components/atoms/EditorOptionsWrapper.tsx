@@ -15,6 +15,8 @@ const EditorOptionsWrapper = ({
     <Box
       transition="visibility 0s linear 0s, opacity 300ms"
       borderTopRadius="xl"
+      border="1px solid"
+      borderColor="gray.100"
       {...rest}
     >
       <Flex
@@ -24,8 +26,6 @@ const EditorOptionsWrapper = ({
         px={2}
         gap={2}
         borderTopRadius="xl"
-        border="1px solid"
-        borderColor="gray.100"
       >
         {children}
       </Flex>

@@ -8,11 +8,11 @@ export default defineStyleConfig({
       field: {
         borderRadius: 'xl',
         bg: 'ghostwhite',
-        borderColor: 'gray.200',
+        borderColor: 'gray.100',
+        boxShadow: 'sm',
         _placeholder: { color: 'gray.400' },
-        _focus: { bg: 'white', borderColor: 'grape.300' },
+        _focus: { bg: 'white', borderColor: 'grape.200' },
         _hover: {
-          boxShadow: 'sm',
           borderColor: 'grape.200',
         },
       },

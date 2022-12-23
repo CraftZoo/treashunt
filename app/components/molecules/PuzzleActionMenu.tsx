@@ -1,7 +1,5 @@
 import { Link } from '@remix-run/react'
 
-import type { Puzzle } from '@prisma/client'
-
 import {
   IconButton,
   Menu,
@@ -14,6 +12,8 @@ import {
 
 import { Edit, Eye, MoreHorizontal, Trash2 } from 'lucide-react'
 
+import type { Puzzle } from '~/models/puzzle.server'
+
 import DeletePuzzleDialog from './DeletePuzzleDialog'
 
 export { action } from './DeletePuzzleDialog'
@@ -24,7 +24,7 @@ interface PuzzleActionMenuProps {
 
 const PuzzleActionMenu = ({ puzzle }: PuzzleActionMenuProps) => {
   const actionsLabel = 'Actions'
-  const previewLabel = "Preview de l'énigme"
+  const previewLabel = "Prévisualiser l'énigme"
   const deleteLabel = "Supprimer l'énigme"
   const editLabel = "Modifier l'énigme"
 

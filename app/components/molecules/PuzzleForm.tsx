@@ -138,7 +138,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     <Box py={{ base: 5, sm: 4 }} px={{ base: 4, sm: 8 }}>
       <PuzzleFormHeader mode={mode} />
 
-      <Form method="post">
+      <Form method="post" mt={8}>
         <input type="hidden" name="_mode" value={mode} />
         {isUpdate ? <input type="hidden" name="id" value={values.id} /> : null}
 
