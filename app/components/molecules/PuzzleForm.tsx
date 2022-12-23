@@ -135,7 +135,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     : 'Ajout en cours...'
 
   return (
-    <Box py={{ base: 5, sm: 10 }} px={{ base: 4, sm: 8 }}>
+    <Box py={{ base: 5, sm: 4 }} px={{ base: 4, sm: 8 }}>
       <PuzzleFormHeader mode={mode} />
 
       <Form method="post">

@@ -18,9 +18,7 @@ interface PuzzleItemProps {
 }
 
 const PuzzleItem = ({ puzzle }: PuzzleItemProps) => {
-  const { id, title, subtitle, slug, question, answer } = puzzle
-
-  const link = `/puzzles/${slug}`
+  const { title, subtitle, question, answer } = puzzle
 
   return (
     <Card as="article" bg="white" borderRadius="sm" shadow="sm">
@@ -59,17 +57,13 @@ const PuzzleItem = ({ puzzle }: PuzzleItemProps) => {
           ) : null}
         </chakra.hgroup>
 
-        <PuzzleActionMenu puzzleId={id} />
+        <PuzzleActionMenu puzzle={puzzle} />
       </CardHeader>
       <CardBody as="main" pt={0}>
         <CardSubtitle>Question</CardSubtitle>
         <div dangerouslySetInnerHTML={{ __html: HTMLSanitizer(question) }} />
         <CardSubtitle>Réponse</CardSubtitle>
         <div dangerouslySetInnerHTML={{ __html: HTMLSanitizer(answer) }} />
-        <CardSubtitle>Lien</CardSubtitle>
-        <p>
-          <Link to={link}>{link}</Link>
-        </p>
       </CardBody>
     </Card>
   )

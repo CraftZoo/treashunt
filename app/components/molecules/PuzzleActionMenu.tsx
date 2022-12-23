@@ -1,5 +1,7 @@
 import { Link } from '@remix-run/react'
 
+import type { Puzzle } from '@prisma/client'
+
 import {
   IconButton,
   Menu,
@@ -10,18 +12,19 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { Edit, MoreHorizontal, Trash2 } from 'lucide-react'
+import { Edit, Eye, MoreHorizontal, Trash2 } from 'lucide-react'
 
 import DeletePuzzleDialog from './DeletePuzzleDialog'
 
 export { action } from './DeletePuzzleDialog'
 
 interface PuzzleActionMenuProps {
-  puzzleId: string
+  puzzle: Pick<Puzzle, 'id' | 'slug'>
 }
 
-const PuzzleActionMenu = ({ puzzleId }: PuzzleActionMenuProps) => {
+const PuzzleActionMenu = ({ puzzle }: PuzzleActionMenuProps) => {
   const actionsLabel = 'Actions'
+  const previewLabel = "Preview de l'énigme"
   const deleteLabel = "Supprimer l'énigme"
   const editLabel = "Modifier l'énigme"
 
@@ -43,7 +46,15 @@ const PuzzleActionMenu = ({ puzzleId }: PuzzleActionMenuProps) => {
         <MenuList>
           <MenuItem
             as={Link}
-            to={`/admin/puzzles/${puzzleId}`}
+            target="_blank"
+            to={`/puzzles/${puzzle.slug}`}
+            icon={<Eye size={14} />}
+          >
+            {previewLabel}
+          </MenuItem>
+          <MenuItem
+            as={Link}
+            to={`/admin/puzzles/${puzzle.id}`}
             icon={<Edit size={14} />}
           >
             {editLabel}
@@ -55,7 +66,7 @@ const PuzzleActionMenu = ({ puzzleId }: PuzzleActionMenuProps) => {
       </Menu>
 
       <DeletePuzzleDialog
-        puzzleId={puzzleId}
+        puzzleId={puzzle.id}
         isOpen={isOpen}
         onClose={onClose}
       />
