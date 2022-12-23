@@ -56,6 +56,14 @@ const Editor = forwardRef<EditorProps, 'div'>(
         boxShadow="sm"
         ref={ref}
         {...rest}
+        sx={{
+          _focusWithin: {
+            '& > *': {
+              transition: 'border-color 200ms',
+              borderColor: 'grape.200',
+            },
+          },
+        }}
       >
         <input name={name} value={value} readOnly hidden />
         <EditorToolbar editor={editor} />

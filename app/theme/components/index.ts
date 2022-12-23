@@ -9,7 +9,7 @@ export default {
   Button,
   Heading,
   Input,
-  Label,
   Menu,
   Tooltip,
+  FormLabel: Label,
 }
