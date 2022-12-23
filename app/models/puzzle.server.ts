@@ -1,11 +1,13 @@
-import type { Puzzle } from '@prisma/client'
+import type { Coordinates, Puzzle as PrismaPuzzle } from '@prisma/client'
 
 import shortUUID from 'short-uuid'
 
 import { db } from '~/db.server'
 import { HTMLSanitizer } from '~/utils'
 
-export type { Puzzle } from '@prisma/client'
+export interface Puzzle extends PrismaPuzzle {
+  coordinates: Pick<Coordinates, 'latitude' | 'longitude'>
+}
 
 export const getPuzzle = (puzzleId: Puzzle['id']) =>
   db.puzzle.findUnique({
@@ -16,6 +18,9 @@ export const getPuzzle = (puzzleId: Puzzle['id']) =>
       slug: true,
       question: true,
       answer: true,
+      coordinates: {
+        select: { latitude: true, longitude: true },
+      },
     },
     where: { id: puzzleId },
   })
@@ -49,13 +54,18 @@ export const getPuzzleListItems = () =>
     orderBy: { updatedAt: 'desc' },
   })
 
+type CreatePuzzle = Pick<
+  Puzzle,
+  'title' | 'subtitle' | 'question' | 'answer' | 'authorId' | 'coordinates'
+>
 export const createPuzzle = ({
   title,
   subtitle,
   question,
   answer,
   authorId,
-}: Pick<Puzzle, 'title' | 'subtitle' | 'question' | 'answer' | 'authorId'>) =>
+  coordinates,
+}: CreatePuzzle) =>
   db.puzzle.create({
     data: {
       title,
@@ -64,16 +74,24 @@ export const createPuzzle = ({
       answer: HTMLSanitizer(answer),
       slug: shortUUID().generate(),
       author: { connect: { id: authorId } },
+      coordinates: {
+        create: coordinates,
+      },
     },
   })
 
+type UpdatePuzzle = Pick<
+  Puzzle,
+  'title' | 'subtitle' | 'id' | 'question' | 'answer' | 'coordinates'
+>
 export const updatePuzzle = ({
   id,
   title,
   subtitle,
   question,
   answer,
-}: Pick<Puzzle, 'title' | 'subtitle' | 'id' | 'question' | 'answer'>) =>
+  coordinates,
+}: UpdatePuzzle) =>
   db.puzzle.update({
     where: { id },
     data: {
@@ -81,8 +99,11 @@ export const updatePuzzle = ({
       subtitle,
       question: HTMLSanitizer(question),
       answer: HTMLSanitizer(answer),
+      coordinates: {
+        update: coordinates,
+      },
     },
   })
 
-export const deletePuzzle = ({ id }: Pick<Puzzle, 'id'>) =>
+export const deletePuzzle = (id: Puzzle['id']) =>
   db.puzzle.delete({ where: { id } })

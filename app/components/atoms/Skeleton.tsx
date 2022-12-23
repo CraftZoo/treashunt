@@ -1,3 +1,4 @@
+import type { BoxProps } from '@chakra-ui/react'
 import { Box, keyframes, theme } from '@chakra-ui/react'
 
 const loading = keyframes`
@@ -6,12 +7,11 @@ const loading = keyframes`
   }
 `
 
-const EditorSkeleton = () => {
+const Skeleton = (props: BoxProps) => {
   return (
     <Box
       borderRadius="xl"
       boxShadow="sm"
-      height="232px"
       border="1px solid"
       borderColor="gray.200"
       backgroundColor="gray.100"
@@ -21,8 +21,9 @@ const EditorSkeleton = () => {
       css={`
         background-position-x: 180%;
       `}
+      {...props}
     />
   )
 }
 
-export default EditorSkeleton
+export default Skeleton

@@ -2,6 +2,8 @@ import type { ActionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
+import { Prisma } from '@prisma/client'
+
 import {
   Alert,
   Box,
@@ -20,15 +22,17 @@ import type { Puzzle } from '~/models/puzzle.server'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
 import { getUserId, setMessage } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
+import { coordinatesToString, stringToCoordinates } from '~/utils'
 
 import ClientOnly from '../atoms/ClientOnly'
-import EditorSkeleton from '../atoms/EditorSkeleton'
 import Fieldset from '../atoms/Fieldset'
 import Form from '../atoms/Form'
 import Link from '../atoms/Link'
+import Skeleton from '../atoms/Skeleton'
 import ValidationMessages from '../atoms/ValidationMessages'
 
 import Editor from './Editor'
+import MapField from './MapField.client'
 import PuzzleFormHeader from './PuzzleFormHeader'
 
 const PuzzleSchema = z.object({
@@ -36,6 +40,7 @@ const PuzzleSchema = z.object({
   subtitle: z.string(),
   question: z.string(),
   answer: z.string(),
+  coordinates: z.string(),
 })
 type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
 type PuzzleFieldsErrors = inferSafeParseErrors<typeof PuzzleSchema>
@@ -45,6 +50,11 @@ type ActionData = PuzzleFieldsErrors & {
 }
 
 type FormDataEntries = PuzzleFields & { _mode: Mode }
+
+const defaultCoordinates: Puzzle['coordinates'] = {
+  latitude: new Prisma.Decimal(47.042991),
+  longitude: new Prisma.Decimal(-1.185087),
+}
 
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData()
@@ -63,8 +73,14 @@ export const action = async ({ request }: ActionArgs) => {
     return json({ fields, ...result.error.flatten() }, { status: 400, headers })
   }
 
+  const coordinates = stringToCoordinates(fields.coordinates)
+
   if (_mode === 'update') {
-    const puzzle = await updatePuzzle({ id, ...fields })
+    const puzzle = await updatePuzzle({
+      ...fields,
+      id,
+      coordinates,
+    })
 
     const headers = await setMessage(request, {
       status: 'success',
@@ -80,7 +96,7 @@ export const action = async ({ request }: ActionArgs) => {
       { status: 400 }
     )
 
-  const puzzle = await createPuzzle({ authorId, ...fields })
+  const puzzle = await createPuzzle({ ...fields, authorId, coordinates })
   const headers = await setMessage(request, {
     status: 'success',
     title: 'Énigme ajoutée',
@@ -94,7 +110,13 @@ type PuzzleFormProps =
       mode: 'update'
       puzzle: Pick<
         Puzzle,
-        'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug'
+        | 'id'
+        | 'title'
+        | 'subtitle'
+        | 'question'
+        | 'answer'
+        | 'slug'
+        | 'coordinates'
       >
     }
   | { mode: 'creation'; puzzle?: never }
@@ -113,6 +135,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: puzzle?.subtitle || '',
     answer: puzzle?.answer || '',
     question: puzzle?.question || '',
+    coordinates: coordinatesToString(puzzle?.coordinates || defaultCoordinates),
   }
 
   const values: PuzzleFields = {
@@ -121,6 +144,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: actionData?.fields?.subtitle || defaultValues.subtitle,
     answer: actionData?.fields?.answer || defaultValues.answer,
     question: actionData?.fields?.question || defaultValues.question,
+    coordinates: actionData?.fields?.coordinates || defaultValues.coordinates,
   }
 
   const hasFormError = Boolean(actionData?.formError)
@@ -166,7 +190,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
           </FormControl>
           <FormControl isInvalid={hasInvalidQuestion}>
             <FormLabel>Question</FormLabel>
-            <ClientOnly fallback={<EditorSkeleton />}>
+            <ClientOnly fallback={<Skeleton height="232px" />}>
               {() => (
                 <Editor
                   name="question"
@@ -182,7 +206,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
 
           <FormControl isInvalid={hasInvalidAnswer}>
             <FormLabel>Réponse</FormLabel>
-            <ClientOnly fallback={<EditorSkeleton />}>
+            <ClientOnly fallback={<Skeleton height="232px" />}>
               {() => (
                 <Editor
                   name="answer"
@@ -194,6 +218,19 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             {actionData?.fieldErrors?.answer?.length ? (
               <ValidationMessages errors={actionData.fieldErrors.answer} />
             ) : null}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Coordonnées</FormLabel>
+            <ClientOnly fallback={<Skeleton height="450px" />}>
+              {() => (
+                <MapField
+                  key={`${values.id}-coordinates`}
+                  name="coordinates"
+                  defaultCoordinates={stringToCoordinates(values.coordinates)}
+                />
+              )}
+            </ClientOnly>
           </FormControl>
 
           <HStack ml="auto">
@@ -217,7 +254,9 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             </Button>
           </HStack>
           <Fade in={hasFormError}>
-            <Alert status="error">{actionData?.formError}</Alert>
+            {actionData?.formError ? (
+              <Alert status="error">{actionData?.formError}</Alert>
+            ) : null}
           </Fade>
         </Fieldset>
       </Form>
