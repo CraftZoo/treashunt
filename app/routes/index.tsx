@@ -5,7 +5,7 @@ import { Box, Stack } from '@chakra-ui/react'
 import {
   LoginFormAction,
   LoginFormLoader,
-} from '~/components/molecules/LoginForm'
+} from '~/components/molecules/Login/LoginForm'
 import Login from '~/components/organisms/Login'
 
 export const loader = async (loader: LoaderArgs) => {

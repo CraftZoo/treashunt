@@ -15,9 +15,8 @@ import {
   Button,
 } from '@chakra-ui/react'
 
+import Form from '~/components/atoms/Form'
 import { deletePuzzle } from '~/models/puzzle.server'
-
-import Form from '../atoms/Form'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()

@@ -54,7 +54,7 @@ export const getPuzzleListItems = () =>
     orderBy: { updatedAt: 'desc' },
   })
 
-type CreatePuzzle = Pick<
+export type CreatePuzzle = Pick<
   Puzzle,
   'title' | 'subtitle' | 'question' | 'answer' | 'authorId' | 'coordinates'
 >
@@ -80,7 +80,7 @@ export const createPuzzle = ({
     },
   })
 
-type UpdatePuzzle = Pick<
+export type UpdatePuzzle = Pick<
   Puzzle,
   'title' | 'subtitle' | 'id' | 'question' | 'answer' | 'coordinates'
 >

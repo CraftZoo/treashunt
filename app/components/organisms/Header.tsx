@@ -1,7 +1,7 @@
 import { HStack } from '@chakra-ui/react'
 
-import AppLogo from '../atoms/AppLogo'
-import LogoutButton from '../atoms/LogoutButton'
+import AppLogo from '~/components/atoms/AppLogo'
+import LogoutButton from '~/components/atoms/LogoutButton'
 
 const Header = () => {
   return (
