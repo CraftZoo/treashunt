@@ -18,21 +18,20 @@ import {
 import { Loader } from 'lucide-react'
 import { z } from 'zod'
 
-import type { Puzzle } from '~/models/puzzle.server'
+import ClientOnly from '~/components/atoms/ClientOnly'
+import Fieldset from '~/components/atoms/Fieldset'
+import Form from '~/components/atoms/Form'
+import Link from '~/components/atoms/Link'
+import Skeleton from '~/components/atoms/Skeleton'
+import ValidationMessages from '~/components/atoms/ValidationMessages'
+import Editor from '~/components/molecules/Editor'
+import MapField from '~/components/molecules/MapField.client'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
+import type { Puzzle, CreatePuzzle, UpdatePuzzle } from '~/models/puzzle.server'
 import { getUserId, setMessage } from '~/session.server'
-import type { inferSafeParseErrors } from '~/utils'
 import { coordinatesToString, stringToCoordinates } from '~/utils'
+import type { inferSafeParseErrors } from '~/utils'
 
-import ClientOnly from '../atoms/ClientOnly'
-import Fieldset from '../atoms/Fieldset'
-import Form from '../atoms/Form'
-import Link from '../atoms/Link'
-import Skeleton from '../atoms/Skeleton'
-import ValidationMessages from '../atoms/ValidationMessages'
-
-import Editor from './Editor'
-import MapField from './MapField.client'
 import PuzzleFormHeader from './PuzzleFormHeader'
 
 const PuzzleSchema = z.object({
@@ -108,18 +107,9 @@ type Mode = 'creation' | 'update'
 type PuzzleFormProps =
   | {
       mode: 'update'
-      puzzle: Pick<
-        Puzzle,
-        | 'id'
-        | 'title'
-        | 'subtitle'
-        | 'question'
-        | 'answer'
-        | 'slug'
-        | 'coordinates'
-      >
+      puzzle: UpdatePuzzle
     }
-  | { mode: 'creation'; puzzle?: never }
+  | { mode: 'creation'; puzzle?: CreatePuzzle }
 
 const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const actionData = useActionData<ActionData>()
@@ -130,7 +120,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const isUpdate = mode === 'update'
 
   const defaultValues: PuzzleFields = {
-    id: puzzle?.id || '',
+    id: mode === 'update' ? puzzle.id : '',
     title: puzzle?.title || '',
     subtitle: puzzle?.subtitle || '',
     answer: puzzle?.answer || '',

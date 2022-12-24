@@ -4,9 +4,8 @@ import { useLoaderData } from '@remix-run/react'
 
 import { Box, Heading, Container } from '@chakra-ui/react'
 
+import { getPuzzlePublic } from '~/models/puzzle.server'
 import { HTMLSanitizer } from '~/utils'
-
-import { getPuzzlePublic } from '../models/puzzle.server'
 
 export const loader = async ({ params }: LoaderArgs) => {
   const { puzzleSlug } = params

@@ -6,15 +6,14 @@ import { Button, Fade, FormControl, FormLabel, Input } from '@chakra-ui/react'
 
 import { z } from 'zod'
 
+import Alert from '~/components/atoms/Alert'
+import Fieldset from '~/components/atoms/Fieldset'
+import Form from '~/components/atoms/Form'
+import PasswordInput from '~/components/atoms/PasswordInput'
+import ValidationMessages from '~/components/atoms/ValidationMessages'
 import { login } from '~/models/user.server'
 import { createUserSession, getUserId } from '~/session.server'
 import type { inferSafeParseErrors } from '~/utils'
-
-import Alert from '../atoms/Alert'
-import Fieldset from '../atoms/Fieldset'
-import Form from '../atoms/Form'
-import PasswordInput from '../atoms/PasswordInput'
-import ValidationMessages from '../atoms/ValidationMessages'
 
 const LoginFields = z.object({
   username: z.string().min(3, 'Ce champ est requis'),

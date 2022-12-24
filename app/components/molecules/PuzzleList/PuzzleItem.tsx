@@ -1,9 +1,8 @@
 import { chakra, Card, CardBody, CardHeader, Heading } from '@chakra-ui/react'
 
+import CardSubtitle from '~/components/atoms/CardSubtitle'
 import type { Puzzle } from '~/models/puzzle.server'
 import { HTMLSanitizer } from '~/utils'
-
-import CardSubtitle from '../atoms/CardSubtitle'
 
 import PuzzleActionMenu from './PuzzleActionMenu'
 

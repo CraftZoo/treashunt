@@ -11,9 +11,8 @@ import {
   TileLayer,
 } from 'react-leaflet'
 
+import DraggableMarker from '~/components/atoms/MapDraggableMaker'
 import type { Puzzle } from '~/models/puzzle.server'
-
-import DraggableMarker from '../atoms/MapDraggableMaker'
 
 interface MapFieldProps {
   defaultCoordinates: Puzzle['coordinates']

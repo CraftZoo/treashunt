@@ -5,8 +5,8 @@ import { Icon } from '@chakra-ui/react'
 
 import type { Icon as LucideIcon } from 'lucide-react'
 
-import type { LinkProps } from '../atoms/Link'
-import Link from '../atoms/Link'
+import type { LinkProps } from '~/components/atoms/Link'
+import Link from '~/components/atoms/Link'
 
 type SidebarLinkProps = {
   icon: LucideIcon
@@ -36,7 +36,7 @@ const SidebarLink = ({ children, icon, ...rest }: SidebarLinkProps) => {
     >
       <Icon
         as={icon}
-        transition="250ms ease-in-out"
+        transition="transform 250ms ease-in-out"
         css={{
           backfaceVisibility: 'hidden',
         }}

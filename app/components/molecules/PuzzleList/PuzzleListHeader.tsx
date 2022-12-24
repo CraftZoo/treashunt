@@ -2,7 +2,7 @@ import { Button, Heading, HStack, Spacer } from '@chakra-ui/react'
 
 import { Plus } from 'lucide-react'
 
-import Link from '../atoms/Link'
+import Link from '~/components/atoms/Link'
 
 const PuzzleListHeader = () => (
   <HStack width="full" justifyContent="space-between">

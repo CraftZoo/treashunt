@@ -1,13 +1,12 @@
+import PuzzleForm from '~/components/molecules/Puzzle/PuzzleForm'
 import type { Puzzle } from '~/models/puzzle.server'
 
-import PuzzleForm from '../molecules/PuzzleForm'
-
-export { action } from '~/components/molecules/PuzzleForm'
+export { action } from '~/components/molecules/Puzzle/PuzzleForm'
 
 type PuzzleProps = {
   puzzle: Pick<
     Puzzle,
-    'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug'
+    'id' | 'title' | 'subtitle' | 'question' | 'answer' | 'slug' | 'coordinates'
   >
 }
 

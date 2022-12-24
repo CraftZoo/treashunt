@@ -1,10 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react'
 
+import AppLogo from '~/components/atoms/AppLogo'
+import LogoutButton from '~/components/atoms/LogoutButton'
+import SidebarMenu from '~/components/molecules/Sidebar/SidebarMenu'
 import type { Puzzle } from '~/models/puzzle.server'
-
-import AppLogo from '../atoms/AppLogo'
-import LogoutButton from '../atoms/LogoutButton'
-import SidebarMenu from '../molecules/SidebarMenu'
 
 export type SidebarProps = {
   puzzles: Array<Pick<Puzzle, 'id' | 'title'>>
