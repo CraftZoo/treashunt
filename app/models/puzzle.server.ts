@@ -6,7 +6,7 @@ import { db } from '~/db.server'
 import { HTMLSanitizer } from '~/utils'
 
 export interface Puzzle extends PrismaPuzzle {
-  coordinates: Pick<Coordinates, 'latitude' | 'longitude'>
+  coordinates: Pick<Coordinates, 'latitude' | 'longitude'> | null
 }
 
 export const getPuzzle = (puzzleId: Puzzle['id']) =>
@@ -50,6 +50,9 @@ export const getPuzzleListItems = () =>
       slug: true,
       question: true,
       answer: true,
+      coordinates: {
+        select: { latitude: true, longitude: true },
+      },
     },
     orderBy: { updatedAt: 'desc' },
   })
@@ -58,6 +61,7 @@ export type CreatePuzzle = Pick<
   Puzzle,
   'title' | 'subtitle' | 'question' | 'answer' | 'authorId' | 'coordinates'
 >
+
 export const createPuzzle = ({
   title,
   subtitle,
@@ -74,9 +78,11 @@ export const createPuzzle = ({
       answer: HTMLSanitizer(answer),
       slug: shortUUID().generate(),
       author: { connect: { id: authorId } },
-      coordinates: {
-        create: coordinates,
-      },
+      ...(coordinates && {
+        coordinates: {
+          create: coordinates,
+        },
+      }),
     },
   })
 
@@ -84,6 +90,7 @@ export type UpdatePuzzle = Pick<
   Puzzle,
   'title' | 'subtitle' | 'id' | 'question' | 'answer' | 'coordinates'
 >
+
 export const updatePuzzle = ({
   id,
   title,
@@ -99,9 +106,17 @@ export const updatePuzzle = ({
       subtitle,
       question: HTMLSanitizer(question),
       answer: HTMLSanitizer(answer),
-      coordinates: {
-        update: coordinates,
-      },
+      ...(coordinates
+        ? {
+            coordinates: {
+              create: coordinates,
+            },
+          }
+        : {
+            coordinates: {
+              delete: true,
+            },
+          }),
     },
   })
 

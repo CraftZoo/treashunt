@@ -8,7 +8,7 @@ import PuzzleActionMenu from './PuzzleActionMenu'
 
 export { action } from './PuzzleActionMenu'
 
-interface PuzzleItemProps {
+export interface PuzzleItemProps {
   puzzle: Pick<
     Puzzle,
     'id' | 'title' | 'subtitle' | 'slug' | 'question' | 'answer'
