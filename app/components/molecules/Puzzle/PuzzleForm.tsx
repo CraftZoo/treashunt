@@ -27,7 +27,7 @@ import ValidationMessages from '~/components/atoms/ValidationMessages'
 import Editor from '~/components/molecules/Editor'
 import MapField from '~/components/molecules/MapField.client'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
-import type { Puzzle, CreatePuzzle, UpdatePuzzle } from '~/models/puzzle.server'
+import type { Puzzle, UpdatePuzzle } from '~/models/puzzle.server'
 import { getUserId, setMessage } from '~/session.server'
 import { coordinatesToString, stringToCoordinates } from '~/utils'
 import type { inferSafeParseErrors } from '~/utils'
@@ -109,7 +109,7 @@ type PuzzleFormProps =
       mode: 'update'
       puzzle: UpdatePuzzle
     }
-  | { mode: 'creation'; puzzle?: CreatePuzzle }
+  | { mode: 'creation'; puzzle?: never }
 
 const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
   const actionData = useActionData<ActionData>()
