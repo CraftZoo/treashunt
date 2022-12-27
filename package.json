@@ -51,7 +51,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^2.2.0",
+    "@chakra-ui/cli": "^2.3.0",
     "@remix-run/dev": "^1.9.0",
     "@remix-run/eslint-config": "^1.9.0",
     "@types/bcryptjs": "^2.4.2",
