@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Spacer } from '@chakra-ui/react'
+import { Button, Heading, HStack, Text, VisuallyHidden } from '@chakra-ui/react'
 
 import { ArrowLeft } from 'lucide-react'
 
@@ -15,8 +15,12 @@ const PuzzleFormHeader = ({ mode }: PuzzleFormHeaderProps) => {
       <Heading>{action} une énigme</Heading>
       <Button as={Link} to="/admin/puzzles">
         <ArrowLeft />
-        <Spacer width={2} />
-        Retour à la liste des énigmes
+        <Text display={{ base: 'none', md: 'initial' }}>
+          Retour à la liste des énigmes
+        </Text>
+        <VisuallyHidden display={{ base: 'initial', md: 'none' }}>
+          Retour à la liste des énigmes
+        </VisuallyHidden>
       </Button>
     </HStack>
   )

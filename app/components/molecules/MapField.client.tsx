@@ -4,20 +4,20 @@ import { Box } from '@chakra-ui/react'
 
 import type { LatLngLiteral } from 'leaflet'
 
-import type { Puzzle } from '~/models/puzzle.server'
+import type { CoordinatePoints } from '~/models/puzzle.server'
 
 import Map from '../atoms/Map.client'
 import Marker from '../atoms/Marker.client'
 
 interface MapFieldProps {
-  defaultCoordinates: Puzzle['coordinates']
+  defaultCoordinate: CoordinatePoints
   name?: HTMLInputElement['name']
 }
 
-const MapField = ({ defaultCoordinates, name }: MapFieldProps) => {
+const MapField = ({ defaultCoordinate, name }: MapFieldProps) => {
   const [position, setPosition] = useState<LatLngLiteral>({
-    lat: Number(defaultCoordinates?.latitude),
-    lng: Number(defaultCoordinates?.longitude),
+    lat: defaultCoordinate?.lat || 0,
+    lng: defaultCoordinate?.lng || 0,
   })
 
   return (

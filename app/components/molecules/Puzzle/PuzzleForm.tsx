@@ -29,8 +29,8 @@ import MapField from '~/components/molecules/MapField.client'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
 import type { Puzzle, CreatePuzzle, UpdatePuzzle } from '~/models/puzzle.server'
 import { getUserId, setMessage } from '~/session.server'
-import { coordinatesToString, stringToCoordinates } from '~/utils'
 import type { inferSafeParseErrors } from '~/utils'
+import { coordinatesToString, stringToCoordinates } from '~/utils/map'
 
 import PuzzleFormHeader from './PuzzleFormHeader'
 
@@ -39,7 +39,7 @@ const PuzzleSchema = z.object({
   subtitle: z.string(),
   question: z.string(),
   answer: z.string(),
-  coordinates: z.string(),
+  coordinate: z.string(),
 })
 type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
 type PuzzleFieldsErrors = inferSafeParseErrors<typeof PuzzleSchema>
@@ -50,9 +50,9 @@ type ActionData = PuzzleFieldsErrors & {
 
 type FormDataEntries = PuzzleFields & { _mode: Mode }
 
-const defaultCoordinates: Puzzle['coordinates'] = {
-  latitude: new Prisma.Decimal(47.042991),
-  longitude: new Prisma.Decimal(-1.185087),
+const defaultCoordinates: Puzzle['coordinate'] = {
+  lat: 47.042991,
+  lng: -1.185087,
 }
 
 export const action = async ({ request }: ActionArgs) => {
@@ -72,13 +72,13 @@ export const action = async ({ request }: ActionArgs) => {
     return json({ fields, ...result.error.flatten() }, { status: 400, headers })
   }
 
-  const coordinates = stringToCoordinates(fields.coordinates)
+  const coordinate = stringToCoordinates(fields.coordinate)
 
   if (_mode === 'update') {
     const puzzle = await updatePuzzle({
       ...fields,
       id,
-      coordinates,
+      coordinate,
     })
 
     const headers = await setMessage(request, {
@@ -95,7 +95,7 @@ export const action = async ({ request }: ActionArgs) => {
       { status: 400 }
     )
 
-  const puzzle = await createPuzzle({ ...fields, authorId, coordinates })
+  const puzzle = await createPuzzle({ ...fields, authorId, coordinate })
   const headers = await setMessage(request, {
     status: 'success',
     title: 'Énigme ajoutée',
@@ -125,7 +125,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: puzzle?.subtitle || '',
     answer: puzzle?.answer || '',
     question: puzzle?.question || '',
-    coordinates: coordinatesToString(puzzle?.coordinates || defaultCoordinates),
+    coordinate: coordinatesToString(puzzle?.coordinate || defaultCoordinates),
   }
 
   const values: PuzzleFields = {
@@ -134,7 +134,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: actionData?.fields?.subtitle || defaultValues.subtitle,
     answer: actionData?.fields?.answer || defaultValues.answer,
     question: actionData?.fields?.question || defaultValues.question,
-    coordinates: actionData?.fields?.coordinates || defaultValues.coordinates,
+    coordinate: actionData?.fields?.coordinate || defaultValues.coordinate,
   }
 
   const hasFormError = Boolean(actionData?.formError)
@@ -215,9 +215,9 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             <ClientOnly fallback={<Skeleton height="450px" />}>
               {() => (
                 <MapField
-                  key={`${values.id}-coordinates`}
-                  name="coordinates"
-                  defaultCoordinates={stringToCoordinates(values.coordinates)}
+                  key={`${values.id}-coordinate`}
+                  name="coordinate"
+                  defaultCoordinate={stringToCoordinates(values.coordinate)}
                 />
               )}
             </ClientOnly>

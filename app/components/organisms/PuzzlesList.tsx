@@ -2,10 +2,10 @@ import { Grid } from '@chakra-ui/react'
 
 import { motion } from 'framer-motion'
 
-import type { PuzzleItemProps } from '../molecules/PuzzleItem'
-import PuzzleItem from '../molecules/PuzzleItem'
+import type { PuzzleItemProps } from '~/components/molecules/PuzzleList/PuzzleItem'
+import PuzzleItem from '~/components/molecules/PuzzleList/PuzzleItem'
 
-export { action } from '../molecules/PuzzleItem'
+export { action } from '~/components/molecules/PuzzleList/PuzzleItem'
 
 interface PuzzleListProps {
   puzzles: PuzzleItemProps['puzzle'][]
