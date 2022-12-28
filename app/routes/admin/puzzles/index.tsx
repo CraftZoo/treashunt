@@ -2,7 +2,7 @@ import type { MetaFunction } from '@remix-run/node'
 
 import { VStack } from '@chakra-ui/react'
 
-import PuzzleListHeader from '~/components/molecules/PuzzleListHeader'
+import PuzzleListHeader from '~/components/molecules/PuzzleList/PuzzleListHeader'
 import PuzzleList from '~/components/organisms/PuzzleList'
 
 export { action, loader } from '~/components/organisms/PuzzleList'

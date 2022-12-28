@@ -4,12 +4,11 @@ import { useLoaderData } from '@remix-run/react'
 
 import { Grid } from '@chakra-ui/react'
 
+import PuzzleItem from '~/components/molecules/PuzzleList/PuzzleItem'
 import { getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 
-import PuzzleItem from '../molecules/PuzzleItem'
-
-export { action } from '../molecules/PuzzleItem'
+export { action } from '~/components/molecules/PuzzleList/PuzzleItem'
 
 export const loader = async ({ request }: LoaderArgs) => {
   const user = await getUser(request)

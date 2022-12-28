@@ -7,7 +7,7 @@ import {
   Image,
 } from '@chakra-ui/react'
 
-import LoginForm from '../molecules/LoginForm'
+import LoginForm from '~/components/molecules/Login/LoginForm'
 
 const Login = () => {
   return (

@@ -2,7 +2,7 @@ import { Button, Heading, HStack, Spacer } from '@chakra-ui/react'
 
 import { ArrowLeft } from 'lucide-react'
 
-import Link from '../atoms/Link'
+import Link from '~/components/atoms/Link'
 
 interface PuzzleFormHeaderProps {
   mode: 'update' | 'creation'
