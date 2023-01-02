@@ -12,6 +12,11 @@ const Header = () => {
       justify="space-between"
       p={4}
       display={{ base: 'flex', sm: 'none' }}
+      sx={{
+        '@media print': {
+          display: 'none',
+        },
+      }}
     >
       <AppLogo />
       <LogoutButton variant="icon-button" />
