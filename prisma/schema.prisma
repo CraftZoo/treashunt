@@ -43,10 +43,10 @@ model Puzzle {
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId String
 
-  coordinate Coordinate?
+  coordinates Coordinates?
 }
 
-model Coordinate {
+model Coordinates {
   id  String  @id @default(uuid())
   lat Float
   lng Float

@@ -1,14 +1,14 @@
-import type { Coordinate, Puzzle as PrismaPuzzle } from '@prisma/client'
+import type { Coordinates, Puzzle as PrismaPuzzle } from '@prisma/client'
 
 import shortUUID from 'short-uuid'
 
 import { db } from '~/db.server'
 import { HTMLSanitizer } from '~/utils/'
 
-export type CoordinatePoints = Pick<Coordinate, 'lat' | 'lng'>
+export type CoordinatePoints = Pick<Coordinates, 'lat' | 'lng'>
 
 export interface Puzzle extends PrismaPuzzle {
-  coordinate: CoordinatePoints | null
+  coordinates: CoordinatePoints | null
 }
 
 export const getPuzzle = (puzzleId: Puzzle['id']) =>
@@ -20,7 +20,7 @@ export const getPuzzle = (puzzleId: Puzzle['id']) =>
       slug: true,
       question: true,
       answer: true,
-      coordinate: {
+      coordinates: {
         select: { lat: true, lng: true },
       },
     },
@@ -40,7 +40,7 @@ export const getPuzzlePublic = (puzzleSlug: Puzzle['slug']) =>
 export const getPuzzleListItemsId = () =>
   db.puzzle.findMany({
     select: { id: true },
-    orderBy: { updatedAt: 'desc' },
+    orderBy: { createdAt: 'desc' },
   })
 
 export const getPuzzleListItems = () =>
@@ -52,16 +52,16 @@ export const getPuzzleListItems = () =>
       slug: true,
       question: true,
       answer: true,
-      coordinate: {
+      coordinates: {
         select: { lat: true, lng: true },
       },
     },
-    orderBy: { updatedAt: 'desc' },
+    orderBy: { createdAt: 'desc' },
   })
 
 export type CreatePuzzle = Pick<
   Puzzle,
-  'title' | 'subtitle' | 'question' | 'answer' | 'authorId' | 'coordinate'
+  'title' | 'subtitle' | 'question' | 'answer' | 'authorId' | 'coordinates'
 >
 
 export const createPuzzle = ({
@@ -70,7 +70,7 @@ export const createPuzzle = ({
   question,
   answer,
   authorId,
-  coordinate,
+  coordinates,
 }: CreatePuzzle) =>
   db.puzzle.create({
     data: {
@@ -80,9 +80,9 @@ export const createPuzzle = ({
       answer: HTMLSanitizer(answer),
       slug: shortUUID().generate(),
       author: { connect: { id: authorId } },
-      ...(coordinate && {
-        coordinate: {
-          create: coordinate,
+      ...(coordinates && {
+        coordinates: {
+          create: coordinates,
         },
       }),
     },
@@ -90,7 +90,7 @@ export const createPuzzle = ({
 
 export type UpdatePuzzle = Pick<
   Puzzle,
-  'title' | 'subtitle' | 'id' | 'question' | 'answer' | 'coordinate'
+  'title' | 'subtitle' | 'id' | 'question' | 'answer' | 'coordinates'
 >
 
 export const updatePuzzle = ({
@@ -99,28 +99,32 @@ export const updatePuzzle = ({
   subtitle,
   question,
   answer,
-  coordinate,
-}: UpdatePuzzle) =>
-  db.puzzle.update({
+  coordinates,
+}: UpdatePuzzle) => {
+  return db.puzzle.update({
     where: { id },
     data: {
       title,
       subtitle,
       question: HTMLSanitizer(question),
       answer: HTMLSanitizer(answer),
-      ...(coordinate
+      ...(coordinates
         ? {
-            coordinate: {
-              update: coordinate,
+            coordinates: {
+              upsert: {
+                create: coordinates,
+                update: coordinates,
+              },
             },
           }
         : {
-            coordinate: {
+            coordinates: {
               delete: true,
             },
           }),
     },
   })
+}
 
 export const deletePuzzle = (id: Puzzle['id']) =>
   db.puzzle.delete({ where: { id } })

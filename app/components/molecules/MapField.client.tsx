@@ -35,7 +35,7 @@ const MapField = ({ defaultCoordinate, name }: MapFieldProps) => {
         type="hidden"
         value={`${position.lat};${position.lng}`}
       />
-      <Map position={position}>
+      <Map coordinates={[position]}>
         <Marker draggable position={position} onChange={setPosition} />
       </Map>
     </Box>

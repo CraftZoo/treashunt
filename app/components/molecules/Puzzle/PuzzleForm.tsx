@@ -39,7 +39,7 @@ const PuzzleSchema = z.object({
   subtitle: z.string(),
   question: z.string(),
   answer: z.string(),
-  coordinate: z.string(),
+  coordinates: z.string(),
 })
 type PuzzleFields = z.infer<typeof PuzzleSchema> & Pick<Puzzle, 'id'>
 type PuzzleFieldsErrors = inferSafeParseErrors<typeof PuzzleSchema>
@@ -50,7 +50,7 @@ type ActionData = PuzzleFieldsErrors & {
 
 type FormDataEntries = PuzzleFields & { _mode: Mode }
 
-const defaultCoordinates: Puzzle['coordinate'] = {
+const defaultCoordinates: Puzzle['coordinates'] = {
   lat: 47.042991,
   lng: -1.185087,
 }
@@ -72,13 +72,13 @@ export const action = async ({ request }: ActionArgs) => {
     return json({ fields, ...result.error.flatten() }, { status: 400, headers })
   }
 
-  const coordinate = stringToCoordinates(fields.coordinate)
+  const coordinates = stringToCoordinates(fields.coordinates)
 
   if (_mode === 'update') {
     const puzzle = await updatePuzzle({
       ...fields,
       id,
-      coordinate,
+      coordinates,
     })
 
     const headers = await setMessage(request, {
@@ -95,7 +95,7 @@ export const action = async ({ request }: ActionArgs) => {
       { status: 400 }
     )
 
-  const puzzle = await createPuzzle({ ...fields, authorId, coordinate })
+  const puzzle = await createPuzzle({ ...fields, authorId, coordinates })
   const headers = await setMessage(request, {
     status: 'success',
     title: 'Énigme ajoutée',
@@ -125,7 +125,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: puzzle?.subtitle || '',
     answer: puzzle?.answer || '',
     question: puzzle?.question || '',
-    coordinate: coordinatesToString(puzzle?.coordinate || defaultCoordinates),
+    coordinates: coordinatesToString(puzzle?.coordinates || defaultCoordinates),
   }
 
   const values: PuzzleFields = {
@@ -134,7 +134,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
     subtitle: actionData?.fields?.subtitle || defaultValues.subtitle,
     answer: actionData?.fields?.answer || defaultValues.answer,
     question: actionData?.fields?.question || defaultValues.question,
-    coordinate: actionData?.fields?.coordinate || defaultValues.coordinate,
+    coordinates: actionData?.fields?.coordinates || defaultValues.coordinates,
   }
 
   const hasFormError = Boolean(actionData?.formError)
@@ -215,9 +215,9 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
             <ClientOnly fallback={<Skeleton height="450px" />}>
               {() => (
                 <MapField
-                  key={`${values.id}-coordinate`}
-                  name="coordinate"
-                  defaultCoordinate={stringToCoordinates(values.coordinate)}
+                  key={`${values.id}-coordinates`}
+                  name="coordinates"
+                  defaultCoordinate={stringToCoordinates(values.coordinates)}
                 />
               )}
             </ClientOnly>

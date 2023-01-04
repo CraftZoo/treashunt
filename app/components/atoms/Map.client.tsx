@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react'
+import { useMemo } from 'react'
 
 import type { SystemStyleObject } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
 
 import type { LatLngExpression } from 'leaflet'
+import { latLngBounds } from 'leaflet'
 import {
   LayerGroup,
   LayersControl,
@@ -13,20 +15,23 @@ import {
 
 interface MapProps {
   children?: ReactNode
-  position?: LatLngExpression
+  coordinates?: LatLngExpression[]
 }
 
-const Map = ({ children, position }: MapProps) => {
+const Map = ({ children, coordinates }: MapProps) => {
+  const bounds = useMemo(() => {
+    return latLngBounds(coordinates || [])
+  }, [coordinates])
+
   return (
     <Box
       as={MapContainer}
       minH="450px"
       height={'full'}
-      center={position}
-      zoom={18}
       attributionControl={false}
       scrollWheelZoom={false}
       borderRadius="xl"
+      bounds={bounds}
       sx={leafletStyles}
     >
       <LayersControl position="topright">

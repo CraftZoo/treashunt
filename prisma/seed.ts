@@ -56,7 +56,7 @@ const puzzles = [
     question:
       "Toute chose, il dévore. Il ronge le fer, fait disparaître l'acier et réduit les pierres en poussière. Qui est-ce ?",
     answer: 'Le temps',
-    coordinate: {
+    coordinates: {
       create: {
         lat: 47.04375005893099,
         lng: -1.1869955062866213,
@@ -67,7 +67,7 @@ const puzzles = [
     title: 'Rue de Payonne',
     question: 'Quelle est la lettre la plus tranchante ?',
     answer: 'La H',
-    coordinate: {
+    coordinates: {
       create: {
         lat: 47.042477920200696,
         lng: -1.1864107847213747,
@@ -78,7 +78,7 @@ const puzzles = [
     title: 'Puie Mariveil',
     question: 'Quelle lettre peut-on lancer dans tous les sens ?',
     answer: 'Le D',
-    coordinate: {
+    coordinates: {
       create: {
         lat: 47.044283763273214,
         lng: -1.1894470453262331,
