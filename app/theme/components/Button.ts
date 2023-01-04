@@ -9,14 +9,6 @@ export default defineStyleConfig({
     fontWeight: 600,
   },
   variants: {
-    secondary: {
-      bg: 'secondary',
-      color: 'primary',
-      fontWeight: 600,
-      _hover: {
-        bg: 'pinklace',
-      },
-    },
     link: {
       p: 2,
       minWidth: 'revert',

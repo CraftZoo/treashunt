@@ -1,4 +1,4 @@
-import { Button, VisuallyHidden } from '@chakra-ui/react'
+import { VisuallyHidden } from '@chakra-ui/react'
 
 import { LogOut } from 'lucide-react'
 
@@ -15,17 +15,9 @@ const LogoutButton = ({ variant = 'button' }: LogoutButtonProps) => {
 
   return (
     <Form action="/logout" method="post">
-      <Button
-        size="md"
+      <button
         type="submit"
-        w="full"
-        gap={2}
-        bg="americanpurple.700"
-        textTransform="uppercase"
-        _hover={{
-          bg: 'brillantlavender.400',
-          color: 'grape.500',
-        }}
+        className="btn btn-md w-full bg-americanpurple-700 uppercase hover:bg-brillantlavender-400 hover:text-grape-500"
       >
         {isIconButton ? (
           <>
@@ -35,7 +27,7 @@ const LogoutButton = ({ variant = 'button' }: LogoutButtonProps) => {
         ) : (
           label
         )}
-      </Button>
+      </button>
     </Form>
   )
 }
