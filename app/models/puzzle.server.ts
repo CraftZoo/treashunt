@@ -1,14 +1,17 @@
-import type { Coordinates, Puzzle as PrismaPuzzle } from '@prisma/client'
+import type {
+  Coordinates as PrismaCoordinates,
+  Puzzle as PrismaPuzzle,
+} from '@prisma/client'
 
 import shortUUID from 'short-uuid'
 
 import { db } from '~/db.server'
 import { HTMLSanitizer } from '~/utils/'
 
-export type CoordinatePoints = Pick<Coordinates, 'lat' | 'lng'>
+export type Coordinates = Pick<PrismaCoordinates, 'lat' | 'lng'>
 
 export interface Puzzle extends PrismaPuzzle {
-  coordinates: CoordinatePoints | null
+  coordinates: Coordinates | null
 }
 
 export const getPuzzle = (puzzleId: Puzzle['id']) =>

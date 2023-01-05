@@ -217,7 +217,7 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
                 <MapField
                   key={`${values.id}-coordinates`}
                   name="coordinates"
-                  defaultCoordinate={stringToCoordinates(values.coordinates)}
+                  defaultCoordinates={stringToCoordinates(values.coordinates)}
                 />
               )}
             </ClientOnly>

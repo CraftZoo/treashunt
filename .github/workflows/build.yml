@@ -18,6 +18,10 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
+      - name: Run typecheck
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: typecheck
       - name: Run build
         uses: borales/actions-yarn@v4
         with:
