@@ -2,11 +2,12 @@ import type { ActionArgs, LoaderArgs } from '@remix-run/node'
 import { redirect, json } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
-import { Button, Fade, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import { Fade, FormControl, FormLabel, Input } from '@chakra-ui/react'
 
 import { z } from 'zod'
 
 import Alert from '~/components/atoms/Alert'
+import Button from '~/components/atoms/Button'
 import Fieldset from '~/components/atoms/Fieldset'
 import Form from '~/components/atoms/Form'
 import PasswordInput from '~/components/atoms/PasswordInput'
@@ -101,7 +102,7 @@ const LoginForm = () => {
           ) : null}
         </FormControl>
 
-        <Button type="submit" mt={5} w="full">
+        <Button type="submit" className="mt-5">
           {isSubmitting ? 'Connexion en cours...' : 'Me connecter'}
         </Button>
 

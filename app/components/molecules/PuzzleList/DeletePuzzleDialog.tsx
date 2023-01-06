@@ -12,9 +12,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Button,
 } from '@chakra-ui/react'
 
+import Button from '~/components/atoms/Button'
 import Form from '~/components/atoms/Form'
 import { deletePuzzle } from '~/models/puzzle.server'
 
@@ -56,12 +56,12 @@ const DeletePuzzleDialog = ({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Supprimer « {puzzleTitle} »
+            Supprimer « {puzzleTitle} »
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            Êtes vous sur de vouloir supprimer cette énigme ? Vous ne pourrez
-            pas annuler cette action par la suite.
+            Êtes vous sur de vouloir supprimer cette énigme ? <br />
+            Vous ne pourrez pas annuler cette action par la suite.
           </AlertDialogBody>
 
           <AlertDialogFooter gap={2}>
@@ -78,7 +78,7 @@ const DeletePuzzleDialog = ({
               <input type="hidden" name="id" value={puzzleId} readOnly />
               <Button
                 type="submit"
-                colorScheme="red"
+                variant="destructive"
                 size="md"
                 disabled={isLoading}
               >

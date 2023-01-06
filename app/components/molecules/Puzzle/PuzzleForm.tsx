@@ -1,13 +1,10 @@
 import type { ActionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import { useActionData, useTransition } from '@remix-run/react'
-
-import { Prisma } from '@prisma/client'
+import { Link, useActionData, useTransition } from '@remix-run/react'
 
 import {
   Alert,
   Box,
-  Button,
   Fade,
   FormControl,
   FormLabel,
@@ -18,10 +15,10 @@ import {
 import { Loader } from 'lucide-react'
 import { z } from 'zod'
 
+import Button from '~/components/atoms/Button'
 import ClientOnly from '~/components/atoms/ClientOnly'
 import Fieldset from '~/components/atoms/Fieldset'
 import Form from '~/components/atoms/Form'
-import Link from '~/components/atoms/Link'
 import Skeleton from '~/components/atoms/Skeleton'
 import ValidationMessages from '~/components/atoms/ValidationMessages'
 import Editor from '~/components/molecules/Editor'
@@ -224,15 +221,10 @@ const PuzzleForm = ({ puzzle, mode }: PuzzleFormProps) => {
           </FormControl>
 
           <HStack ml="auto">
-            <Button
-              as={Link}
-              variant="outline"
-              to="/admin/puzzles"
-              w="min-content"
-            >
+            <Button as={Link} variant="outline" to="/admin/puzzles">
               Annuler
             </Button>
-            <Button type="submit" variant="secondary" w="min-content">
+            <Button type="submit" variant="secondary">
               {isSubmitting ? (
                 <>
                   <Loader />

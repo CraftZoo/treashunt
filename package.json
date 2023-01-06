@@ -2,13 +2,18 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "build": "run-s \"build:*\"",
+    "build:css": "npm run generate:css -- --minify",
+    "build:remix": "remix build",
     "start": "remix-serve build",
+    "dev": "run-p \"dev:*\"",
+    "dev:css": "npm run generate:css -- --watch",
+    "dev:remix": "remix dev",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
-    "gen:theme-typings": "chakra-cli tokens app/theme/theme.ts",
-    "postinstall": "yarn gen:theme-typings",
+    "generate:css": "tailwindcss -i ./styles/app.css -o app/tailwind.css",
+    "generate:theme-typings": "chakra-cli tokens app/theme/theme.ts",
+    "postinstall": "yarn generate:theme-typings",
     "lint": "eslint --ext .tsx,.ts app/",
     "typecheck": "tsc -b"
   },
@@ -49,6 +54,7 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.0",
     "short-uuid": "^4.2.2",
+    "tailwindcss": "^3.2.4",
     "zod": "^3.20.2"
   },
   "devDependencies": {
@@ -63,7 +69,10 @@
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-tailwindcss": "^3.8.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.0",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "prisma": "^4.6.1",
     "typescript": "^4.8.4"
   },

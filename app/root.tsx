@@ -19,9 +19,9 @@ import leaflet from 'leaflet/dist/leaflet.css'
 
 import { useToast } from './hooks'
 import { getMessage } from './session.server'
+import styles from './tailwind.css'
 import theme from './theme'
 import Fonts from './theme/fonts'
-
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   viewport: 'width=device-width,initial-scale=1',
@@ -32,6 +32,8 @@ export const links: LinksFunction = () => {
     { rel: 'stylesheet', href: sourceSansPro400 },
     { rel: 'stylesheet', href: sourceSansPro600 },
     { rel: 'stylesheet', href: leaflet },
+
+    { rel: 'stylesheet', href: styles },
 
     { rel: 'apple-touch-icon', sizes: '60x60', href: '/apple-touch-icon.png' },
     {

@@ -5,8 +5,9 @@ module.exports = {
     '@remix-run/eslint-config',
     '@remix-run/eslint-config/node',
     'eslint-config-prettier',
+    'plugin:tailwindcss/recommended',
   ],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'tailwindcss'],
   rules: {
     'import/order': [
       'error',
