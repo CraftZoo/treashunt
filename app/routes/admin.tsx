@@ -26,7 +26,7 @@ const AdminRoute = () => {
   const { puzzles } = useLoaderData<typeof loader>()
 
   return (
-    <Box pl={{ sm: 300 }}>
+    <Box pl={{ sm: 300 }} h="full">
       <Header />
       <Sidebar puzzles={puzzles} />
       <Outlet />

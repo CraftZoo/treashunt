@@ -58,8 +58,8 @@ const puzzles = [
     answer: 'Le temps',
     coordinates: {
       create: {
-        latitude: 47.04375005893099,
-        longitude: -1.1869955062866213,
+        lat: 47.04375005893099,
+        lng: -1.1869955062866213,
       },
     },
   },
@@ -69,8 +69,8 @@ const puzzles = [
     answer: 'La H',
     coordinates: {
       create: {
-        latitude: 47.042477920200696,
-        longitude: -1.1864107847213747,
+        lat: 47.042477920200696,
+        lng: -1.1864107847213747,
       },
     },
   },
@@ -80,8 +80,8 @@ const puzzles = [
     answer: 'Le D',
     coordinates: {
       create: {
-        latitude: 47.044283763273214,
-        longitude: -1.1894470453262331,
+        lat: 47.044283763273214,
+        lng: -1.1894470453262331,
       },
     },
   },

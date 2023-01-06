@@ -47,9 +47,9 @@ model Puzzle {
 }
 
 model Coordinates {
-  id        String  @id @default(uuid())
-  latitude  Decimal
-  longitude Decimal
+  id  String  @id @default(uuid())
+  lat Float
+  lng Float
 
   puzzle   Puzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   puzzleId String @unique

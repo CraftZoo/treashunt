@@ -1,8 +1,9 @@
+import type { ReactNode } from 'react'
 import { useMemo, useRef } from 'react'
 
 import type { LatLngLiteral, Marker as MarkerType } from 'leaflet'
 import L from 'leaflet'
-import { Marker } from 'react-leaflet'
+import { Marker as LeafletMarker } from 'react-leaflet'
 
 const MarkerIcon = L.icon({
   iconUrl: '/images/marker-icon.png',
@@ -11,12 +12,14 @@ const MarkerIcon = L.icon({
 
 L.Marker.prototype.options.icon = MarkerIcon
 
-interface DraggableMarkerProps {
+interface MarkerProps {
+  children?: ReactNode
   position: LatLngLiteral
-  onChange: (latLng: LatLngLiteral) => void
+  draggable?: boolean
+  onChange?: (latLng: LatLngLiteral) => void
 }
 
-const DraggableMarker = ({ position, onChange }: DraggableMarkerProps) => {
+const Marker = ({ children, position, draggable, onChange }: MarkerProps) => {
   const markerRef = useRef<MarkerType>(null)
 
   const eventHandlers = useMemo(
@@ -24,7 +27,7 @@ const DraggableMarker = ({ position, onChange }: DraggableMarkerProps) => {
       dragend() {
         const marker = markerRef.current
         if (marker) {
-          onChange(marker.getLatLng())
+          onChange?.(marker.getLatLng())
         }
       },
     }),
@@ -32,13 +35,15 @@ const DraggableMarker = ({ position, onChange }: DraggableMarkerProps) => {
   )
 
   return (
-    <Marker
+    <LeafletMarker
       ref={markerRef}
-      draggable={true}
+      draggable={draggable}
       eventHandlers={eventHandlers}
       position={position}
-    />
+    >
+      {children}
+    </LeafletMarker>
   )
 }
 
-export default DraggableMarker
+export default Marker

@@ -9,7 +9,8 @@
     "db:seed": "prisma db seed",
     "gen:theme-typings": "chakra-cli tokens app/theme/theme.ts",
     "postinstall": "yarn gen:theme-typings",
-    "lint": "eslint --ext .tsx,.ts app/"
+    "lint": "eslint --ext .tsx,.ts app/",
+    "typecheck": "tsc -b"
   },
   "prisma": {
     "seed": "node --require esbuild-register prisma/seed.ts"

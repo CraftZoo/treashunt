@@ -29,8 +29,8 @@ import MapField from '~/components/molecules/MapField.client'
 import { createPuzzle, updatePuzzle } from '~/models/puzzle.server'
 import type { Puzzle, CreatePuzzle, UpdatePuzzle } from '~/models/puzzle.server'
 import { getUserId, setMessage } from '~/session.server'
-import { coordinatesToString, stringToCoordinates } from '~/utils'
 import type { inferSafeParseErrors } from '~/utils'
+import { coordinatesToString, stringToCoordinates } from '~/utils/map'
 
 import PuzzleFormHeader from './PuzzleFormHeader'
 
@@ -51,8 +51,8 @@ type ActionData = PuzzleFieldsErrors & {
 type FormDataEntries = PuzzleFields & { _mode: Mode }
 
 const defaultCoordinates: Puzzle['coordinates'] = {
-  latitude: new Prisma.Decimal(47.042991),
-  longitude: new Prisma.Decimal(-1.185087),
+  lat: 47.042991,
+  lng: -1.185087,
 }
 
 export const action = async ({ request }: ActionArgs) => {

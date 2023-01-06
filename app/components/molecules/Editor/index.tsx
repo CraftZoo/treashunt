@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import type { BoxProps } from '@chakra-ui/react'
 import { Box, forwardRef } from '@chakra-ui/react'
 
-import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
 import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
@@ -29,10 +28,6 @@ const Editor = forwardRef<EditorProps, 'div'>(
           },
         }),
         Underline,
-
-        Placeholder.configure({
-          placeholder: placeholder || 'Insérer votre texte',
-        }),
       ],
       onUpdate: ({ editor }) => setValue(editor.getHTML()),
       autofocus: true,

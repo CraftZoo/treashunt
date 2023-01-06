@@ -21,9 +21,9 @@ const EditorOptionsWrapper = ({
     >
       <Flex
         bg="white"
-        alignItems="center"
-        h={10}
+        flexWrap="wrap"
         px={2}
+        py={1}
         gap={2}
         borderTopRadius="xl"
       >

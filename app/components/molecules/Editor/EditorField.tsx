@@ -128,7 +128,7 @@ const EditorField = ({ editor }: EditorFieldProps) => {
       borderBottomRadius="xl"
       borderTopWidth={0}
     >
-      <StyledEditor editor={editor} />
+      <StyledEditor editor={editor} placeholder="Insérer votre texte" />
     </Box>
   )
 }
