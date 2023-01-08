@@ -22,7 +22,7 @@ const PuzzlesMap = ({ puzzles }: PuzzleMapProps) => {
 
   return (
     <Box h="full">
-      <ClientOnly fallback={<Skeleton />}>
+      <ClientOnly fallback={<Skeleton h="full" />}>
         {() => (
           <Map key={`coordinates`} coordinates={coordinates}>
             {puzzleWithCoordinates.map(puzzle => {

@@ -1,6 +1,6 @@
 import { Button, Heading, Stack, Spacer, HStack, Icon } from '@chakra-ui/react'
 
-import { Plus } from 'lucide-react'
+import { Plus, QrCode } from 'lucide-react'
 
 import Link from '~/components/atoms/Link'
 
@@ -16,6 +16,13 @@ const PuzzleListHeader = () => (
     <Heading>Liste des énigmes</Heading>
     <HStack>
       <Button width="fit-content" as={Link} to="/admin/puzzles/print">
+        <Icon
+          as={QrCode}
+          boxSize={{
+            base: 4,
+            md: 5,
+          }}
+        />
         <Spacer width={2} />
         Exporter les énigmes
       </Button>

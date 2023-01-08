@@ -1,33 +1,13 @@
-import { useEffect, useState } from 'react'
-
 import { Box, Text, Image, Skeleton } from '@chakra-ui/react'
-
-import QRCode from 'qrcode'
 
 import type { Puzzle } from '~/models/puzzle.server'
 
-const generateQr = async (slug: string) => {
-  return await QRCode.toDataURL(`${window.location.host}/${slug}`, {
-    margin: 2,
-  })
-}
-
 interface PuzzleQRCodeProps {
-  data: Pick<Puzzle, 'id' | 'title' | 'slug'>
+  data: Pick<Puzzle, 'id' | 'title' | 'slug'> & { qrCode: string }
 }
 
 const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
-  const [src, setSrc] = useState<string | undefined>()
-  const { title, slug } = data
-
-  useEffect(() => {
-    const loadQrCode = async () => {
-      const data = await generateQr(slug)
-      setSrc(data)
-    }
-
-    loadQrCode()
-  }, [slug])
+  const { title, qrCode } = data
 
   return (
     <Box
@@ -48,7 +28,7 @@ const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
             borderWidth: 0,
             borderBottomWidth: '2px',
           },
-          ':nth-child(3n -1)': {
+          ':nth-of-type(3n -1)': {
             _after: {
               borderRightWidth: '2px',
               borderLeftWidth: '2px',
@@ -70,8 +50,8 @@ const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
       >
         {title}
       </Text>
-      {src ? (
-        <Image w="full" borderRadius="md" src={src} />
+      {qrCode ? (
+        <Image w="full" borderRadius="md" src={qrCode} />
       ) : (
         <Skeleton borderRadius="md" height="232px" />
       )}
