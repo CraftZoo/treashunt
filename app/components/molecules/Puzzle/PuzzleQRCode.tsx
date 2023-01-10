@@ -1,4 +1,4 @@
-import { Box, Text, Image, Skeleton } from '@chakra-ui/react'
+import { Box, Text, Image } from '@chakra-ui/react'
 
 import type { Puzzle } from '~/models/puzzle.server'
 
@@ -50,11 +50,7 @@ const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
       >
         {title}
       </Text>
-      {qrCode ? (
-        <Image w="full" borderRadius="md" src={qrCode} />
-      ) : (
-        <Skeleton borderRadius="md" height="232px" />
-      )}
+      <Image w="full" borderRadius="md" src={qrCode} />
     </Box>
   )
 }
