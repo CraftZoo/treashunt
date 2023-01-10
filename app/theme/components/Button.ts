@@ -24,7 +24,6 @@ export default defineStyleConfig({
     },
   },
   defaultProps: {
-    size: 'lg',
     colorScheme: 'grape',
   },
 })

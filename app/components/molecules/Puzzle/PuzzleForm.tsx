@@ -2,8 +2,6 @@ import type { ActionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import { useActionData, useTransition } from '@remix-run/react'
 
-import { Prisma } from '@prisma/client'
-
 import {
   Alert,
   Box,

@@ -65,7 +65,6 @@ const PuzzlesRoute = () => {
       height="full"
       py={{ base: 5, sm: 4 }}
       px={{ base: 4, sm: 8 }}
-      gap={{ base: 4, sm: 8 }}
       bg="aliceblue"
     >
       <PuzzleListHeader />
