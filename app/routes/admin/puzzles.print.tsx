@@ -2,23 +2,13 @@ import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
-import {
-  Box,
-  Button,
-  Grid,
-  Heading,
-  HStack,
-  Icon,
-  Spacer,
-  VisuallyHidden,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Grid } from '@chakra-ui/react'
 
-import { ArrowLeft, Printer } from 'lucide-react'
+import { motion } from 'framer-motion'
 import QRCode from 'qrcode'
 
-import Link from '~/components/atoms/Link'
-import PuzzleQRCode from '~/components/molecules/Puzzle/PuzzleQRCode'
+import PuzzlePrintHeader from '~/components/molecules/PuzzlePrint/PuzzlePrintHeader'
+import PuzzleQRCode from '~/components/molecules/PuzzlePrint/PuzzleQRCode'
 import { getPuzzleListItems } from '~/models/puzzle.server'
 import { getUser } from '~/session.server'
 
@@ -50,30 +40,10 @@ const PuzzlePrintRoute = () => {
   const { puzzles } = useLoaderData<typeof loader>()
 
   return (
-    <Grid w="full" p={8} gap={8}>
-      <HStack
-        sx={{
-          '@media print': {
-            display: 'none',
-          },
-        }}
-      >
-        <Heading>Exportation des QRCodes</Heading>
-        <Spacer />
-        <Button leftIcon={<Icon as={Printer} />} onClick={() => window.print()}>
-          Imprimer
-        </Button>
-        <Button as={Link} to="/admin/puzzles">
-          <Icon as={ArrowLeft} />
-          <Text display={{ base: 'none', md: 'initial' }}>
-            Retour à la liste des énigmes
-          </Text>
-          <VisuallyHidden display={{ base: 'initial', md: 'none' }}>
-            Retour à la liste des énigmes
-          </VisuallyHidden>
-        </Button>
-      </HStack>
+    <Grid w="full" py={{ base: 5, sm: 4 }} px={{ base: 4, sm: 8 }} gap={8}>
+      <PuzzlePrintHeader />
       <Box
+        as={motion.section}
         display="grid"
         gridTemplateColumns={{
           base: 'repeat(2, 1fr)',
@@ -90,6 +60,15 @@ const PuzzlePrintRoute = () => {
             p: 0,
             gridTemplateColumns: 'repeat(3, 1fr)',
           },
+        }}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        exit={{
+          opacity: 0,
         }}
       >
         {puzzles.map(puzzle => (

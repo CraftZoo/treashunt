@@ -11,6 +11,7 @@ const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
 
   return (
     <Box
+      as="article"
       w="full"
       position="relative"
       sx={{
@@ -50,7 +51,7 @@ const PuzzleQRCode = ({ data }: PuzzleQRCodeProps) => {
       >
         {title}
       </Text>
-      <Image w="full" borderRadius="md" src={qrCode} />
+      <Image w="full" borderRadius="sm" src={qrCode} />
     </Box>
   )
 }
