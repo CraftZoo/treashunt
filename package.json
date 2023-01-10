@@ -35,7 +35,7 @@
     "bcryptjs": "^2.4.3",
     "framer-motion": "^8.3.3",
     "isbot": "^3.6.5",
-    "isomorphic-dompurify": "^0.24.0",
+    "isomorphic-dompurify": "^0.26.0",
     "leaflet": "^1.9.3",
     "lucide-react": "^0.105.0-alpha.4",
     "prosemirror": "^0.11.1",
